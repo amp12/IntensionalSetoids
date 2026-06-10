@@ -1,0 +1,336 @@
+module Setoid.NatType where
+
+open import Prelude
+
+open import Setoid.Definition
+open import Setoid.Universes
+open import Setoid.Lift
+
+----------------------------------------------------------------------
+-- Natural number type
+----------------------------------------------------------------------
+nrec :
+  (l : ℕ)
+  (X : ℕ → U l)
+  (x₀ : El l (X 0))
+  (x₊ :
+    (n : ℕ)
+    (x : El l (X n))
+    → --------------
+    El l (X (1+ n)) )
+  (_ :
+    (n : ℕ)
+    (x x' : El l (X n))
+    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    → -------------------------------------------
+    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+  (n : ℕ)
+  → ----------------------------------------------
+  El l (X n)
+
+nrec l X x₀ x₊ e 0      = x₀
+nrec l X x₀ x₊ e (1+ n) = x₊ n (nrec l X x₀ x₊ e n)
+
+nrecCong :
+  {l : ℕ}
+  {X X' : ℕ → U l}
+  {x₀ : El l (X 0)}
+  {x₀' : El l (X' 0)}
+  {x₊ :
+    (n : ℕ)
+    (x : El l (X n))
+    → --------------
+    El l (X (1+ n))  }
+  {x₊' :
+    (n : ℕ)
+    (x : El l (X' n))
+    → --------------
+    El l (X' (1+ n))  }
+  {c :
+    (n : ℕ)
+    (x x' : El l (X n))
+    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    → -------------------------------------------
+    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x'}
+  {c' :
+    (n : ℕ)
+    (x x' : El l (X' n))
+    (_ : ℰ𝓁 l ∋ X' n ⸴ x ≈ X' n ⸴ x')
+    → -----------------------------------------------
+    ℰ𝓁 l ∋ X' (1+ n) ⸴ x₊' n x ≈ X' (1+ n) ⸴ x₊' n x'}
+  (n n' : ℕ)
+  (_ :
+    (n : ℕ)
+    → --------------
+    𝒰 l ∋ X n ~ X' n)
+  (_ : ℰ𝓁 l ∋ X 0 ⸴ x₀ ≈ X' 0 ⸴ x₀')
+  (_ :
+    (n : ℕ)
+    (x : El l (X n))
+    (x' : El l (X' n))
+    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X' n ⸴ x')
+    → ---------------------------------------------
+    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X' (1+ n) ⸴ x₊' n x')
+  (_ : n ≡ n')
+  → ------------------------------------------------
+  ℰ𝓁 l ∋ X  n ⸴ nrec l X  x₀  x₊  c  n  ≈
+         X' n' ⸴ nrec l X' x₀' x₊' c' n'
+
+nrecCong 0 _ _ e _ refl = e
+nrecCong{l}{X}{X'}{x₀}{x₀'}{x₊}{x₊'}{c}{c'} (1+ n) _ f e g refl = g n
+  (nrec l X x₀ x₊ c n)
+  (nrec l X' x₀' x₊' c' n)
+  (nrecCong{l}{X}{X'}{x₀}{x₀'}{x₊}{x₊'}{c}{c'} n _ f e g refl)
+
+natbeta₀ :
+  (l : ℕ)
+  (X : ℕ → U l)
+  (x₀ : El l (X 0))
+  (x₊ :
+    (n : ℕ)
+    (x : El l (X n))
+    → --------------
+    El l (X (1+ n))  )
+  (c :
+    (n : ℕ)
+    (x x' : El l (X n))
+    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    → -------------------------------------------
+    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+  → ----------------------------------------------
+  ℰ𝓁 l ∋ X 0 ⸴ nrec l X x₀ x₊ c 0 ≈ X 0 ⸴ x₀
+
+natbeta₀ l X x₀ _ _ = hrfl (ℰ𝓁 l) (X 0) x₀
+
+natbeta₊ :
+  (l : ℕ)
+  (X : ℕ → U l)
+  (x₀ : El l (X 0))
+  (x₊ :
+    (n : ℕ)
+    (x : El l (X n))
+    → --------------
+    El l (X (1+ n))  )
+  (c :
+    (n : ℕ)
+    (x x' : El l (X n))
+    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    → -------------------------------------------
+    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+  (n : ℕ)
+  → ----------------------------------------------
+  ℰ𝓁 l ∋ X (1+ n) ⸴ nrec l X x₀ x₊ c (1+ n) ≈
+         X (1+ n) ⸴ x₊ n (nrec l X x₀ x₊ c n)
+
+natbeta₊ l X x₀ x₊ c n =
+  hrfl (ℰ𝓁 l) (X (1+ n)) (x₊ n (nrec l X x₀ x₊ c n))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- record NAT : Set where
+--   field
+--     ty : U 0
+
+--     z  : El 0 ty
+
+--     s : El 0 ty → El 0 ty
+
+--     sCong :
+--       {n n' : El 0 ty}
+--       (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--       → ---------------------------
+--       ℰ𝓁 0 ∋ ty ⸴ s n ≈ ty ⸴ s n'
+
+--     nrec :
+--       (l : ℕ)
+--       (X : El 0 ty → U l)
+--       (_ :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X x ~ X x'             )
+--       (x₀ : El l (X z))
+--       (x₊ :
+--         (n : El 0 ty)
+--         (x : El l (X n))
+--         → --------------
+--         El l (X (s n))  )
+--       (_ :
+--         (n n' : El 0 ty)
+--         (x : El l (X n))
+--         (x' : El l (X n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n' ⸴ x')
+--         → --------------------------------------------
+--         ℰ𝓁 l ∋ X (s n) ⸴ x₊ n x ≈ X (s n') ⸴ x₊ n' x')
+--       (n : El 0 ty)
+--       → -----------------------------------------------
+--       El l (X n)
+
+--     nrecCong :
+--       {l : ℕ}
+--       {X X' : El 0 ty → U l}
+--       {q :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X x ~ X x'             }
+--       {q' :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X' x ~ X' x'             }
+--       {x₀ : El l (X z)}
+--       {x₀' : El l (X' z)}
+--       {x₊ :
+--         (n : El 0 ty)
+--         (x : El l (X n))
+--         → --------------
+--         El l (X (s n))  }
+--       {x₊' :
+--         (n : El 0 ty)
+--         (x : El l (X' n))
+--         → --------------
+--         El l (X' (s n))  }
+--       {c :
+--         (n n' : El 0 ty)
+--         (x : El l (X n))
+--         (x' : El l (X n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n' ⸴ x')
+--         → -------------------------------------------
+--         ℰ𝓁 l ∋ X (s n) ⸴ x₊ n x ≈ X (s n') ⸴ x₊ n' x'}
+--       {c' :
+--         (n n' : El 0 ty)
+--         (x : El l (X' n))
+--         (x' : El l (X' n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X' n ⸴ x ≈ X' n' ⸴ x')
+--         → -----------------------------------------------
+--         ℰ𝓁 l ∋ X' (s n) ⸴ x₊' n x ≈ X' (s n') ⸴ x₊' n' x'}
+--       (n n' : El 0 ty)
+--       (_ :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X x ~ X' x'            )
+--       (_ : ℰ𝓁 l ∋ X z ⸴ x₀ ≈ X' z ⸴ x₀')
+--       (_ :
+--         (n n' : El 0 ty)
+--         (x : El l (X n))
+--         (x' : El l (X' n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X' n' ⸴ x')
+--         → ---------------------------------------------
+--         ℰ𝓁 l ∋ X (s n) ⸴ x₊ n x ≈ X' (s n') ⸴ x₊' n' x')
+--       (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--       → ---------------------------------------------------
+--       ℰ𝓁 l ∋ X  n  ⸴ nrec l X  q  x₀  x₊  c  n  ≈
+--              X' n' ⸴ nrec l X' q' x₀' x₊' c' n'
+
+--     natbeta₀ :
+--       (l : ℕ)
+--       (X : El 0 ty → U l)
+--       (q :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X x ~ X x'             )
+--       (x₀ : El l (X z))
+--       (x₊ :
+--         (n : El 0 ty)
+--         (x : El l (X n))
+--         → --------------
+--         El l (X (s n))  )
+--       (c :
+--         (n n' : El 0 ty)
+--         (x : El l (X n))
+--         (x' : El l (X n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n' ⸴ x')
+--         → -------------------------------------------
+--         ℰ𝓁 l ∋ X (s n) ⸴ x₊ n x ≈ X (s n') ⸴ x₊ n' x')
+--       → ----------------------------------------------
+--       ℰ𝓁 l ∋ X z ⸴ nrec l X q x₀ x₊ c z ≈ X z ⸴ x₀
+
+--     natbeta₊ :
+--       (l : ℕ)
+--       (X : El 0 ty → U l)
+--       (q :
+--         (x x' : El 0 ty)
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ x ≈ ty ⸴ x')
+--         → ---------------------------
+--         𝒰 l ∋ X x ~ X x'             )
+--       (x₀ : El l (X z))
+--       (x₊ :
+--         (n : El 0 ty)
+--         (x : El l (X n))
+--         → --------------
+--         El l (X (s n))  )
+--       (c :
+--         (n n' : El 0 ty)
+--         (x : El l (X n))
+--         (x' : El l (X n'))
+--         (_ : ℰ𝓁 0 ∋ ty ⸴ n ≈ ty ⸴ n')
+--         (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n' ⸴ x')
+--         → -------------------------------------------
+--         ℰ𝓁 l ∋ X (s n) ⸴ x₊ n x ≈ X (s n') ⸴ x₊ n' x')
+--       (n : El 0 ty)
+--       → ----------------------------------------------
+--       ℰ𝓁 l ∋ X (s n) ⸴ nrec l X q x₀ x₊ c (s n) ≈
+--              X (s n) ⸴ x₊ n (nrec l X q x₀ x₊ c n)
+
+
+-- nat : NAT
+
+-- NAT.ty nat = Nat
+-- NAT.z nat = 0
+-- NAT.s nat n = 1+ n
+-- NAT.sCong nat refl = refl
+-- NAT.nrec nat l X _ x₀ x₊ _ = nrec'
+--   module _ where
+--   nrec' : (n : El 0 Nat) → El l (X n)
+--   nrec' 0 = x₀
+--   nrec' (1+ n) = x₊ n (nrec' n)
+-- NAT.nrecCong nat {l}{X}{X'}{q}{q'}{x₀}{x₀'}{x₊}{x₊'}{c}{c'} = nrecCong'
+--   module _ where
+--   nrecCong' :
+--     (n n' : ℕ)
+--     (_ :
+--       (x x' : ℕ)
+--       (_ : x ≡ x')
+--       → -----------------------------
+--       𝒰 l ∋ X x ~ X' x'              )
+--     (_ : ℰ𝓁 l ∋ X 0 ⸴ x₀ ≈ X' 0 ⸴ x₀')
+--     (_ :
+--       (n n' : ℕ)
+--       (x : El l (X n))
+--       (x' : El l (X' n'))
+--       (_ : n ≡ n')
+--       (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X' n' ⸴ x')
+--       → -----------------------------------------------
+--       ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X' (1+ n') ⸴ x₊' n' x')
+--     (_ : n ≡ n')
+--     → --------------------------------------------------
+--     ℰ𝓁 l ∋ X  n  ⸴ nrec' l X  q  x₀  x₊  c  n  ≈
+--            X' n' ⸴ nrec' l X' q' x₀' x₊' c' n'
+--   nrecCong' 0 _ _ e _ refl = e
+--   nrecCong' (1+ n) _ f e g refl = g n n
+--     (nrec' l X q x₀ x₊ c n)
+--     (nrec' l X' q' x₀' x₊' c' n)
+--     refl
+--     (nrecCong' n n f e g refl)
+-- NAT.natbeta₀ nat l X _ x₀ _ _ = hrfl (ℰ𝓁 l) (X 0) x₀
+-- NAT.natbeta₊ nat l X q x₀ x₊ c n =
+--   hrfl (ℰ𝓁 l) (X (1+ n)) (x₊ n (nrec' l X q x₀ x₊ c n))

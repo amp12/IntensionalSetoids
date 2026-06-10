@@ -1,0 +1,4 @@
+depend: 
+include: .
+  ./Prelude
+flags: --without-K --safe --no-postfix-projections
