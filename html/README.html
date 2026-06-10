@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>README</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="README.html" class="Module">README</a> <a id="15" class="Keyword">where</a>
+
+<a id="22" class="Comment">{- A model of Extensional Type Theory (ETT) in
+Agda --safe --without-K
+the latter being used as a formalization of basic
+Intensional Type Theory with a universe closed under
+inductive-recursive definitions. -}</a>
+
+<a id="233" class="Comment">-- Some basic library functions that are needed</a>
+<a id="281" class="Keyword">open</a> <a id="286" class="Keyword">import</a> <a id="293" href="Prelude.html" class="Module">Prelude</a> <a id="301" class="Keyword">public</a>
+
+<a id="309" class="Comment">-- Universes of type-valued setoids</a>
+<a id="345" class="Keyword">open</a> <a id="350" class="Keyword">import</a> <a id="357" href="Setoid.html" class="Module">Setoid</a> <a id="364" class="Keyword">public</a>
+
+<a id="372" class="Comment">-- Extensional Martin-Löf Type Theory (ETT), using the WSLN library</a>
+<a id="440" class="Comment">-- for well-scoped locally nameless representation of syntax</a>
+<a id="501" class="Keyword">open</a> <a id="506" class="Keyword">import</a> <a id="513" href="ETT.html" class="Module">ETT</a> <a id="517" class="Keyword">public</a>
+
+<a id="525" class="Comment">-- Semantics of ETT in the intensional setoid model</a>
+<a id="577" class="Keyword">open</a> <a id="582" class="Keyword">import</a> <a id="589" href="Semantics.html" class="Module">Semantics</a> <a id="599" class="Keyword">public</a>
+</pre></body></html>
