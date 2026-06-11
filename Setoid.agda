@@ -8,7 +8,7 @@ open import Setoid.Definition public
 -- types, natural number types
 open import Setoid.Universes public
 
--- Lifting from a univers to a higher univers
+-- Lifting from a universe to a higher universe
 open import Setoid.Lift public
 
 -- Agda-style Pi-types
