@@ -554,7 +554,8 @@ Unit ~ω Unit = 𝟙
 Unit ~ω (Sigma _ _ _ _) = Ø
 (Sigma _ _ _ _) ~ω Unit = Ø
 (Sigma C n X _) ~ω (Sigma C' n' X' _) =
-  (C ~ω C') ×
+  (C ~ω C')
+  ×
   ∑ (n ≡ n') λ{ refl →
   ∀ c c' → (C ⸴ c ≈ω C' ⸴ c') → 𝒰 n ∋ X c ~ X' c'}
 
@@ -562,10 +563,9 @@ Unit ⸴ _ ≈ω Unit ⸴ _ = 𝟙
 Unit ⸴ _ ≈ω (Sigma _ _ _ _) ⸴ _ = Ø
 (Sigma _ _ _ _) ⸴ _ ≈ω Unit ⸴ _ = Ø
 (Sigma C n X _) ⸴ (c , t) ≈ω (Sigma C' n' X' _) ⸴ (c' , t') =
-  (C ⸴ c ≈ω C' ⸴ c') ×
-  ∑ (n ≡ n') λ{refl →
-    (C ⸴ c ≈ω C' ⸴ c') ×
-    (ℰ𝓁 n ∋ X c ⸴ t ≈ X' c' ⸴ t')}
+  (C ⸴ c ≈ω C' ⸴ c')
+  ×
+  ∑ (n ≡ n') λ{refl → (ℰ𝓁 n ∋ X c ⸴ t ≈ X' c' ⸴ t')}
 
 -- Reflexivity
 rflω :
@@ -584,7 +584,7 @@ hrflω :
 
 hrflω Unit _ = tt
 hrflω (Sigma C n X _) (c , x) =
-  (hrflω C c , refl , hrflω C c , hrfl (ℰ𝓁 n) (X c) x)
+  (hrflω C c , refl , hrfl (ℰ𝓁 n) (X c) x)
 
 -- Symmetry
 symω :
@@ -613,7 +613,7 @@ hsymω {Sigma _ n _ _} {Sigma _ _ _ _} {a , _}{a' , _}
   (q , refl , f) (q' , e , f')
   with refl ←  ! ⦃ !≡ ⦄ e refl =
   let q'' = hsymω q q' in
-  (q'' , refl , q'' , hsym (ℰ𝓁 n) (f a a' q') (π₂ f'))
+  (q'' , refl , hsym (ℰ𝓁 n) (f a a' q') f')
 
 -- Transitivity and coherent coercion
 trsω :
@@ -656,15 +656,15 @@ trsω{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
       (htrsω (symω q) (trsω q q') (hsymω q r') r)))
 
 htrsω{Unit}{Unit}{Unit} _ _ _ _ = tt
-htrsω{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _} {a , _} {a' , _} {a'' , _}
+htrsω{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
+  {a , _} {a' , _} {a'' , _}
   (q , refl , f) (q' , refl , f')
   (r , e , g) (r' , e' , g')
   with refl ←  ! ⦃ !≡ ⦄ e refl
   | refl ←  ! ⦃ !≡ ⦄ e' refl =
   (htrsω q q' r r' ,
    refl ,
-   htrsω q q' r r' ,
-   htrs (ℰ𝓁 n) (f a a' r) (f' a' a'' r') (π₂ g) (π₂ g'))
+   htrs (ℰ𝓁 n) (f a a' r) (f' a' a'' r') g g')
 
 coeω{Unit}{Unit} _ _ = tt
 coeω{Sigma _ n _ _}{Sigma _ _ _ _} (q , refl , f) (c , t) =
@@ -674,7 +674,6 @@ cohω{Unit}{Unit} _ _ = tt
 cohω {Sigma _ n _ _} {Sigma _ _ _ _} (q , refl , f) (c , t) =
   (cohω q c ,
    refl ,
-   cohω q c ,
    coh (ℰ𝓁 n) (f c (coeω q c) (cohω q c)) t)
 
 𝒰ω : Setd

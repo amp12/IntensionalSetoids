@@ -167,7 +167,7 @@ sv⟦tm⟧' (⟦∙⟧{l}{l'}{S = S}{T}{t}{s} X q₀ q₁ q₂ q₃)
   | (e₆ , e₇ , e₈) ← sv⟦tm⟧ q₃ q₃' =
   (refl , e₃ ,
    (λ c c' u → e₂ (c , ∥ s ∥ c) (c' , ∥ s' ∥ c')
-     (u , refl , u , e₈ c c' u)) ,
+     (u , refl , e₈ c c' u)) ,
    λ c c' u → PI.appCong (pi l l') _ _ _ _ _ _ _ _ _ _
      (e₅ c c' u) (e₈ c c' u))
 
@@ -205,7 +205,7 @@ sv⟦tm⟧' (⟦𝐧𝐫𝐞𝐜⟧{l}{C = C}{S}{s₀}{s₊}{s} X q₀ q₁ q₂
   | refl ← ! ⦃ !≡ ⦄ e₆''' refl =
   (refl , e₁ ,
   (λ c c' u →
-    e₅ (c , ∥ s ∥ c) (c' , ∥ s' ∥ c') (u , refl , u , e₀'' c c' u)) ,
+    e₅ (c , ∥ s ∥ c) (c' , ∥ s' ∥ c') (u , refl , e₀'' c c' u)) ,
   λ c c' u → nrecCong{l}
     {λ n → ∥ S ∥ (c , n)}
     {λ n → ∥ S' ∥ (c' , n)}
@@ -214,18 +214,16 @@ sv⟦tm⟧' (⟦𝐧𝐫𝐞𝐜⟧{l}{C = C}{S}{s₀}{s₊}{s} X q₀ q₁ q₂
     {λ n y → ∥ s₊ ∥ ((c , n) , y)}
     {λ n y → ∥ s₊' ∥ ((c' , n) , y)}
     {λ n _ _ e' → hcng s₊ _ _
-      ((hrflω C c , refl , hrflω C c , refl) , refl ,
-      (hrflω C c , refl , hrflω C c , refl) , e')}
+      ((hrflω C c , refl , refl) , refl , e')}
     {λ n _ _ e' → hcng s₊' _ _
-      ((hrflω C' c' , refl , hrflω C' c' , refl) , refl ,
-      (hrflω C' c' , refl , hrflω C' c' , refl) , e')}
+      ((hrflω C' c' , refl , refl) , refl , e')}
     (∥ s ∥ c)
     (∥ s' ∥ c')
-    (λ n → e₅ (c , n) (c' , n) (u , refl , u , refl))
+    (λ n → e₅ (c , n) (c' , n) (u , refl , refl))
     (e₃ c c' u)
     (λ n y y' v →
       e₈ ((c , n) , y) ((c' , n) , y')
-      ((u , refl , u , refl) , refl , (u , refl , u , refl) , v))
+      ((u , refl , refl) , refl , v))
     (e₀'' c c' u))
 
 sv⟦vr⟧'{CTt = CTt}{CTt'}
@@ -254,7 +252,7 @@ sv⟦vr⟧' (⟦new⟧{l}{C = C}{T} q x#)
     (C ⋉[ l ] T , 𝓅 T * T) ⸴ 𝓆 T ≈
     (C' ⋉[ l ] T' , 𝓅 T' * T') ⸴ 𝓆 T'
   q'' _ _ (_ , v , w)
-    with refl ← ! ⦃ !≡ ⦄ v refl = π₂ w
+    with refl ← ! ⦃ !≡ ⦄ v refl = w
 
 sv⟦vr⟧' (⟦new⟧ _ q) (⟦old⟧ _ q' _) refl =
   Øelim (∉→¬∈ q (⟦∈⟧→dom q'))

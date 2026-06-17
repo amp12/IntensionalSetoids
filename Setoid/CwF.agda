@@ -326,7 +326,7 @@ cng (𝓅 _) _ _ (e , _) = e
 
 ∥ 𝓆 _ ∥ (c , t) = t
 hcng (𝓆 _) _ _ (_ , e , e')
-  with refl ← ! ⦃ !≡ ⦄ e refl = π₂ e'
+  with refl ← ! ⦃ !≡ ⦄ e refl = e'
 
 𝒸ℴ𝓃𝓈 :
   {n : ℕ}
@@ -339,7 +339,7 @@ hcng (𝓆 _) _ _ (_ , e , e')
 
 ∣ 𝒸ℴ𝓃𝓈 f t ∣ d = (∣ f ∣ d , ∥ t ∥ d)
 cng (𝒸ℴ𝓃𝓈 f t) _ _ e =
-  (cng f _ _ e , refl , cng f _ _ e , hcng t _ _ e)
+  (cng f _ _ e , refl , hcng t _ _ e)
 
 infixl 8 ⟪_⟫
 ⟪_⟫ :
@@ -424,10 +424,10 @@ imgUnit Unit tt = refl
 ∥ 𝒫𝒾 m n S T ∥ c = PI.ty (pi m n)
   (∥ S ∥ c)
   (λ c' → ∥ T ∥ (c , c'))
-  (λ _ _ e → hcng T _ _ (hrflω _ c , refl , hrflω _ c , e))
+  (λ _ _ e → hcng T _ _ (hrflω _ c , refl , e))
 hcng (𝒫𝒾 m n S T) x x' e = PI.tyCong (pi m n) _ _ _ _ _ _
   (hcng S _ _ e)
-  (λ _ _ e' → hcng T _ _ (e , refl , e , e'))
+  (λ _ _ e' → hcng T _ _ (e , refl , e'))
 
 cong𝒫𝒾 :
   {C C' : Uω}
@@ -443,7 +443,7 @@ cong𝒫𝒾 :
 
 cong𝒫𝒾 m n e e' c c' u = PI.tyCong (pi m n) _ _ _ _ _ _
   (e c c' u)
-  (λ y y' v → e' (c , y) (c' , y') (u , refl , u , v))
+  (λ y y' v → e' (c , y) (c' , y') (u , refl , v))
 
 -- The 𝒫𝒾 operation is natural up to setoid equivalence
 ntrl𝒫𝒾 :
@@ -459,7 +459,7 @@ ntrl𝒫𝒾 :
 ntrl𝒫𝒾 m n S T f _ _ e = PI.tyCong (pi m n) _ _ _ _ _ _
   (hcng S _ _ (cng f _ _ e))
   λ y y' e' →
-    hcng T _ _ (cng f _ _ e , refl , cng f _ _ e , e')
+    hcng T _ _ (cng f _ _ e , refl , e')
 
 𝓁𝒶𝓂 :
   {C : Uω}
@@ -472,10 +472,10 @@ ntrl𝒫𝒾 m n S T f _ _ e = PI.tyCong (pi m n) _ _ _ _ _ _
 
 ∥ 𝓁𝒶𝓂 m n _ t ∥ c = PI.lam (pi m n) _ _ _
   (λ c' → ∥ t ∥ (c , c'))
-  (λ _ _ e → hcng t _ _ (hrflω _ c , refl , hrflω _ c , e))
+  (λ _ _ e → hcng t _ _ (hrflω _ c , refl , e))
 hcng (𝓁𝒶𝓂 m n _ t) c c' e =
   PI.lamCong (pi m n) _ _ _ _ _ _ _ _ _ _
-  λ _ _ e' → hcng t _ _ (e , refl , e , e')
+  λ _ _ e' → hcng t _ _ (e , refl , e')
 
 cong𝓁𝒶𝓂 :
   {C C' : Uω}
@@ -494,7 +494,7 @@ cong𝓁𝒶𝓂 :
 
 cong𝓁𝒶𝓂 m n e c c' u =
   PI.lamCong (pi m n) _ _ _ _ _ _ _ _ _ _
-  λ y y' v → e (c , y) (c' , y') (u , refl , u , v)
+  λ y y' v → e (c , y) (c' , y') (u , refl , v)
 
 ntrl𝓁𝒶𝓂 :
   {D C : Uω}
@@ -513,7 +513,7 @@ ntrl𝓁𝒶𝓂 :
 
 ntrl𝓁𝒶𝓂 m n t f c c' e =
   PI.lamCong (pi m n) _ _ _ _ _ _ _ _ _ _
-  λ y y' e' → hcng t _ _ (cng f _ _ e , refl , cng f c c' e , e')
+  λ y y' e' → hcng t _ _ (cng f _ _ e , refl , e')
 
 𝒶𝓅𝓅 :
   {C : Uω}
@@ -575,9 +575,9 @@ ntrl𝒶𝓅𝓅 m n S T t s f c c' e =
   (PI.beta (pi m n)
     (∥ S ∥ c)
     (λ x → ∥ T ∥ (c , x))
-    (λ _ _ e' → hcng T _ _ (hrflω C c , refl , hrflω C c , e'))
+    (λ _ _ e' → hcng T _ _ (hrflω C c , refl , e'))
     (λ x → ∥ t ∥ (c , x))
-    (λ _ _ e' → hcng t _ _ (hrflω C c , refl , hrflω C c , e'))
+    (λ _ _ e' → hcng t _ _ (hrflω C c , refl , e'))
     (∥ s ∥ c))
   (hcng t _ _ (cng ⟪ s ⟫ _ _ e))
 
@@ -620,7 +620,7 @@ module 𝒫𝒾ℰ𝓉𝒶
     etaPf c c' e = htrs (ℰ𝓁 (max m n))
       (PI.tyCong (pi m n) _ _ _ _ _ _ (rfl (𝒰 m) (∥ S ∥ c))
         (λ x x' u → hcng T (c , x) (c , x')
-          (hrflω C c , refl , hrflω C c , u)))
+          (hrflω C c , refl , u)))
       (hcng (𝒫𝒾 m n S T) c c' e)
       q
       (hcng t c c' e)
@@ -631,29 +631,29 @@ module 𝒫𝒾ℰ𝓉𝒶
           (λ x → ∥ T ∥ (c , x))
           (λ x x' u →
           hcng (⟪ 𝓆 S ⟫ * T') (c , x) (c , x')
-          (hrflω C c , refl , hrflω C c , u)
+          (hrflω C c , refl , u)
           ))
         ⸴
         PI.lam (pi m n) _ _ _
         (λ c' → PI.app (pi m n) _ _ _ (∥ t' ∥ (c , c')) c')
         (λ x x' u → PI.appCong (pi m n) _ _ _ _ _ _ _ _ _ _
-          (hcng t' (c , x) (c , x') (hrflω _ c , refl , hrflω _ c , u))
-          (hcng (𝓆 S) (c , x) (c , x') (hrflω _ c , refl , hrflω _ c , u)))
+          (hcng t' (c , x) (c , x') (hrflω _ c , refl , u))
+          (hcng (𝓆 S) (c , x) (c , x') (hrflω _ c , refl , u)))
         ≈
         (PI.ty (pi m n) (∥ S ∥ c) (λ x → ∥ T ∥ (c , x))
         (λ x x' u → hcng T (c , x) (c , x')
-          (hrflω C c , refl , hrflω C c , u)))
+          (hrflω C c , refl , u)))
         ⸴
         ∥ t ∥ c
       q = htrs (ℰ𝓁 (max m n))
         (PI.tyCong (pi m n) _ _ _ _ _ _ (rfl (𝒰 m) (∥ S ∥ c))
           (λ x x' u → hcng T (c , x) (c , x')
-            (hrflω _ c , refl , hrflω _ c , u)))
+            (hrflω _ c , refl , u)))
         (rfl (𝒰 (max m n)) (∥ 𝒫𝒾 m n S T ∥ c))
         (PI.lamCong (pi m n) _ _ _ _ _ _ _ _ _ _
           λ x x' u → PI.appCong (pi m n) _ _ _ _ _ _ _ _ _ _
             (e' (c , x) (c , x)
-          (hrflω C c , refl , hrflω C c , hrfl (ℰ𝓁 m) (∥ S ∥ c) x)) u)
+          (hrflω C c , refl , hrfl (ℰ𝓁 m) (∥ S ∥ c) x)) u)
         (PI.eta (pi m n) _ _ _ (∥ t ∥ c))
 
 ----------------------------------------------------------------------
@@ -801,8 +801,7 @@ ntrl𝓈𝓊𝒸𝒸 t f c c' e =
   (∥ s₀ ∥ c)
   (λ m y → ∥ s₊ ∥ ((c , m) , y))
   (λ n _ _ e → hcng s₊ _ _
-    ((hrflω _ c , refl , hrflω _ c , refl) , refl ,
-     (hrflω _ c , refl , hrflω _ c , refl) , e))
+    ((hrflω _ c , refl , refl) , refl , e))
   (∥ s ∥ c)
 hcng (𝓃𝓇ℯ𝒸 n S s₀ s₊ s) c c' e = nrecCong{n}
   {λ m → ∥ S ∥ (c , m)}
@@ -812,18 +811,15 @@ hcng (𝓃𝓇ℯ𝒸 n S s₀ s₊ s) c c' e = nrecCong{n}
   {λ m y → ∥ s₊ ∥ ((c , m) , y)}
   {λ m y → ∥ s₊ ∥ ((c' , m) , y)}
   {λ n _ _ e → hcng s₊ _ _
-    ((hrflω _ c , refl , hrflω _ c , refl) , refl ,
-     (hrflω _ c , refl , hrflω _ c , refl) , e)}
+    ((hrflω _ c , refl , refl) , refl , e)}
   {λ n _ _ e → hcng s₊ _ _
-    ((hrflω _ c' , refl , hrflω _ c' , refl) , refl ,
-     (hrflω _ c' , refl , hrflω _ c' , refl) , e)}
+    ((hrflω _ c' , refl , refl) , refl , e)}
   (∥ s ∥ c)
   (∥ s ∥ c')
-  (λ _ → hcng S _ _ (e , refl , e , refl))
+  (λ _ → hcng S _ _ (e , refl , refl))
   (hcng s₀ _ _ e)
   (λ _ _ _ e' → hcng s₊ _ _
-    ((e , refl , e , refl) , refl ,
-     (e , refl , e , refl) , e'))
+    ((e , refl , refl) , refl , e'))
   (hcng s _ _ e)
 
 ntrl𝓃𝓇ℯ𝒸 :
@@ -854,22 +850,15 @@ ntrl𝓃𝓇ℯ𝒸 n S s₀ s₊ s f c c' e = nrecCong{n}
    {λ m x' → ∥ s₊ ∥ ((∣ f ∣ c , m) , x')}
    {λ m x' → ∥ s₊ ∥ ((∣ f ∣ c' , m) , x')}
    {λ _ _ _ e' → hcng s₊ _ _
-     ((hrflω _ (∣ f ∣ c) , refl , hrflω _ (∣ f ∣ c) , refl) ,
-      refl ,
-      (hrflω _ (∣ f ∣ c) , refl , hrflω _ (∣ f ∣ c) , refl) , e')}
+     ((hrflω _ (∣ f ∣ c) , refl , refl) , refl , e')}
    {λ _ _ _ e' → hcng s₊ _ _
-     ((hrflω _ (∣ f ∣ c') , refl , hrflω _ (∣ f ∣ c') , refl) ,
-      refl ,
-      (hrflω _ (∣ f ∣ c') , refl , hrflω _ (∣ f ∣ c') , refl) , e')}
+     ((hrflω _ (∣ f ∣ c') , refl , refl) , refl , e')}
    (∥ s ∥ (∣ f ∣ c))
    (∥ s ∥ (∣ f ∣ c'))
-   (λ _ → hcng S _ _ (cng f c c' e , refl , cng f c c' e , refl))
+   (λ _ → hcng S _ _ (cng f c c' e , refl , refl))
    (hcng s₀ (∣ f ∣ c) (∣ f ∣ c') (cng f c c' e))
    (λ _ _ _ e' → hcng s₊ _ _
-     ((cng f c c' e , refl , cng f c c' e , refl) ,
-      refl ,
-      (cng f c c' e , refl , cng f c c' e , refl) ,
-      e'))
+     ((cng f c c' e , refl , refl) , refl , e'))
    (hcng s (∣ f ∣ c) (∣ f ∣ c') (cng f c c' e))
 
 ----------------------------------------------------------------------
