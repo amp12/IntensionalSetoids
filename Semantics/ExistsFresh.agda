@@ -41,8 +41,7 @@ open import Semantics.Substitution
   where
   e : ℋℴ𝓂 ∋ (C ⋉[ l ] (id * S) , C ⋉[ l ] S) ⸴ id ⋉′[ l ] S ≈
     (C ⋉[ l ] S , C ⋉[ l ] S) ⸴ id
-  e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl =
-    (u , refl , u , π₂ w)
+  e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
   p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶ A ⦂ l sb⟧＝
     ((C ⋉[ l ] S , C ⋉[ l ] S) , id)
@@ -90,8 +89,7 @@ open import Semantics.Substitution
     ≈
     (C ⋉[ l ] S ⋉[ l' ] T ,
      C ⋉[ l ] S ⋉[ l' ] T) ⸴ id
-  e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl =
-    (u , refl , u , π₂ w)
+  e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
   p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⨟ y' ∶ (x := 𝐯 x') * B ⦂ l' ⊢
     (x := 𝐯 x' ∘/ y := 𝐯 y') ∶ (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') sb⟧＝

@@ -852,31 +852,31 @@ conv⟦tm⟧{Γ = Γ} (𝚷Eta{l}{l'}{A}{B}{b}{b'} X q₀ q₁ q₂ h₀ h₁)
       (rfl (𝒰 l)
       (∥ S ∥ c))
       λ y y' v →
-        hcng T (c , y) (c , y') (hrflω C c , refl , hrflω C c , v))
+        hcng T (c , y) (c , y') (hrflω C c , refl , v))
     (PI.tyCong (pi l l') _ _ _ _ _ _
       (hcng S c c' u)
       λ y y' v →
-        hcng T (c , y) (c' , y') (u , refl , u , v))
+        hcng T (c , y) (c' , y') (u , refl , v))
     (htrs (ℰ𝓁 (max l l'))
       (PI.tyCong (pi l l') _ _ _ _ _ _
         (rfl (𝒰 l)
         (∥ S ∥ c))
         (λ y y' v →
-          hcng T (c , y) (c , y') (hrflω C c , refl , hrflω C c , v)))
+          hcng T (c , y) (c , y') (hrflω C c , refl , v)))
       (rfl (𝒰 (max l l')) (PI.ty (pi l l') (∥ S ∥ c)
         (λ z → ∥ T ∥ (c , z))
         (λ z z₁ e → hcng (⟪ 𝓆 S ⟫ * T') (c , z) (c , z₁)
-          (hrflω C c , refl , hrflω C c , e))))
+          (hrflω C c , refl , e))))
       (hsym (ℰ𝓁 (max l l'))
         (PI.tyCong (pi l l') _ _ _ _ _ _
           (rfl (𝒰 l)
           (∥ S ∥ c))
           (λ y y' v →
-             hcng T (c , y) (c , y') (hrflω C c , refl , hrflω C c , v)))
+             hcng T (c , y) (c , y') (hrflω C c , refl , v)))
         (𝒫𝒾ℰ𝓉𝒶.etaPf C l l' S T t₁ c c (hrflω C c)))
       (PI.lamCong (pi l l') _ _ _ _ _ _ _ _ _ _
         (λ y y' v →
-          e₂ (c , y) (c , y') (hrflω C c , refl , (hrflω C c) , v))))
+          e₂ (c , y) (c , y') (hrflω C c , refl , v))))
     (𝒫𝒾ℰ𝓉𝒶.etaPf C l l' S T t₀ c c' u)
     -- The above proof of t₁₀ optimizes the following slow, but more
     -- conceptual proof:

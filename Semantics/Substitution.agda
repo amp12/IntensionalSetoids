@@ -456,7 +456,7 @@ sb⟦vrNew⟧{l}{σ = σ}{Δ}{D = D}{C}{S}{f}
   e' : ℰ𝓁𝓉 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') ⸴ 𝓆 S' ≈
     (C  ⋉[ l ] S  , 𝓅 S  * S ) ⸴ 𝓆 S
-  e' _ _ (_ , v , w) with  refl ← ! ⦃ !≡ ⦄ v refl = π₂ w
+  e' _ _ (_ , v , w) with  refl ← ! ⦃ !≡ ⦄ v refl = w
 
 sb⟦vrOld⟧ :
   {l l' l'' : Lvl}

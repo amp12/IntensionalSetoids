@@ -306,7 +306,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (f' ⋉′[ l ] S') * 𝓅 S' * S') ⸴
     (f' ⋉′[ l ] S') *₁ 𝓆 S'
   e₂ _ _ (_ , v , w)
-    with refl ← ! ⦃ !≡ ⦄ v refl = π₂ w
+    with refl ← ! ⦃ !≡ ⦄ v refl = w
 
 ▷⟦vrNew⟧{l}{Δ = Δ}{D = D}{C}{S}{f}
   (resp⟦▷⟧{f = (D' , Sigma C' _ X' q') , f'}
@@ -328,7 +328,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   e' : ℰ𝓁𝓉 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') ⸴ 𝓆 S' ≈
     (C  ⋉[ l ] S  , 𝓅 S  * S ) ⸴ 𝓆 S
-  e' _ _ (_ , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = π₂ w
+  e' _ _ (_ , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = w
 
 ▷⟦vrOld⟧ :
   {l l' l'' : Lvl}
