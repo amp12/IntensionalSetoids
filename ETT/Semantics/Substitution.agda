@@ -1,14 +1,17 @@
-module Semantics.Substitution where
+module ETT.Semantics.Substitution where
 
 open import Prelude
 open import Setoid
 open import WSLN
-open import ETT
 
-open import Semantics.Relation
-open import Semantics.Ok
-open import Semantics.WellScoped
-open import Semantics.Weakening
+open import ETT.Syntax
+open import ETT.Judgement
+open import ETT.Cofinite
+
+open import ETT.Semantics.Relation
+open import ETT.Semantics.Ok
+open import ETT.Semantics.WellScoped
+open import ETT.Semantics.Weakening
 
 ----------------------------------------------------------------------
 -- The graph of the semantic function for substitutions

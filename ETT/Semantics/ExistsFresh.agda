@@ -1,16 +1,19 @@
-module Semantics.ExistsFresh where
+module ETT.Semantics.ExistsFresh where
 
 open import Prelude
 open import Setoid
 open import WSLN
-open import ETT
 
-open import Semantics.Relation
-open import Semantics.Ok
-open import Semantics.WellScoped
-open import Semantics.SingleValued
-open import Semantics.Weakening
-open import Semantics.Substitution
+open import ETT.Syntax
+open import ETT.Judgement
+open import ETT.Cofinite
+
+open import ETT.Semantics.Relation
+open import ETT.Semantics.Ok
+open import ETT.Semantics.WellScoped
+open import ETT.Semantics.SingleValued
+open import ETT.Semantics.Weakening
+open import ETT.Semantics.Substitution
 
 ----------------------------------------------------------------------
 -- Semantics respects α-equivalence

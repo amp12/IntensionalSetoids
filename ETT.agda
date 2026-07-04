@@ -1,8 +1,9 @@
 module ETT where
 
-{- Extensional Martin-Löf Type Theory with a countably many Agda-style
+{- Extensional Martin-Löf Type Theory (with a countably many Agda-style
 non-cumulative universes closed under Pi-types, natural number type
-and equality types. -}
+and equality types) and its semantics in the intensional setoid
+model. -}
 
 open import WSLN public
 
@@ -16,3 +17,4 @@ open import ETT.Substitution public
 open import ETT.Admissible public
 open import ETT.ExistsFresh public
 open import ETT.Uniqueness public
+open import ETT.Semantics public

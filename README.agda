@@ -13,8 +13,6 @@ open import Prelude public
 open import Setoid public
 
 -- Extensional Martin-Löf Type Theory (ETT), using the WSLN library
--- for well-scoped locally nameless representation of syntax
+-- for well-scoped locally nameless representation of syntax and its
+-- semantics in the intensional setoid model
 open import ETT public
-
--- Semantics of ETT in the intensional setoid model
-open import Semantics public

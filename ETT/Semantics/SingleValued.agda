@@ -1,13 +1,16 @@
-module Semantics.SingleValued where
+module ETT.Semantics.SingleValued where
 
 open import Prelude
 open import Setoid
 open import WSLN
-open import ETT
 
-open import Semantics.Relation
-open import Semantics.Ok
-open import Semantics.WellScoped
+open import ETT.Syntax
+open import ETT.Judgement
+open import ETT.Cofinite
+
+open import ETT.Semantics.Relation
+open import ETT.Semantics.Ok
+open import ETT.Semantics.WellScoped
 
 {- The decoration of the syntax of terms with suitable level and type
 information is used in the proof of the single-valuedness of the
