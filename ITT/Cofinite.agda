@@ -121,8 +121,8 @@ data _⊢_  Γ where
     (q : Γ ⊢ a ∶ A ⦂ l)
     -- helper hypothesis
     (h : Γ ⊢ A ⦂ l)
-    → -----------------------
-    Γ ⊢ 𝐫𝐞𝐟𝐥 a ∶ 𝐈𝐝 A a a ⦂ l
+    → -------------------------
+    Γ ⊢ 𝐫𝐞𝐟𝐥 A a ∶ 𝐈𝐝 A a a ⦂ l
 
   ⊢𝐉 :
     {l l' : Lvl}
@@ -135,7 +135,7 @@ data _⊢_  Γ where
       C [ x ][ y ] ⦂ l')
     (q₁ : Γ ⊢ a ∶ A ⦂ l)
     (q₂ : Γ ⊢ b ∶ A ⦂ l)
-    (q₃ : Γ ⊢ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 a ] ⦂ l')
+    (q₃ : Γ ⊢ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 A a ] ⦂ l')
     (q₄ : Γ ⊢ e ∶ 𝐈𝐝 A a b ⦂ l)
     --  helper hypotheses
     (h₀ : Γ ⊢ A ⦂ l)
@@ -273,13 +273,12 @@ data _⊢_  Γ where
 
   𝐫𝐞𝐟𝐥Cong :
     {l : Lvl}
-    {A : Ty}
+    {A A' : Ty}
     {a a' : Tm}
-    (q : Γ ⊢ a ＝ a' ∶ A ⦂ l)
-    -- helper hypthesis
-    (h : Γ ⊢ A ⦂ l)
-    → ----------------------------------
-    Γ ⊢ 𝐫𝐞𝐟𝐥 a ＝ 𝐫𝐞𝐟𝐥 a' ∶ 𝐈𝐝 A a a ⦂ l
+    (q₀ : Γ ⊢ A ＝ A' ⦂ l)
+    (q₁ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+    → ---------------------------------------
+    Γ ⊢ 𝐫𝐞𝐟𝐥 A a ＝ 𝐫𝐞𝐟𝐥 A' a' ∶ 𝐈𝐝 A a a ⦂ l
 
   𝐉Cong  :
     {l l' : Lvl}
@@ -292,7 +291,7 @@ data _⊢_  Γ where
       C [ x ][ y ] ＝ C' [ x ][ y ] ⦂ l')
     (q₁ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
     (q₂ : Γ ⊢ b ＝ b' ∶ A ⦂ l)
-    (q₃ : Γ ⊢ c ＝ c' ∶ C [ a ][ 𝐫𝐞𝐟𝐥 a ] ⦂ l')
+    (q₃ : Γ ⊢ c ＝ c' ∶ C [ a ][ 𝐫𝐞𝐟𝐥 A a ] ⦂ l')
     (q₄ : Γ ⊢ e ＝ e' ∶ 𝐈𝐝 A a b ⦂ l)
     -- helper hypotheses
     (h₀ : Γ ⊢ A ⦂ l)
@@ -353,13 +352,13 @@ data _⊢_  Γ where
       (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ 𝐈𝐝 A a (𝐯 x) ⦂ l) ⊢
       C [ x ][ y ] ⦂ l')
     (q₁ : Γ ⊢ a ∶ A ⦂ l)
-    (q₂ : Γ ⊢ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 a ] ⦂ l')
+    (q₂ : Γ ⊢ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 A a ] ⦂ l')
     -- helper hypotheses
     (h₀ : Γ ⊢ A ⦂ l)
     (h₁ : ∀ x → x # S →
       (Γ ⨟ x ∶ A ⦂ l) ⊢ 𝐈𝐝 A a (𝐯 x) ⦂ l)
-    → --------------------------------------------------
-    Γ ⊢ 𝐉 C a a c (𝐫𝐞𝐟𝐥 a) ＝ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 a ] ⦂ l'
+    → ------------------------------------------------------
+    Γ ⊢ 𝐉 C a a c (𝐫𝐞𝐟𝐥 A a) ＝ c ∶ C [ a ][ 𝐫𝐞𝐟𝐥 A a ] ⦂ l'
 
   𝐍𝐚𝐭Beta₀ :
     {l : Lvl}

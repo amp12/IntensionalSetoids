@@ -15,4 +15,4 @@ open import ITT.Substitution public
 open import ITT.Admissible public
 open import ITT.ExistsFresh public
 open import ITT.Uniqueness public
-open import ITT.Semantics public
+-- open import ITT.Semantics public
