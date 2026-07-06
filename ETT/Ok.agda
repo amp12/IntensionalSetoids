@@ -25,6 +25,8 @@ open import ETT.Cofinite
 ⊢ok (⊢∙ _ q _ _ _) = ⊢ok q
 ⊢ok (⊢𝐄𝐪 q _ _) = ⊢ok q
 ⊢ok (⊢𝐫𝐞𝐟𝐥 q _) = ⊢ok q
+⊢ok (⊢𝐄𝐦𝐩 q) = q
+⊢ok (⊢𝐞𝐦𝐩 q _ ) = ⊢ok q
 ⊢ok (⊢𝐍𝐚𝐭 q) = q
 ⊢ok (⊢𝐳𝐞𝐫𝐨 q) = q
 ⊢ok (⊢𝐬𝐮𝐜𝐜 q) = ⊢ok q
@@ -38,6 +40,7 @@ open import ETT.Cofinite
 ⊢ok (∙Cong _ _ _ q _ _ _) = ⊢ok q
 ⊢ok (𝐄𝐪Cong q _ _) = ⊢ok q
 ⊢ok (𝐫𝐞𝐟𝐥Cong q _) = ⊢ok q
+⊢ok (𝐞𝐦𝐩Cong q _) = ⊢ok q
 ⊢ok (𝐬𝐮𝐜𝐜Cong q) = ⊢ok q
 ⊢ok (𝐧𝐫𝐞𝐜Cong _ _ q _ _ _) = ⊢ok q
 ⊢ok (𝚷Beta _ _ q _ _) = ⊢ok q

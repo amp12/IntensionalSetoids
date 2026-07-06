@@ -208,6 +208,12 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
    (⊆ub
      (⊢supp q ∘ ∈∪₁)
      (⊆ub (⊢supp q ∘ ∈∪₁) λ())))
+⊢supp (⊢𝐄𝐦𝐩 _) = ⊆ub (λ()) λ()
+⊢supp (⊢𝐞𝐦𝐩 q q') = ⊆ub
+  (⊆ub
+    (⊢supp q ∘ ∈∪₁)
+    (⊆ub (⊢supp q' ∘ ∈∪₁) λ()))
+  (⊢supp q ∘ ∈∪₁)
 ⊢supp (⊢𝐍𝐚𝐭 _) = ⊆ub (λ()) λ()
 ⊢supp (⊢𝐳𝐞𝐫𝐨 _) = ⊆ub (λ()) λ()
 ⊢supp (⊢𝐬𝐮𝐜𝐜 q) = ⊆ub (⊢supp q) λ()
@@ -307,6 +313,15 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
       (⊆ub
         (⊢supp q₁ ∘ ∈∪₁)
         (⊆ub (⊢supp q₁ ∘ ∈∪₁) λ()))))
+⊢supp (𝐞𝐦𝐩Cong q q') = ⊆ub
+  (⊆ub
+    (⊢supp q ∘ ∈∪₁)
+    (⊆ub (⊢supp q' ∘ ∈∪₁) λ()))
+  (⊆ub
+    (⊆ub
+      (⊢supp q ∘ ∈∪₂ ∘ ∈∪₁)
+      (⊆ub (⊢supp q' ∘ ∈∪₂ ∘ ∈∪₁) λ()))
+    (⊢supp q ∘ ∈∪₁))
 ⊢supp (𝐬𝐮𝐜𝐜Cong q) = ⊆ub
   (⊆ub (⊢supp q ∘ ∈∪₁) λ())
   (⊆ub (⊆ub (⊢supp q ∘ ∈∪₂ ∘ ∈∪₁) λ()) λ())
