@@ -109,6 +109,9 @@ cng (ｋ{B}  b) _ _ e = rfl B b
 ----------------------------------------------------------------------
 -- Displayed setoids
 ----------------------------------------------------------------------
+{- Although not exactly the same, the following definition is
+comparible with Definition 5.3.4 in Martin Hofmann's thesis. -}
+
 infix 5 Setd[_]
 record Setd[_] (Γ : Setd) : Set₁ where
   constructor mkSetd[]
