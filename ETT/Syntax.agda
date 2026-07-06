@@ -15,46 +15,52 @@ Lvl = ℕ
 -- Signature for types and terms
 ----------------------------------------------------------------------
 -- Operators
-data OpMLTT : Set where
+data OpETT : Set where
   -- Universe type
-  ′Univ′ : Lvl → OpMLTT
+  ′Univ′ : Lvl → OpETT
   -- Dependent function type
-  ′Pi′ :  Lvl → Lvl → OpMLTT
+  ′Pi′ :  Lvl → Lvl → OpETT
   -- Function abstraction
-  ′lam′ :  OpMLTT
+  ′lam′ :  OpETT
   -- Function application
-  ′app′ :  OpMLTT
+  ′app′ :  OpETT
   -- Extensional equality type
-  ′Eq′ : OpMLTT
+  ′Eq′ : OpETT
   -- Reflexivity proof
-  ′refl′ : OpMLTT
+  ′refl′ : OpETT
+  -- Empty type
+  ′Emp′ : OpETT
+  -- Empty type eliminator
+  ′emp′ : OpETT
   -- Natural number type
-  ′Nat′ : OpMLTT
+  ′Nat′ : OpETT
   -- Zero
-  ′zero′ : OpMLTT
+  ′zero′ : OpETT
   -- Successor
-  ′succ′ : OpMLTT
+  ′succ′ : OpETT
   -- Natural number elimination
-  ′natrec′ : OpMLTT
+  ′natrec′ : OpETT
 
 -- Arities
-arMLTT : OpMLTT → List ℕ
-arMLTT (′Univ′ l) = []
-arMLTT (′Pi′ l l') = 0 :: 1 :: []
-arMLTT ′lam′ = 0 :: 1 :: []
-arMLTT ′app′ = 0 :: 0 :: 1 :: 0 :: []
-arMLTT ′Eq′ = 0 :: 0 :: 0 :: []
-arMLTT ′refl′ = 0 :: 0 :: []
-arMLTT ′Nat′ = []
-arMLTT ′zero′ = []
-arMLTT ′succ′ = 0 :: []
-arMLTT ′natrec′ = 1 :: 0 :: 2 :: 0 :: []
+arETT : OpETT → List ℕ
+arETT (′Univ′ l) = []
+arETT (′Pi′ l l') = 0 :: 1 :: []
+arETT ′lam′ = 0 :: 1 :: []
+arETT ′app′ = 0 :: 0 :: 1 :: 0 :: []
+arETT ′Eq′ = 0 :: 0 :: 0 :: []
+arETT ′refl′ = 0 :: 0 :: []
+arETT ′Emp′ = []
+arETT ′emp′ = 0 :: 0 :: []
+arETT ′Nat′ = []
+arETT ′zero′ = []
+arETT ′succ′ = 0 :: []
+arETT ′natrec′ = 1 :: 0 :: 2 :: 0 :: []
 
 instance
-  MLTT : Sig
+  ETT : Sig
 
-  Op MLTT = OpMLTT
-  ar MLTT = arMLTT
+  Op ETT = OpETT
+  ar ETT = arETT
 
 ----------------------------------------------------------------------
 -- Terms of Martin-Löf Type Theory
@@ -62,11 +68,11 @@ instance
 infix 6 Tm[_]
 Tm[_] : ℕ → Set
 
-Tm[ n ] = Trm[_] ⦃ MLTT ⦄ n
+Tm[ n ] = Trm[_] ⦃ ETT ⦄ n
 
 Tm : Set
 
-Tm = Trm[_] ⦃ MLTT ⦄ 0
+Tm = Trm[_] ⦃ ETT ⦄ 0
 
 -- Types are particular kinds of term
 infix 6 Ty[_]
@@ -89,6 +95,8 @@ pattern 𝛌 A f = 𝐨 ′lam′ (A :: f :: [])
 pattern _∙[_,_]_ b A B a = 𝐨 ′app′ (b :: A :: B :: a :: [])
 pattern 𝐄𝐪 A a a' = 𝐨 ′Eq′ (A :: a :: a' :: [] )
 pattern 𝐫𝐞𝐟𝐥 A a = 𝐨 ′refl′ (A :: a :: [])
+pattern 𝐄𝐦𝐩 = 𝐨 ′Emp′ []
+pattern 𝐞𝐦𝐩 A a = 𝐨 ′emp′ (A :: a :: [])
 pattern 𝐍𝐚𝐭 = 𝐨 ′Nat′ []
 pattern 𝐳𝐞𝐫𝐨 = 𝐨 ′zero′ []
 pattern 𝐨𝐧𝐞 = 𝐨 ′succ′ (𝐳𝐞𝐫𝐨 :: [])
