@@ -28,27 +28,36 @@ data U₀ where
     (a a' : El₀ A)
     → -------------
     U₀
+  Emp : U₀
   Nat : U₀
 
 El₀ (Pi₀ A B x) =
   ∑[ f ∈ ((a : El₀ A) → El₀ (B a)) ]
   (∀ a a' → A ⸴ a ≈₀ A ⸴ a' → B a ⸴ f a ≈₀ B a' ⸴ f a')
 El₀ (Eq₀ A a a') = A ⸴ a ≈₀ A ⸴ a'
+El₀ Emp = Ø
 El₀ Nat = ℕ
 
 (Pi₀ A B _) ~₀ (Pi₀ A' B' _) =
   (A ~₀ A') ×
   (∀ a a' → A ⸴ a ≈₀ A' ⸴ a' → B a ~₀ B' a')
 (Pi₀ _ _ _) ~₀ (Eq₀ _ _ _) = Ø
+(Pi₀ _ _ _) ~₀ Emp = Ø
 (Pi₀ _ _ _) ~₀ Nat = Ø
 (Eq₀ _ _ _) ~₀ (Pi₀ _ _ _) = Ø
 (Eq₀ A a b) ~₀ (Eq₀ A' a' b') =
   (A ~₀ A') ×
   (A ⸴ a ≈₀ A' ⸴ a') ×
   (A ⸴ b ≈₀ A' ⸴ b')
+(Eq₀ _ _ _) ~₀ Emp = Ø
 (Eq₀ _ _ _) ~₀ Nat = Ø
+Emp ~₀ (Pi₀ _ _ _) = Ø
+Emp ~₀ (Eq₀ _ _ _) = Ø
+Emp ~₀ Emp = 𝟙
+Emp ~₀ Nat = Ø
 Nat ~₀ (Pi₀ _ _ _) = Ø
 Nat ~₀ (Eq₀ _ _ _) = Ø
+Nat ~₀ Emp = Ø
 Nat ~₀ Nat = 𝟙
 
 (Pi₀ A B _) ⸴ (f , _) ≈₀ (Pi₀ A' B' _) ⸴ (f' , _) =
@@ -58,6 +67,7 @@ Nat ~₀ Nat = 𝟙
 (Eq₀ _ _ _) ⸴ _ ≈₀ (Pi₀ _ _ _) ⸴ _ = Ø
 (Eq₀ _ _ _) ⸴ _ ≈₀ (Eq₀ _ _ _) ⸴ _ = 𝟙
 (Eq₀ _ _ _) ⸴ _ ≈₀ Nat ⸴ _ = Ø
+Emp ⸴ _ ≈₀ Emp ⸴ _ = 𝟙
 Nat ⸴ _ ≈₀ (Pi₀ _ _ _) ⸴ _ = Ø
 Nat ⸴ _ ≈₀ (Eq₀ _ _ _) ⸴ a' = Ø
 Nat ⸴ a ≈₀ Nat ⸴ a' = a ≡ a'
@@ -75,10 +85,12 @@ hrfl₀ :
 
 rfl₀ (Pi₀ A _ e) = (rfl₀ A , e)
 rfl₀ (Eq₀ A a b) = (rfl₀ A , hrfl₀ A a , hrfl₀ A b)
+rfl₀ Emp = tt
 rfl₀ Nat = tt
 
 hrfl₀ (Pi₀ _ _ _) (_ , e) = e
 hrfl₀ (Eq₀ _ _ _) _ = tt
+hrfl₀ Emp _ = tt
 hrfl₀ Nat _ = refl
 
 -- Symmetry
@@ -100,12 +112,14 @@ sym₀{Pi₀ _ _ _}{Pi₀ _ _ _} (e , f) =
   sym₀ e , λ a a' e' → sym₀ (f a' a (hsym₀ (sym₀ e) e'))
 sym₀{Eq₀ _ _ _}{Eq₀ _ _ _} (q , q' , q'') =
   (sym₀ q , hsym₀ q q' , hsym₀ q q'')
+sym₀{Emp}{Emp} _ = tt
 sym₀{Nat}{Nat} _ = tt
 
 hsym₀{Pi₀ _ _ _}{Pi₀ _ _ _} (f , f') g b b' e =
   let s = hsym₀ (sym₀ f) e in
   hsym₀ (f' b' b s) (g b' b s)
 hsym₀{Eq₀ _ _ _}{Eq₀ _ _ _} _ _ = tt
+hsym₀{Emp}{Emp} _ _ = tt
 hsym₀{Nat}{Nat} _ refl = refl
 
 -- Transitivity and coherent coercion
@@ -148,6 +162,7 @@ trs₀{Pi₀ _ _ _}{Pi₀ _ _ _}{Pi₀ _ _ _} (e , f) (e' , f') =
 trs₀{Eq₀ _ _ _}{Eq₀ _ _ _}{Eq₀ _ _ _}
   (q₀ , q₁ , q₂) (q₀' , q₁' , q₂') =
   (trs₀ q₀ q₀' , htrs₀ q₀ q₀' q₁ q₁' , htrs₀ q₀ q₀' q₂ q₂')
+trs₀{Emp}{Emp}{Emp} _ _ = tt
 trs₀{Nat}{Nat}{Nat} _ _ = tt
 
 htrs₀{Pi₀ _ _ _}{Pi₀ _ _ _}{Pi₀ _ _ _}
@@ -158,6 +173,7 @@ htrs₀{Pi₀ _ _ _}{Pi₀ _ _ _}{Pi₀ _ _ _}
     r'' = htrs₀ (sym₀ e) (trs₀ e e') (hsym₀ e r') r
   in htrs₀ (f a a' r') (f' a' a'' r'') (g a a' r') (g' a' a'' r'')
 htrs₀{Eq₀ _ _ _}{Eq₀ _ _ _}{Eq₀ _ _ _} _ _ _ _ = tt
+htrs₀{Emp}{Emp}{Emp} _ _ _ _ = tt
 htrs₀{Nat}{Nat}{Nat} _ _ refl refl = refl
 
 coe₀{Pi₀ _ _ e}{Pi₀ _ _ _} (e₁ , e₂) (f₁ , f₂) =
@@ -184,6 +200,7 @@ coe₀{Pi₀ _ _ e}{Pi₀ _ _ _} (e₁ , e₂) (f₁ , f₂) =
          (coh₀ (e₂ a₁' a' r₁') (f₁ a₁'))))
 coe₀{Eq₀ _ _ _}{Eq₀ _ _ _} (e , r , r') s =
   htrs₀ (sym₀ e) e (hsym₀ e r) (htrs₀ (rfl₀ _) e s r')
+coe₀ {Emp} {Emp} _ ()
 coe₀{Nat}{Nat} _ a = a
 
 coh₀{Pi₀ _ _ e}{Pi₀ _ _ _} (e₁ , e₂) (f₁ , f₂) a a' r =
@@ -197,6 +214,7 @@ coh₀{Pi₀ _ _ e}{Pi₀ _ _ _} (e₁ , e₂) (f₁ , f₂) a a' r =
     s     = coh₀ (e₂ a'' a' a''a') (f₁ a'')
   in htrs₀ (e a a'' aa'') (e₂ a'' a' a''a') (f₂ a a'' aa'') s
 coh₀{Eq₀ _ _ _}{Eq₀ _ _ _} _ _ = tt
+coh₀ {Emp} {Emp} _ ()
 coh₀{Nat}{Nat} _ _ = refl
 
 -- The zeroth setoid universe
