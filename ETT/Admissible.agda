@@ -328,6 +328,10 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   (⊢ty₁ h)
   (⊢ty₁ q)
 
+⊢ty₁ (𝐞𝐦𝐩Cong q₀ q₁) = ⊢𝐞𝐦𝐩
+  (⊢ty₁ q₀)
+  (⊢ty₁ q₁)
+
 ⊢ty₁ (𝐬𝐮𝐜𝐜Cong q) = ⊢𝐬𝐮𝐜𝐜 (⊢ty₁ q)
 
 ⊢ty₁ (𝐧𝐫𝐞𝐜Cong S q₀ q₁ q₂ q₃ h) = ⊢𝐧𝐫𝐞𝐜
@@ -416,6 +420,10 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 ⊢ty₂ (𝐫𝐞𝐟𝐥Cong q h) = ⊢conv
   (⊢𝐫𝐞𝐟𝐥 (⊢conv (⊢ty₂ h) q) (⊢ty₂ q))
   (Symm (𝐄𝐪Cong q h h))
+
+⊢ty₂ (𝐞𝐦𝐩Cong q₀ q₁) = ⊢conv
+  (⊢𝐞𝐦𝐩 (⊢ty₂ q₀) (⊢ty₂ q₁))
+  (Symm q₀)
 
 ⊢ty₂ (𝐬𝐮𝐜𝐜Cong q) = ⊢𝐬𝐮𝐜𝐜 (⊢ty₂ q)
 
@@ -648,6 +656,10 @@ ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty 
 ⊢∶ty (⊢𝐄𝐪 _ _ h) = ⊢∶ty h
 
 ⊢∶ty (⊢𝐫𝐞𝐟𝐥 q h) = ⊢𝐄𝐪 q q h
+
+⊢∶ty (⊢𝐄𝐦𝐩 q) = ⊢𝐔 q
+
+⊢∶ty (⊢𝐞𝐦𝐩 q _) = q
 
 ⊢∶ty (⊢𝐍𝐚𝐭 q) = ⊢𝐔 q
 

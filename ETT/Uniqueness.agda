@@ -79,6 +79,11 @@ svTy (⊢𝐫𝐞𝐟𝐥 q _) (⊢𝐫𝐞𝐟𝐥 q' _)
   with (refl , r) ← svTy q q' =
   (refl , 𝐄𝐪Cong r (Refl q) (Refl q))
 
+svTy (⊢𝐄𝐦𝐩 q) (⊢𝐄𝐦𝐩 _) = (refl , Refl (⊢𝐔 q))
+
+svTy (⊢𝐞𝐦𝐩 q _) (⊢𝐞𝐦𝐩 q' _)
+  with (refl , _) ← svTy q q' = refl , Refl q
+
 svTy (⊢𝐍𝐚𝐭 q) (⊢𝐍𝐚𝐭 _) = (refl , Refl (⊢𝐔 q))
 
 svTy (⊢𝐳𝐞𝐫𝐨 q) (⊢𝐳𝐞𝐫𝐨 _) = (refl , Refl (⊢𝐍𝐚𝐭 q))

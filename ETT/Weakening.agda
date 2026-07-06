@@ -91,6 +91,10 @@ proj q = ▷proj (▷id (⊢ok q)) q
 ▷Jg p (⊢𝐫𝐞𝐟𝐥 q h) = ⊢𝐫𝐞𝐟𝐥
   (▷Jg p q)
   (▷Jg p h)
+▷Jg p (⊢𝐄𝐦𝐩 _) = ⊢𝐄𝐦𝐩 (Ok▷ p)
+▷Jg p (⊢𝐞𝐦𝐩 q₀ q₁) = ⊢𝐞𝐦𝐩
+  (▷Jg p q₀)
+  (▷Jg p q₁)
 ▷Jg p (⊢𝐍𝐚𝐭 _) = ⊢𝐍𝐚𝐭 (Ok▷ p)
 ▷Jg p (⊢𝐳𝐞𝐫𝐨 _) = ⊢𝐳𝐞𝐫𝐨 (Ok▷ p)
 ▷Jg p (⊢𝐬𝐮𝐜𝐜 q) = ⊢𝐬𝐮𝐜𝐜 (▷Jg p q)
@@ -142,6 +146,9 @@ proj q = ▷proj (▷id (⊢ok q)) q
 ▷Jg p (𝐫𝐞𝐟𝐥Cong q h) = 𝐫𝐞𝐟𝐥Cong
   (▷Jg p q)
   (▷Jg p h)
+▷Jg p (𝐞𝐦𝐩Cong q₀ q₁) = 𝐞𝐦𝐩Cong
+  (▷Jg p q₀)
+  (▷Jg p q₁)
 ▷Jg p (𝐬𝐮𝐜𝐜Cong q) = 𝐬𝐮𝐜𝐜Cong (▷Jg p q)
 ▷Jg{Δ} p (𝐧𝐫𝐞𝐜Cong S q₀ q₁ q₂ q₃ h) = 𝐧𝐫𝐞𝐜Cong
   (S ∪ supp Δ)

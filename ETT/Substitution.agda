@@ -269,6 +269,12 @@ sbJg p (⊢𝐫𝐞𝐟𝐥 q h) = ⊢𝐫𝐞𝐟𝐥
 
 sbJg p (⊢𝐍𝐚𝐭 _) = ⊢𝐍𝐚𝐭 (okSb p)
 
+sbJg p (⊢𝐄𝐦𝐩 _) = ⊢𝐄𝐦𝐩 (okSb p)
+
+sbJg p (⊢𝐞𝐦𝐩 q₀ q₁) = ⊢𝐞𝐦𝐩
+  (sbJg p q₀)
+  (sbJg p q₁)
+
 sbJg p (⊢𝐳𝐞𝐫𝐨 q) = ⊢𝐳𝐞𝐫𝐨 (okSb p)
 
 sbJg p (⊢𝐬𝐮𝐜𝐜 q) = ⊢𝐬𝐮𝐜𝐜 (sbJg p q)
@@ -390,6 +396,10 @@ sbJg p (𝐄𝐪Cong q₀ q₁ q₂) = 𝐄𝐪Cong
   (sbJg p q₂)
 
 sbJg p (𝐫𝐞𝐟𝐥Cong q₀ q₁) = 𝐫𝐞𝐟𝐥Cong
+  (sbJg p q₀)
+  (sbJg p q₁)
+
+sbJg p (𝐞𝐦𝐩Cong q₀ q₁) = 𝐞𝐦𝐩Cong
   (sbJg p q₀)
   (sbJg p q₁)
 
@@ -939,6 +949,12 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
   (＝sbTm p q h)
 
 ＝sbTm p (⊢𝐍𝐚𝐭 _) _ = Refl (⊢𝐍𝐚𝐭 (okSb＝ p))
+
+＝sbTm p (⊢𝐄𝐦𝐩 _) _ = Refl (⊢𝐄𝐦𝐩 (okSb＝ p))
+
+＝sbTm p (⊢𝐞𝐦𝐩 q₀ q₁) h = 𝐞𝐦𝐩Cong
+  (＝sbTm p q₀ h)
+  (＝sbTm p q₁ h)
 
 ＝sbTm p (⊢𝐳𝐞𝐫𝐨 _) _ = Refl (⊢𝐳𝐞𝐫𝐨 (okSb＝ p))
 
