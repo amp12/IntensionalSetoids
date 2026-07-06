@@ -293,6 +293,12 @@ tot⟦tm⟧ (⊢𝐫𝐞𝐟𝐥{l} p _) =
   let (C , T , t , q , q') = tot⟦tm⟧ p in
   (C , ℰ𝓆 l T t t , 𝓇𝒻𝓁 l T t , ⟦𝐄𝐪⟧ q q' q' , ⟦𝐫𝐞𝐟𝐥⟧ q q')
 
+tot⟦tm⟧ (⊢𝐄𝐦𝐩 p) =
+  let (C , q) = tot⟦cx⟧ p in
+  (C , 𝒰𝓃𝒾𝓋 0 , ℰ𝓂𝓅 , ⟦𝐔⟧ q , ⟦𝐄𝐦𝐩⟧ q)
+
+tot⟦tm⟧ (⊢𝐞𝐦𝐩 p₀ p₁) = ?
+
 tot⟦tm⟧ (⊢𝐍𝐚𝐭 p) =
   let (C , q) = tot⟦cx⟧ p in
   (C , 𝒰𝓃𝒾𝓋 0 , 𝒩𝒶𝓉 , ⟦𝐔⟧ q , ⟦𝐍𝐚𝐭⟧ q)
@@ -444,6 +450,8 @@ conv⟦tm⟧ (𝐄𝐪Cong{l} q₀ q₁ q₂) =
     ⟦𝐔⟧ (ok⟦ty⟧ qT) ,
     ⟦𝐄𝐪⟧ qT qs qt ,
     ⟦𝐄𝐪⟧ qT' qs' qt')
+
+conv⟦tm⟧ (𝐞𝐦𝐩Cong{l} q₀ q₁) = ?
 
 conv⟦tm⟧ (𝐫𝐞𝐟𝐥Cong{l} q₀ q₁) =
   let

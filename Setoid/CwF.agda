@@ -87,11 +87,11 @@ compCng :
 
 compCng {f = f}{f'} u v c c' w = v (∣ f ∣ c) (∣ f' ∣ c') (u c c' w)
 
--- -- Terminal morphism
--- terminal : (C : Uω) → Hom C Unit
+-- Terminal morphism
+unit : (C : Uω) → Hom C Unit
 
--- ∣ terminal C ∣ _ = tt
--- cng (terminal C) _ _ _ = tt
+∣ unit C ∣ _ = tt
+cng (unit C) _ _ _ = tt
 
 ----------------------------------------------------------------------
 -- Families and their elements
