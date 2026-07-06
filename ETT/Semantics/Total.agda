@@ -297,7 +297,7 @@ tot⟦tm⟧ (⊢𝐄𝐦𝐩 p) =
   let (C , q) = tot⟦cx⟧ p in
   (C , 𝒰𝓃𝒾𝓋 0 , ℰ𝓂𝓅 , ⟦𝐔⟧ q , ⟦𝐄𝐦𝐩⟧ q)
 
-tot⟦tm⟧ (⊢𝐞𝐦𝐩 p₀ p₁) = ?
+tot⟦tm⟧ (⊢𝐞𝐦𝐩 p₀ p₁) = {!!}
 
 tot⟦tm⟧ (⊢𝐍𝐚𝐭 p) =
   let (C , q) = tot⟦cx⟧ p in
@@ -451,7 +451,7 @@ conv⟦tm⟧ (𝐄𝐪Cong{l} q₀ q₁ q₂) =
     ⟦𝐄𝐪⟧ qT qs qt ,
     ⟦𝐄𝐪⟧ qT' qs' qt')
 
-conv⟦tm⟧ (𝐞𝐦𝐩Cong{l} q₀ q₁) = ?
+conv⟦tm⟧ (𝐞𝐦𝐩Cong{l} q₀ q₁) = {!!}
 
 conv⟦tm⟧ (𝐫𝐞𝐟𝐥Cong{l} q₀ q₁) =
   let
