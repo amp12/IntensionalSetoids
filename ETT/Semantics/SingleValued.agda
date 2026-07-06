@@ -144,6 +144,9 @@ sv⟦tm⟧' (⟦𝐄𝐪⟧{l} q₀ q₁ q₂) (⟦𝐄𝐪⟧ q₀' q₁' q₂'
   (refl , e₂ , (λ _ _ _ → tt) , λ c c' x →
     EQ.tyCong (eq l) (e₃ c c' x) (e₁ c c' x) (e₄ c c' x))
 
+sv⟦tm⟧' (⟦𝐄𝐦𝐩⟧ q) (⟦𝐄𝐦𝐩⟧ q') =
+  (refl , sv⟦cx⟧ q q' , (λ _ _ _ → tt) , λ _ _ _ → tt)
+
 sv⟦tm⟧' (⟦𝐍𝐚𝐭⟧ q) (⟦𝐍𝐚𝐭⟧ q') =
   (refl , sv⟦cx⟧ q q' , (λ _ _ _ → tt) , λ _ _ _ → tt)
 
@@ -182,6 +185,10 @@ sv⟦tm⟧' (⟦𝐫𝐞𝐟𝐥⟧{l} q₀ q₁) (⟦𝐫𝐞𝐟𝐥⟧ q₀' 
     EQ.tyCong (eq l) (e₃ c c' u) (e₄ c c' u) (e₄ c c' u)) ,
   λ c c' u →
     EQ.rflCong (eq l) (e₃ c c' u) (e₄ c c' u))
+
+sv⟦tm⟧' (⟦𝐞𝐦𝐩⟧ {e = e} q _) (⟦𝐞𝐦𝐩⟧ q' _)
+  with  (refl , e₀ , e₁) ← sv⟦ty⟧' q q' =
+  (refl , e₀ , e₁ , λ c _ _ → Øelim (∥ e ∥ c))
 
 sv⟦tm⟧' (⟦𝐳𝐞𝐫𝐨⟧ q) (⟦𝐳𝐞𝐫𝐨⟧ q') =
   (refl , sv⟦cx⟧ q q' , (λ _ _ _ → tt) , λ _ _ _ → refl)

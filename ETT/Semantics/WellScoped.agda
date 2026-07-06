@@ -93,6 +93,8 @@ supp⟦tm⟧ (⟦𝐄𝐪⟧ q₀ q₁ q₂) = ⊆ub
   (supp⟦tm⟧ q₀)
   (⊆ub (supp⟦tm⟧ q₁) (⊆ub (supp⟦tm⟧ q₂) λ()))
 
+supp⟦tm⟧ (⟦𝐄𝐦𝐩⟧ _) = λ()
+
 supp⟦tm⟧ (⟦𝐍𝐚𝐭⟧ _) = λ()
 
 supp⟦tm⟧ (⟦𝐯⟧ q) (∈｛｝)= supp⟦vr⟧ q
@@ -112,6 +114,10 @@ supp⟦tm⟧ (⟦∙⟧{B = B} X q₀ q₁ q₂ q₃)
       (⊆ub (supp⟦tm⟧ q₃) λ())))
 
 supp⟦tm⟧ (⟦𝐫𝐞𝐟𝐥⟧ q₀ q₁) = ⊆ub
+  (supp⟦tm⟧ q₀)
+  (⊆ub (supp⟦tm⟧ q₁) λ())
+
+supp⟦tm⟧ (⟦𝐞𝐦𝐩⟧ q₀ q₁) = ⊆ub
   (supp⟦tm⟧ q₀)
   (⊆ub (supp⟦tm⟧ q₁) λ())
 

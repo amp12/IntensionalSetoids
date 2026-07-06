@@ -27,7 +27,7 @@ open import ETT.Semantics.ExistsFresh
 -- The semantic relations are total
 open import ETT.Semantics.Total public
 
--- Functional semantics of ETT contexts, types and terms.  Proof that
--- they are proof-irrelevant and sound for the provable judgements of
--- ETT
+-- Functional semantics of ETT contexts, types and terms, together
+-- with a proof of soundness and proof-irrelevance for the valid
+-- judgements of ETT
 open import ETT.Semantics.Soundness public
