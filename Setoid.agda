@@ -5,7 +5,7 @@ open import Setoid.Definition public
 
 -- Inductive-recursively defined countable hierchy of nested universes
 -- of type-valued setoids closed under Pi-types, extensional equality
--- types, natural number types
+-- types, empty and natural number types
 open import Setoid.Universes public
 
 -- Lifting from a universe to a higher universe
