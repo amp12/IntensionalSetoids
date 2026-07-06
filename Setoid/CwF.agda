@@ -87,11 +87,11 @@ compCng :
 
 compCng {f = f}{f'} u v c c' w = v (∣ f ∣ c) (∣ f' ∣ c') (u c c' w)
 
--- Terminal morphism
-emp : (C : Uω) → Hom C Unit
+-- -- Terminal morphism
+-- terminal : (C : Uω) → Hom C Unit
 
-∣ emp C ∣ _ = tt
-cng (emp C) _ _ _ = tt
+-- ∣ terminal C ∣ _ = tt
+-- cng (terminal C) _ _ _ = tt
 
 ----------------------------------------------------------------------
 -- Families and their elements
@@ -745,6 +745,40 @@ ntrl𝓇𝒻𝓁 n T t f c c' e = EQ.rflCong (eq n)
   (hcng (ℰ𝓆 n T t t') c c' u)
   (EQ.uip (eq n) (∥ e ∥ c) (∥ e' ∥ c))
   (hcng e' c c' u)
+
+----------------------------------------------------------------------
+-- Empty type
+----------------------------------------------------------------------
+ℰ𝓂𝓅 :
+ {C : Uω}
+ → -------
+ Fam 0 C
+
+∥ ℰ𝓂𝓅 ∥ _ = Emp
+hcng ℰ𝓂𝓅 _ _ _ = tt
+
+ℯ𝓂𝓅 :
+  {C : Uω}
+  (n : ℕ)
+  (S : Fam n C)
+  (e : Elt 0 C ℰ𝓂𝓅)
+  → ---------------
+  Elt n C S
+
+∥ ℯ𝓂𝓅 _ _ e ∥ c = Øelim (∥ e ∥ c)
+hcng (ℯ𝓂𝓅 _ _ e) c _ _ = Øelim (∥ e ∥ c)
+
+ntrlℯ𝓂𝓅 :
+  {D C : Uω}
+  (n : ℕ)
+  (S : Fam n C)
+  (e : Elt 0 C ℰ𝓂𝓅)
+  (f : Hom D C)
+  → --------------------------------------
+  ℰ𝓁𝓉 n ∋ (D , f * S) ⸴ f *₁ (ℯ𝓂𝓅 n S e) ≈
+  (D , f * S) ⸴ ℯ𝓂𝓅 n (f * S) (f *₁ e)
+
+ntrlℯ𝓂𝓅 _ _ e f c _ _ = Øelim (∥ e ∥ (∣ f ∣ c))
 
 ----------------------------------------------------------------------
 -- Natural number type

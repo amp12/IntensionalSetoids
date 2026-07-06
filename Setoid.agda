@@ -17,6 +17,9 @@ open import Setoid.PiType public
 -- Extensional equality
 open import Setoid.EqualityType public
 
+-- Empty type
+open import Setoid.EmptyType public
+
 -- Natural numbers
 open import Setoid.NatType public
 
