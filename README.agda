@@ -1,10 +1,9 @@
 module README where
 
-{- A model of Extensional Type Theory (ETT) in
-Agda --safe --without-K
-the latter being used as a formalization of basic
-Intensional Type Theory with a universe closed under
-inductive-recursive definitions. -}
+{- A model of Extensional Type Theory (ETT) in Agda --safe --without-K
+the latter being used as a formalization of basic Intensional Type
+Theory with a universe closed under inductive-recursive
+definitions. -}
 
 -- Some basic library functions
 open import Prelude public
