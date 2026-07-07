@@ -297,7 +297,12 @@ tot⟦tm⟧ (⊢𝐄𝐦𝐩 p) =
   let (C , q) = tot⟦cx⟧ p in
   (C , 𝒰𝓃𝒾𝓋 0 , ℰ𝓂𝓅 , ⟦𝐔⟧ q , ⟦𝐄𝐦𝐩⟧ q)
 
-tot⟦tm⟧ (⊢𝐞𝐦𝐩 p₀ p₁) = {!!}
+tot⟦tm⟧ (⊢𝐞𝐦𝐩{l} p₀ p₁) =
+  let
+    (C , T , q) = tot⟦ty⟧ p₀
+    (e , q')    = tot⟦tm⟧' p₁ (⟦𝐄𝐦𝐩⟧ (ok⟦ty⟧ q))
+  in
+  (C , T , ℯ𝓂𝓅 l T e , q , ⟦𝐞𝐦𝐩⟧ q q')
 
 tot⟦tm⟧ (⊢𝐍𝐚𝐭 p) =
   let (C , q) = tot⟦cx⟧ p in
@@ -451,7 +456,12 @@ conv⟦tm⟧ (𝐄𝐪Cong{l} q₀ q₁ q₂) =
     ⟦𝐄𝐪⟧ qT qs qt ,
     ⟦𝐄𝐪⟧ qT' qs' qt')
 
-conv⟦tm⟧ (𝐞𝐦𝐩Cong{l} q₀ q₁) = {!!}
+conv⟦tm⟧ (𝐞𝐦𝐩Cong{l} q₀ q₁) =
+  let
+    (C , T , qT , qT') = conv⟦ty⟧ q₀
+    (e , qe , qe') = conv⟦tm⟧' q₁ (⟦𝐄𝐦𝐩⟧ (ok⟦ty⟧ qT))
+  in
+  (C , T , ℯ𝓂𝓅 l T e , qT , ⟦𝐞𝐦𝐩⟧ qT qe , ⟦𝐞𝐦𝐩⟧ qT' qe')
 
 conv⟦tm⟧ (𝐫𝐞𝐟𝐥Cong{l} q₀ q₁) =
   let

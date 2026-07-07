@@ -231,14 +231,3 @@ sound⁻ :
   tm⟦ Γ ⊢ a' ∶ A ⦂ l ⟧⁻ q'
 
 sound⁻ q q' q'' = sound q q' q'' (⊢ok q) (⊢ok q') (⊢∶ty q) (⊢∶ty q')
-
-----------------------------------------------------------------------
--- Consistency of extensional type theory relative to intensional
--- Martin-Löf Type Theory with inductive-recursive definitions (safe
--- Agda)
-----------------------------------------------------------------------
-consistent : ¬(◇ ⊢ 𝐳𝐞𝐫𝐨 ＝ 𝐨𝐧𝐞 ∶  𝐍𝐚𝐭 ⦂ 0)
-
-consistent q
-  with () ← π₂ (π₂ (sound (⊢𝐳𝐞𝐫𝐨 ok◇) (⊢𝐬𝐮𝐜𝐜 (⊢𝐳𝐞𝐫𝐨 ok◇)) q ok◇
-            ok◇ (⊢𝐍𝐚𝐭 ok◇) (⊢𝐍𝐚𝐭 ok◇))) tt tt tt
