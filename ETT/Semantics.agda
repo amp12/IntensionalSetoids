@@ -35,4 +35,4 @@ open import ETT.Semantics.Soundness public
 -- Consistency of extensional type theory relative to intensional
 -- Martin-Löf Type Theory with inductive-recursive definitions (safe
 -- Agda)
--- open import ETT.Semantics.Consistency public
+open import ETT.Semantics.Consistency public
