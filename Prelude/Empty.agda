@@ -36,7 +36,7 @@ data Ø {ℓ : Level} : Set ℓ where
 ----------------------------------------------------------------------
 record ⊥' : Set where
   field
-    .emp : ⊥
+    .empty : ⊥
 open ⊥' public
 
 -- The types ⊥ and ⊥' are in bijection

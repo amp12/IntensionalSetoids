@@ -1,10 +1,10 @@
-module ETT.Judgement where
+module ETU.Judgement where
 
 open import Prelude
 
 open import WSLN
 
-open import ETT.Syntax
+open import ETU.Syntax
 
 ----------------------------------------------------------------------
 -- Forms of judgement

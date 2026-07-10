@@ -1,12 +1,12 @@
-module ETT.Semantics.Relation where
+module ETU.Semantics.Relation where
 
 open import Prelude
 open import Setoid
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
 
 ----------------------------------------------------------------------
 -- The graphs of the semantic functions for terms, variables, types

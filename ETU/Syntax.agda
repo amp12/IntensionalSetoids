@@ -1,4 +1,4 @@
-module ETT.Syntax where
+module ETU.Syntax where
 
 open import Prelude
 
@@ -15,52 +15,52 @@ Lvl = ℕ
 -- Signature for types and terms
 ----------------------------------------------------------------------
 -- Operators
-data OpETT : Set where
+data OpETU : Set where
   -- Universe type
-  ′Univ′ : Lvl → OpETT
+  ′Univ′ : Lvl → OpETU
   -- Dependent function type
-  ′Pi′ :  Lvl → Lvl → OpETT
+  ′Pi′ :  Lvl → Lvl → OpETU
   -- Function abstraction
-  ′lam′ :  OpETT
+  ′lam′ :  OpETU
   -- Function application
-  ′app′ :  OpETT
+  ′app′ :  OpETU
   -- Extensional equality type
-  ′Eq′ : OpETT
+  ′Eq′ : OpETU
   -- Reflexivity proof
-  ′refl′ : OpETT
+  ′refl′ : OpETU
   -- Empty type
-  ′Emp′ : OpETT
+  ′Emp′ : OpETU
   -- Empty type eliminator
-  ′emp′ : OpETT
+  ′emp′ : OpETU
   -- Natural number type
-  ′Nat′ : OpETT
+  ′Nat′ : OpETU
   -- Zero
-  ′zero′ : OpETT
+  ′zero′ : OpETU
   -- Successor
-  ′succ′ : OpETT
+  ′succ′ : OpETU
   -- Natural number elimination
-  ′natrec′ : OpETT
+  ′natrec′ : OpETU
 
 -- Arities
-arETT : OpETT → List ℕ
-arETT (′Univ′ l) = []
-arETT (′Pi′ l l') = 0 :: 1 :: []
-arETT ′lam′ = 0 :: 1 :: []
-arETT ′app′ = 0 :: 0 :: 1 :: 0 :: []
-arETT ′Eq′ = 0 :: 0 :: 0 :: []
-arETT ′refl′ = 0 :: 0 :: []
-arETT ′Emp′ = []
-arETT ′emp′ = 0 :: 0 :: []
-arETT ′Nat′ = []
-arETT ′zero′ = []
-arETT ′succ′ = 0 :: []
-arETT ′natrec′ = 1 :: 0 :: 2 :: 0 :: []
+arETU : OpETU → List ℕ
+arETU (′Univ′ l) = []
+arETU (′Pi′ l l') = 0 :: 1 :: []
+arETU ′lam′ = 0 :: 1 :: []
+arETU ′app′ = 0 :: 0 :: 1 :: 0 :: []
+arETU ′Eq′ = 0 :: 0 :: 0 :: []
+arETU ′refl′ = 0 :: 0 :: []
+arETU ′Emp′ = []
+arETU ′emp′ = 0 :: 0 :: []
+arETU ′Nat′ = []
+arETU ′zero′ = []
+arETU ′succ′ = 0 :: []
+arETU ′natrec′ = 1 :: 0 :: 2 :: 0 :: []
 
 instance
-  ETT : Sig
+  ETU : Sig
 
-  Op ETT = OpETT
-  ar ETT = arETT
+  Op ETU = OpETU
+  ar ETU = arETU
 
 ----------------------------------------------------------------------
 -- Terms of Martin-Löf Type Theory
@@ -68,11 +68,11 @@ instance
 infix 6 Tm[_]
 Tm[_] : ℕ → Set
 
-Tm[ n ] = Trm[_] ⦃ ETT ⦄ n
+Tm[ n ] = Trm[_] ⦃ ETU ⦄ n
 
 Tm : Set
 
-Tm = Trm[_] ⦃ ETT ⦄ 0
+Tm = Trm[_] ⦃ ETU ⦄ 0
 
 -- Types are particular kinds of term
 infix 6 Ty[_]

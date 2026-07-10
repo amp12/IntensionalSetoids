@@ -1,20 +1,20 @@
-module ETT.Semantics.Total where
+module ETU.Semantics.Total where
 
 open import Prelude
 open import Setoid
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
 
-open import ETT.Semantics.Relation
-open import ETT.Semantics.Ok
-open import ETT.Semantics.WellScoped
-open import ETT.Semantics.SingleValued
-open import ETT.Semantics.Weakening
-open import ETT.Semantics.Substitution
-open import ETT.Semantics.ExistsFresh
+open import ETU.Semantics.Relation
+open import ETU.Semantics.Ok
+open import ETU.Semantics.WellScoped
+open import ETU.Semantics.SingleValued
+open import ETU.Semantics.Weakening
+open import ETU.Semantics.Substitution
+open import ETU.Semantics.ExistsFresh
 
 ----------------------------------------------------------------------
 -- The semantic relations are total on typeable expressions and are

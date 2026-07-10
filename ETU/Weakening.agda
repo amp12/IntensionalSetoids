@@ -1,13 +1,13 @@
-module ETT.Weakening where
+module ETU.Weakening where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
-open import ETT.Ok
-open import ETT.WellScoped
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
+open import ETU.Ok
+open import ETU.WellScoped
 
 ----------------------------------------------------------------------
 -- Identity weakening

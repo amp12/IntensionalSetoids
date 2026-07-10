@@ -1,11 +1,11 @@
-module ETT.Ok where
+module ETU.Ok where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
 
 ----------------------------------------------------------------------
 -- Provable judgements have well-formed contexts

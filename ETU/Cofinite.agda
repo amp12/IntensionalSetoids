@@ -1,10 +1,10 @@
-module ETT.Cofinite where
+module ETU.Cofinite where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
+open import ETU.Syntax
+open import ETU.Judgement
 
 ----------------------------------------------------------------------
 -- Provable judgements in context, using cofinite quantification

@@ -1,14 +1,14 @@
-module ETT.Semantics.Ok where
+module ETU.Semantics.Ok where
 
 open import Prelude
 open import Setoid
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
 
-open import ETT.Semantics.Relation
+open import ETU.Semantics.Relation
 
 ----------------------------------------------------------------------
 -- The semantics of terms-in-context contains that for contexts

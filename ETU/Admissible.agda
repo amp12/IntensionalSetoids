@@ -1,15 +1,15 @@
-module ETT.Admissible where
+module ETU.Admissible where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
-open import ETT.Ok
-open import ETT.WellScoped
-open import ETT.Weakening
-open import ETT.Substitution
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
+open import ETU.Ok
+open import ETU.WellScoped
+open import ETU.Weakening
+open import ETU.Substitution
 
 {- Futher admissible properties of the type system. -}
 

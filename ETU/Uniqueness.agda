@@ -1,17 +1,17 @@
-module ETT.Uniqueness where
+module ETU.Uniqueness where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
-open import ETT.Ok
-open import ETT.WellScoped
-open import ETT.Weakening
-open import ETT.Substitution
-open import ETT.Admissible
-open import ETT.ExistsFresh
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
+open import ETU.Ok
+open import ETU.WellScoped
+open import ETU.Weakening
+open import ETU.Substitution
+open import ETU.Admissible
+open import ETU.ExistsFresh
 
 ----------------------------------------------------------------------
 -- Types of terms are unique up to conversion and have a unique level

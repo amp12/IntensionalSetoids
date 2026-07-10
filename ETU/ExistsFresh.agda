@@ -1,16 +1,16 @@
-module ETT.ExistsFresh where
+module ETU.ExistsFresh where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
-open import ETT.Ok
-open import ETT.WellScoped
-open import ETT.Weakening
-open import ETT.Substitution
-open import ETT.Admissible
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
+open import ETU.Ok
+open import ETU.WellScoped
+open import ETU.Weakening
+open import ETU.Substitution
+open import ETU.Admissible
 
 ----------------------------------------------------------------------
 -- "Exists fresh" style typing rules (without helper hypotheses)

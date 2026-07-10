@@ -1,12 +1,12 @@
-module ETT.WellScoped where
+module ETU.WellScoped where
 
 open import Prelude
 open import WSLN
 
-open import ETT.Syntax
-open import ETT.Judgement
-open import ETT.Cofinite
-open import ETT.Ok
+open import ETU.Syntax
+open import ETU.Judgement
+open import ETU.Cofinite
+open import ETU.Ok
 
 ----------------------------------------------------------------------
 -- Provable judgements are well-scoped

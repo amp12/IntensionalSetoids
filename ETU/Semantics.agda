@@ -1,38 +1,38 @@
-module ETT.Semantics where
+module ETU.Semantics where
 
-{- Semantics of ETT using intensional setoids -}
+{- Semantics of ETU using intensional setoids -}
 
 -- The graphs of the semantic functions for terms, variables, types
 -- and contexts
-open import ETT.Semantics.Relation public
+open import ETU.Semantics.Relation public
 
 -- The semantics of terms-in-context contains that for contexts
-open import ETT.Semantics.Ok public
+open import ETU.Semantics.Ok public
 
 -- The semantic relations are well-scoped
-open import ETT.Semantics.WellScoped public
+open import ETU.Semantics.WellScoped public
 
 -- The semantic relations are single-valued
-open import ETT.Semantics.SingleValued public
+open import ETU.Semantics.SingleValued public
 
 -- Semantics of weakening
-open import ETT.Semantics.Weakening public
+open import ETU.Semantics.Weakening public
 
 -- Semantics of substitution
-open import ETT.Semantics.Substitution public
+open import ETU.Semantics.Substitution public
 
 -- "Exists fresh" properties of the semantic relations
-open import ETT.Semantics.ExistsFresh
+open import ETU.Semantics.ExistsFresh
 
 -- The semantic relations are total
-open import ETT.Semantics.Total public
+open import ETU.Semantics.Total public
 
--- Functional semantics of ETT contexts, types and terms, together
+-- Functional semantics of ETU contexts, types and terms, together
 -- with proofs of soundness and proof-irrelevance with respect to the
--- valid judgements of ETT
-open import ETT.Semantics.Soundness public
+-- valid judgements of ETU
+open import ETU.Semantics.Soundness public
 
 -- Consistency of extensional type theory relative to intensional
 -- Martin-Löf Type Theory with inductive-recursive definitions (safe
 -- Agda)
-open import ETT.Semantics.Consistency public
+open import ETU.Semantics.Consistency public
