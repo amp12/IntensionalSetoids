@@ -1,3 +1,6 @@
+----------------------------------------------------------------------
+-- IntensionalSetoids
+----------------------------------------------------------------------
 module README where
 
 {- A semantics of extensional type theory with universes (ETU) is
