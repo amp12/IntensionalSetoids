@@ -1,21 +1,27 @@
 <!DOCTYPE HTML>
 <html><head><meta charset="utf-8"><title>README</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="README.html" class="Module">README</a> <a id="15" class="Keyword">where</a>
 
-<a id="22" class="Comment">{- A model of Extensional Type Theory (ETT) in
-Agda --safe --without-K
-the latter being used as a formalization of basic
-Intensional Type Theory with a universe closed under
-inductive-recursive definitions. -}</a>
+<a id="22" class="Comment">{- A semantics of extensional type theory with universes (ETU) is
+  constructed within Agda with options --safe --without-K, used as a
+  machine-checkable formalization of intentional type theory augmented
+  with a universe closed under inductive-recursive definitions
+  (ITU). The model of ETU uses a simple, but apparently new variation
+  on the notion of displayed setoids. The syntax of ETU is defined in
+  Agda in a traditional extrinsic form, using a well-scoped locally
+  nameless representation of its expressions. Giving its semantics in
+  the setoid model is complicated by the very limited means of
+  expression afforded by ITU. As a corollary we obtain a proof of the
+  consistency of ETU within ITU. -}</a>
 
-<a id="233" class="Comment">-- Some basic library functions</a>
-<a id="265" class="Keyword">open</a> <a id="270" class="Keyword">import</a> <a id="277" href="Prelude.html" class="Module">Prelude</a> <a id="285" class="Keyword">public</a>
+<a id="739" class="Comment">-- Some basic library functions</a>
+<a id="771" class="Keyword">open</a> <a id="776" class="Keyword">import</a> <a id="783" href="Prelude.html" class="Module">Prelude</a> <a id="791" class="Keyword">public</a>
 
-<a id="293" class="Comment">-- Universes of type-valued setoids</a>
-<a id="329" class="Keyword">open</a> <a id="334" class="Keyword">import</a> <a id="341" href="Setoid.html" class="Module">Setoid</a> <a id="348" class="Keyword">public</a>
+<a id="799" class="Comment">-- Universes of type-valued setoids</a>
+<a id="835" class="Keyword">open</a> <a id="840" class="Keyword">import</a> <a id="847" href="Setoid.html" class="Module">Setoid</a> <a id="854" class="Keyword">public</a>
 
-<a id="356" class="Comment">-- Extensional Martin-Löf Type Theory (ETT) (using the WSLN library</a>
-<a id="424" class="Comment">-- for well-scoped locally nameless representation of syntax), its</a>
-<a id="491" class="Comment">-- semantics in the intensional setoid model, and as a corollary its</a>
-<a id="560" class="Comment">-- logical consistency.</a>
-<a id="584" class="Keyword">open</a> <a id="589" class="Keyword">import</a> <a id="596" href="ETT.html" class="Module">ETT</a> <a id="600" class="Keyword">public</a>
+<a id="862" class="Comment">-- Extensional type theory with universes (ETU) (using the WSLN</a>
+<a id="926" class="Comment">-- library for well-scoped locally nameless representation of syntax),</a>
+<a id="997" class="Comment">-- its semantics in the intensional setoid model, and as a corollary</a>
+<a id="1066" class="Comment">-- its logical consistency.</a>
+<a id="1094" class="Keyword">open</a> <a id="1099" class="Keyword">import</a> <a id="1106" href="ETU.html" class="Module">ETU</a> <a id="1110" class="Keyword">public</a>
 </pre></body></html>
