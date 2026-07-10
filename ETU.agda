@@ -1,8 +1,5 @@
 module ETU where
 
-{-  and its semantics in the intensional
-setoid model. -}
-
 -- Library for well-scoped locally nameless representation of syntax
 open import WSLN public
 
