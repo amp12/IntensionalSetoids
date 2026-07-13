@@ -1,7 +1,10 @@
 module Setoid where
 
--- The definition of setoids and displayed setoids
+-- The definition of setoids and their morphisms
 open import Setoid.Definition public
+
+-- The definition of displayed setoids and their sections
+open import Setoid.Display public
 
 -- Inductive-recursively defined countable hierchy of nested universes
 -- of type-valued setoids closed under Pi-types, extensional equality
