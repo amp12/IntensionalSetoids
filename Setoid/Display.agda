@@ -134,78 +134,81 @@ open Fibres public
 ----------------------------------------------------------------------
 -- Re-indexing displayed setoids and their sections
 ----------------------------------------------------------------------
-infixl 6 _*₀_
-_*₀_ :
-  {A A' : Setd}
-  (_ : Setd[ A ])
-  (_ : ∣ A' ⟶ A ∣)
-  → -------------
-  Setd[ A' ]
+module ReIndex where
+  infixl 6 _*₀_
+  _*₀_ :
+    {A A' : Setd}
+    (_ : Setd[ A ])
+    (_ : ∣ A' ⟶ A ∣)
+    → -------------
+    Setd[ A' ]
 
-∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
-(B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
-hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
-hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
-htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
-coe (B *₀ f) e = coe B (cng f _ _ e)
-coh (B *₀ f) e = coh B (cng f _ _ e)
+  ∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
+  (B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
+  hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
+  hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
+  htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
+  coe (B *₀ f) e = coe B (cng f _ _ e)
+  coh (B *₀ f) e = coh B (cng f _ _ e)
 
-instance
-  *₀Apply :
-    {B A : Setd}
-    → ---------------------------------
-    Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
-  _*_ ⦃ *₀Apply ⦄ = _*₀_
+  instance
+    *₀Apply :
+      {B A : Setd}
+      → ---------------------------------
+      Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
+    _*_ ⦃ *₀Apply ⦄ = _*₀_
 
-*assoc :
-  {A A' A'' : Setd}
-  (B : Setd[ A ])
-  (f : ∣ A' ⟶ A ∣)
-  (g : ∣ A'' ⟶ A' ∣)
-  → -----------------------
-  (B * f) * g ≡ B * (f ∘ g)
+  *assoc :
+    {A A' A'' : Setd}
+    (B : Setd[ A ])
+    (f : ∣ A' ⟶ A ∣)
+    (g : ∣ A'' ⟶ A' ∣)
+    → -----------------------
+    (B * f) * g ≡ B * (f ∘ g)
 
-*assoc _ _ _ = refl
+  *assoc _ _ _ = refl
 
-*unit :
-  {A : Setd}
-  (B : Setd[ A ])
-  → -------------
-  B ≡ B * id
+  *unit :
+    {A : Setd}
+    (B : Setd[ A ])
+    → -------------
+    B ≡ B * id
 
-*unit _ = refl
+  *unit _ = refl
 
-infixl 6 [_,_]*_
-[_,_]*_ :
-  {A A' : Setd}
-  (B : Setd[ A ])
-  (_ : Setd[ A ⊩ B ])
-  (f : ∣ A' ⟶ A ∣)
-  → -----------------
-  Setd[ A' ⊩ B * f ]
+  infixl 6 [_,_]*_
+  [_,_]*_ :
+    {A A' : Setd}
+    (B : Setd[ A ])
+    (_ : Setd[ A ⊩ B ])
+    (f : ∣ A' ⟶ A ∣)
+    → -----------------
+    Setd[ A' ⊩ B * f ]
 
-∥ [ _ , g ]* f ∥ x = ∥ g ∥ (∣ f ∣ x)
-hcng ([ _ , g ]* f) _ _ e = hcng g _ _ (cng f _ _ e)
+  ∥ [ _ , g ]* f ∥ x = ∥ g ∥ (∣ f ∣ x)
+  hcng ([ _ , g ]* f) _ _ e = hcng g _ _ (cng f _ _ e)
 
-[,]*unit :
-  {A  : Setd}
-  (B : Setd[ A ])
-  (f : Setd[ A ⊩ B ])
-  → -----------------
-  f ≡ [ B , f ]* id
+  [,]*unit :
+    {A  : Setd}
+    (B : Setd[ A ])
+    (f : Setd[ A ⊩ B ])
+    → -----------------
+    f ≡ [ B , f ]* id
 
-[,]*unit _ _ = refl
+  [,]*unit _ _ = refl
 
-[,]*assoc :
-  {A A' A'' : Setd}
-  (B : Setd[ A ])
-  (f : Setd[ A ⊩ B ])
-  (g : ∣ A' ⟶ A ∣)
-  (h : ∣ A'' ⟶ A' ∣)
-  → ----------------------------------------------
-  [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
+  [,]*assoc :
+    {A A' A'' : Setd}
+    (B : Setd[ A ])
+    (f : Setd[ A ⊩ B ])
+    (g : ∣ A' ⟶ A ∣)
+    (h : ∣ A'' ⟶ A' ∣)
+    → ----------------------------------------------
+    [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
 
-[,]*assoc _ _ _ _ = refl
+  [,]*assoc _ _ _ _ = refl
+
+open ReIndex public
 
 ----------------------------------------------------------------------
 -- Comprehension structure
