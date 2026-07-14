@@ -228,7 +228,7 @@ sym (A ⋉ B) (e , e') = (sym A e , hsym B e e')
 trs (A ⋉ B) (e₁ , e₁') (e₂ , e₂') =
   (trs A e₁ e₂ , htrs B e₁ e₂ e₁' e₂')
 
-module Comprehnsion (A : Setd)(B : Setd[ A ]) where
+module Comprehension (A : Setd)(B : Setd[ A ]) where
   𝓅 : ∣ A ⋉ B ⟶ A ∣
 
   ∣ 𝓅 ∣ = π₁
