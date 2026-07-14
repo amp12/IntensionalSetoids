@@ -1,0 +1,395 @@
+amp12@harston IntensionalSetoids % agda --profile=definitions README.agda
+Checking README (/Users/amp12/git/IntensionalSetoids/README.agda).
+ Checking Prelude (/Users/amp12/git/IntensionalSetoids/Prelude.agda).
+  Checking Prelude.Level (/Users/amp12/git/IntensionalSetoids/Prelude/Level.agda).
+  Checking Prelude.Instance (/Users/amp12/git/IntensionalSetoids/Prelude/Instance.agda).
+  Checking Prelude.Notation (/Users/amp12/git/IntensionalSetoids/Prelude/Notation.agda).
+  Checking Prelude.Function (/Users/amp12/git/IntensionalSetoids/Prelude/Function.agda).
+  Checking Prelude.Identity (/Users/amp12/git/IntensionalSetoids/Prelude/Identity.agda).
+  Checking Prelude.Unit (/Users/amp12/git/IntensionalSetoids/Prelude/Unit.agda).
+  Checking Prelude.Empty (/Users/amp12/git/IntensionalSetoids/Prelude/Empty.agda).
+  Checking Prelude.Sum (/Users/amp12/git/IntensionalSetoids/Prelude/Sum.agda).
+  Checking Prelude.WellFounded (/Users/amp12/git/IntensionalSetoids/Prelude/WellFounded.agda).
+  Checking Prelude.Product (/Users/amp12/git/IntensionalSetoids/Prelude/Product.agda).
+  Checking Prelude.BiImplication (/Users/amp12/git/IntensionalSetoids/Prelude/BiImplication.agda).
+  Checking Prelude.List (/Users/amp12/git/IntensionalSetoids/Prelude/List.agda).
+  Checking Prelude.Nat (/Users/amp12/git/IntensionalSetoids/Prelude/Nat.agda).
+  Checking Prelude.Vec (/Users/amp12/git/IntensionalSetoids/Prelude/Vec.agda).
+  Checking Prelude.Fin (/Users/amp12/git/IntensionalSetoids/Prelude/Fin.agda).
+  Checking Prelude.FinInt (/Users/amp12/git/IntensionalSetoids/Prelude/FinInt.agda).
+  Checking Prelude.Decidable (/Users/amp12/git/IntensionalSetoids/Prelude/Decidable.agda).
+  Checking Prelude.Prop (/Users/amp12/git/IntensionalSetoids/Prelude/Prop.agda).
+ Checking Setoid (/Users/amp12/git/IntensionalSetoids/Setoid.agda).
+  Checking Setoid.Definition (/Users/amp12/git/IntensionalSetoids/Setoid/Definition.agda).
+  Checking Setoid.Display (/Users/amp12/git/IntensionalSetoids/Setoid/Display.agda).
+  Checking Setoid.Universes (/Users/amp12/git/IntensionalSetoids/Setoid/Universes.agda).
+  Checking Setoid.Lift (/Users/amp12/git/IntensionalSetoids/Setoid/Lift.agda).
+  Checking Setoid.PiType (/Users/amp12/git/IntensionalSetoids/Setoid/PiType.agda).
+  Checking Setoid.EqualityType (/Users/amp12/git/IntensionalSetoids/Setoid/EqualityType.agda).
+  Checking Setoid.EmptyType (/Users/amp12/git/IntensionalSetoids/Setoid/EmptyType.agda).
+  Checking Setoid.NatType (/Users/amp12/git/IntensionalSetoids/Setoid/NatType.agda).
+  Checking Setoid.CwF (/Users/amp12/git/IntensionalSetoids/Setoid/CwF.agda).
+ Checking ETU (/Users/amp12/git/IntensionalSetoids/ETU.agda).
+  Checking WSLN (/Users/amp12/git/IntensionalSetoids/WSLN.agda).
+   Checking WSLN.Index (/Users/amp12/git/IntensionalSetoids/WSLN/Index.agda).
+   Checking WSLN.Atom (/Users/amp12/git/IntensionalSetoids/WSLN/Atom.agda).
+   Checking WSLN.Fresh (/Users/amp12/git/IntensionalSetoids/WSLN/Fresh.agda).
+   Checking WSLN.Sig.Sig (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Sig.agda).
+   Checking WSLN.Sig.Term (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Term.agda).
+   Checking WSLN.Sig.Substitution (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Substitution.agda).
+   Checking WSLN.Sig.Concretion (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Concretion.agda).
+   Checking WSLN.Sig.Abstraction (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Abstraction.agda).
+   Checking WSLN.Sig.Size (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Size.agda).
+  Checking ETU.Syntax (/Users/amp12/git/IntensionalSetoids/ETU/Syntax.agda).
+  Checking ETU.Judgement (/Users/amp12/git/IntensionalSetoids/ETU/Judgement.agda).
+  Checking ETU.Cofinite (/Users/amp12/git/IntensionalSetoids/ETU/Cofinite.agda).
+  Checking ETU.Ok (/Users/amp12/git/IntensionalSetoids/ETU/Ok.agda).
+  Checking ETU.WellScoped (/Users/amp12/git/IntensionalSetoids/ETU/WellScoped.agda).
+  Checking ETU.Weakening (/Users/amp12/git/IntensionalSetoids/ETU/Weakening.agda).
+  Checking ETU.Substitution (/Users/amp12/git/IntensionalSetoids/ETU/Substitution.agda).
+  Checking ETU.Admissible (/Users/amp12/git/IntensionalSetoids/ETU/Admissible.agda).
+  Checking ETU.ExistsFresh (/Users/amp12/git/IntensionalSetoids/ETU/ExistsFresh.agda).
+  Checking ETU.Uniqueness (/Users/amp12/git/IntensionalSetoids/ETU/Uniqueness.agda).
+  Checking ETU.Semantics (/Users/amp12/git/IntensionalSetoids/ETU/Semantics.agda).
+   Checking ETU.Semantics.Relation (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Relation.agda).
+   Checking ETU.Semantics.Ok (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Ok.agda).
+   Checking ETU.Semantics.WellScoped (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/WellScoped.agda).
+   Checking ETU.Semantics.SingleValued (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/SingleValued.agda).
+   Checking ETU.Semantics.Weakening (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Weakening.agda).
+   Checking ETU.Semantics.Substitution (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Substitution.agda).
+   Checking ETU.Semantics.ExistsFresh (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/ExistsFresh.agda).
+   Checking ETU.Semantics.Total (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Total.agda).
+   Checking ETU.Semantics.Soundness (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Soundness.agda).
+   Checking ETU.Semantics.Consistency (/Users/amp12/git/IntensionalSetoids/ETU/Semantics/Consistency.agda).
+Total                                 146,669ms
+Miscellaneous                          61,722ms
+ETU.Semantics.Total._.q                34,782ms
+ETU.Semantics.Total.conv⟦tm⟧           11,905ms
+ETU.Semantics.SingleValued.sv⟦tm⟧'      2,641ms
+ETU.Semantics.Total._.qt₁'              2,559ms
+ETU.Semantics.Total._.t₁₀               2,489ms
+ETU.Semantics.Total._.q''               1,940ms
+ETU.Semantics.Total._.qe₀'              1,938ms
+ETU.Semantics.Total._.qt₀'              1,629ms
+ETU.Substitution.sbJg                   1,598ms
+ETU.Semantics.Total.tot⟦tm⟧             1,578ms
+ETU.WellScoped.⊢supp                    1,143ms
+ETU.Semantics.Total._.e₂                1,089ms
+ETU.Semantics.Substitution.sb⟦tm⟧       1,041ms
+ETU.Semantics.Total._.qe₁'              1,012ms
+ETU.Semantics.Total._.q'                  698ms
+ETU.Semantics.Weakening.▷⟦tm⟧             597ms
+ETU.Semantics.Total._.q'                  574ms
+ETU.Substitution.＝sbTm                    536ms
+ETU.Semantics.Total._.q'                  498ms
+ETU.Semantics.Total._.q'                  456ms
+ETU.Semantics.Total._.r₀                  443ms
+ETU.Semantics.Total._.r₊                  432ms
+ETU.Semantics.SingleValued.sv⟦vr⟧'        340ms
+ETU.Uniqueness.svTy                       326ms
+ETU.Semantics.WellScoped.supp⟦tm⟧         297ms
+ETU.Weakening.▷Jg                         296ms
+ETU.ExistsFresh._.eq                      286ms
+ETU.ExistsFresh._.eq                      239ms
+ETU.Semantics.Weakening.▷⟦vrOld⟧          237ms
+ETU.Semantics.Total._.qs₊'                224ms
+ETU.Semantics.Total._.t₁'                 221ms
+ETU.Semantics.Total._.t₀'                 217ms
+ETU.Semantics.Total._.T                   195ms
+ETU.Semantics.Total._.r₀                  193ms
+ETU.ExistsFresh._.eq                      189ms
+ETU.Semantics.Total._.r₊                  183ms
+ETU.Semantics.Total._.r₀                  182ms
+ETU.Substitution.lift＝Sb²                 181ms
+ETU.Semantics.Total._.r₊                  176ms
+ETU.Semantics.Ok.ok⟦tm⟧                   164ms
+ETU.Substitution._._._.q₁'                152ms
+ETU.Cofinite._⊢_                          151ms
+ETU.ExistsFresh._.eq                      149ms
+ETU.Semantics.Total._.rs₊                 142ms
+ETU.Semantics.Substitution.sb⟦vrOld⟧      134ms
+ETU.Semantics.Total._.r₀                  130ms
+ETU.Semantics.Total.tot⟦vr⟧               119ms
+ETU.Semantics.Weakening.▷⟦vrNew⟧          118ms
+ETU.ExistsFresh.𝐧𝐫𝐞𝐜Cong⁻                 114ms
+ETU.Admissible.conc＝Ty²∞                  111ms
+ETU.Admissible.⊢ty₂                       104ms
+ETU.Semantics.Substitution.⟦conc⟧²         97ms
+ETU.Semantics.Total._.T'                   93ms
+ETU.Substitution._._._.eq'                 92ms
+ETU.Substitution._._._.q₂'                 90ms
+ETU.Semantics.ExistsFresh.⟦𝐧𝐫𝐞𝐜⟧⁻          90ms
+ETU.Substitution._._._.q₂'                 89ms
+ETU.Semantics.Substitution.sb⟦vrNew⟧       87ms
+ETU.Substitution._._._.eq                  82ms
+ETU.Admissible._.q                         80ms
+ETU.Semantics.Total._.r₁                   77ms
+ETU.Semantics.Substitution.lift⟦sb⟧²       77ms
+ETU.Semantics.Substitution.sb⟦vr⟧          76ms
+ETU.Substitution._._._.eq'                 76ms
+ETU.Semantics.Total._.r₀                   75ms
+ETU.Semantics.Weakening.▷⟦vr⟧              74ms
+ETU.Semantics.Relation.⟦_⊢[_]_tm⟧＝         68ms
+ETU.Admissible.⊢ty₁                        67ms
+ETU.Substitution._._._.eq'                 67ms
+ETU.Substitution._._._.eq'                 66ms
+ETU.ExistsFresh.𝐍𝐚𝐭Beta₊⁻                  66ms
+ETU.Semantics.ExistsFresh.⟦α⟧²             66ms
+ETU.Semantics.Substitution.lift⟦sb⟧²⁻      65ms
+ETU.Semantics.Total._.S'                   64ms
+ETU.Substitution._._.eq                    60ms
+ETU.Semantics.Total._.q₀'                  59ms
+ETU.ExistsFresh.⊢𝐧𝐫𝐞𝐜⁻                     59ms
+ETU.Semantics.Total._.q₀'                  58ms
+ETU.ExistsFresh.𝐍𝐚𝐭Beta₀⁻                  57ms
+ETU.Semantics.Total._.rS                   55ms
+ETU.Admissible.conc＝Ty²                    54ms
+Setoid.PiType.PI≥                          51ms
+ETU.Substitution._._._.q₁'                 51ms
+ETU.Substitution._._._.q₁'                 50ms
+ETU.Semantics.Substitution._.q₀'           50ms
+ETU.Admissible._.e                         50ms
+ETU.Semantics.Total._.qN                   49ms
+ETU.Semantics.Weakening._.e₂               48ms
+ETU.Semantics.Total._.rs                   48ms
+Setoid.CwF.𝒫𝒾ℰ𝓉𝒶.e'                        47ms
+ETU.Semantics.Total._.r                    46ms
+Setoid.Display.Π                           46ms
+ETU.Semantics.Substitution.wk⟦sb⟧          46ms
+ETU.Semantics.ExistsFresh._.e              45ms
+ETU.Semantics.Total._.r                    45ms
+ETU.Semantics.Total._.qe₀                  45ms
+ETU.Semantics.Total._.qe₁                  45ms
+ETU.Substitution._._.q₂'                   44ms
+ETU.Semantics.Total._.rs                   43ms
+ETU.Semantics.ExistsFresh.⟦α⟧²'            43ms
+WSLN.Sig.Concretion.sbUpdate[]²            42ms
+ETU.Semantics.Total._.qs₊                  41ms
+Setoid.CwF.ntrl𝓃𝓇ℯ𝒸                        40ms
+ETU.Semantics.ExistsFresh._.p              40ms
+ETU.ExistsFresh._.q''                      39ms
+ETU.Semantics.Ok.ok⟦vr⟧                    39ms
+ETU.Semantics.Total._.qs₀                  39ms
+ETU.Semantics.Total._.qs₀'                 39ms
+ETU.Semantics.Total._.T                    38ms
+ETU.Semantics.Total._.qS                   37ms
+ETU.Semantics.Total._.qS'                  37ms
+ETU.Semantics.WellScoped.supp⟦vr⟧          37ms
+ETU.Semantics.Total._.qs'                  37ms
+ETU.Semantics.Total._.qs                   37ms
+ETU.Semantics.Ok.⟦∈⟧→dom                   37ms
+ETU.Semantics.Total._.T                    37ms
+Setoid.CwF.ℰ𝓁𝓉                             36ms
+Setoid.CwF.ntrl𝒶𝓅𝓅                         36ms
+ETU.Semantics.Weakening._.e₂               35ms
+ETU.Substitution.rn⨟²                      34ms
+WSLN.Sig.Concretion.opn<                   34ms
+ETU.ExistsFresh.𝚷⁻¹                        33ms
+ETU.Semantics.Total._.qt₀                  33ms
+ETU.Semantics.Total._.qt₁                  33ms
+ETU.Semantics.Weakening._.e₁               33ms
+ETU.Semantics.Weakening._.q₀'              33ms
+ETU.Ok.⊢ok                                 32ms
+ETU.Semantics.Total._.t₁                   32ms
+ETU.Semantics.Total._.t₀                   32ms
+ETU.Semantics.Substitution.⟦sb⟧Ext         31ms
+ETU.ExistsFresh.∙Cong⁻                     30ms
+ETU.ExistsFresh._._.eq                     30ms
+ETU.Semantics.ExistsFresh.⟦∙⟧⁻             30ms
+WSLN.Sig.Abstraction.#cls'≠                30ms
+ETU.ExistsFresh.𝛌Cong⁻                     29ms
+ETU.Admissible.⊢∶ty                        29ms
+ETU.Semantics.Total._.rh₁                  29ms
+ETU.Substitution._._.q₀'                   28ms
+ETU.Semantics.ExistsFresh.⟦𝛌⟧⁻             28ms
+ETU.Semantics.Total._.re                   28ms
+ETU.Semantics.Substitution.⟦conc⟧          28ms
+ETU.Substitution.liftSb²                   27ms
+ETU.Semantics.Weakening._.e₁               27ms
+WSLN.Index.removeIrrel                     26ms
+ETU.Semantics.Total._.s₊                   26ms
+ETU.Substitution._._.q₀'                   26ms
+ETU.Semantics.Total._.s₀                   26ms
+ETU.Substitution.ssb＝Update²               26ms
+ETU.Semantics.Total._.qs₊                  26ms
+ETU.Semantics.Total._.s₊                   26ms
+ETU.Semantics.Total._.s₀                   25ms
+ETU.Semantics.Weakening.ok⟦▷⟧              25ms
+Setoid.CwF.𝒫𝒾ℰ𝓉𝒶._.q                       25ms
+ETU.Semantics.Total._.s₊                   25ms
+ETU.Semantics.Total._.qs₀                  25ms
+ETU.Semantics.Total._.s₀                   25ms
+ETU.Semantics.Total._.qs₊                  25ms
+ETU.Semantics.Substitution._.q'            25ms
+Setoid.Universes.Elω                       25ms
+ETU.Uniqueness.svVr                        24ms
+ETU.Semantics.Total._.qS                   24ms
+ETU.Semantics.Total._.qs₀                  24ms
+ETU.Semantics.Total._.S                    24ms
+Setoid.Universes._.htrs₊                   24ms
+ETU.Semantics.Total._.qs                   24ms
+ETU.Semantics.Total._.qT                   24ms
+ETU.Semantics.Total._.s                    24ms
+WSLN.Sig.Concretion.sb[]                   24ms
+ETU.Admissible._.q                         24ms
+Setoid.PiType.PI                           24ms
+ETU.Semantics.Total._.S                    24ms
+Setoid.Universes.htrsω                     24ms
+ETU.Semantics.Total._.qS                   24ms
+ETU.ExistsFresh.𝚷Beta⁻                     23ms
+ETU.Admissible.concTy²                     23ms
+ETU.Semantics.Total._.N                    23ms
+Setoid.Universes._.trs₊                    23ms
+ETU.Semantics.Total._.S                    23ms
+ETU.Semantics.Substitution.⟦sb⟧Update      22ms
+ETU.Substitution._.p'                      22ms
+ETU.Semantics.Total._.te                   22ms
+ETU.Semantics.Total._.s                    22ms
+ETU.Semantics.Total._.S                    22ms
+ETU.ExistsFresh.⊢𝛌⁻                        22ms
+ETU.Semantics.Total._.qS                   22ms
+ETU.Substitution._.q''                     22ms
+ETU.Semantics.WellScoped.supp⟦tm²⟧         22ms
+ETU.Semantics.Substitution.lift⟦sb⟧        22ms
+ETU.Semantics.Total._.T                    21ms
+ETU.Semantics.Substitution._.e'            21ms
+Setoid.CwF.𝓃𝓇ℯ𝒸                            21ms
+ETU.Semantics.Weakening.ok→⟦ty⟧            21ms
+WSLN.Sig.Abstraction.cls#'                 21ms
+ETU.Admissible.conc＝Ty∞                    21ms
+Prelude.Product.∑ext₂                      21ms
+Setoid.CwF.ℋℴ𝓂                             21ms
+ETU.Semantics.Total._.rS                   21ms
+ETU.Semantics.Total.tot⟦cx⟧                21ms
+Setoid.Universes._.coe₊                    21ms
+ETU.Semantics.Weakening._.e'               21ms
+ETU.Admissible._.q'                        20ms
+ETU.Substitution.sb＝Update                 20ms
+ETU.Semantics.ExistsFresh.⟦α⟧              20ms
+WSLN.Sig.Abstraction.sbCls                 19ms
+ETU.Substitution.ssbUpdate²                19ms
+ETU.Substitution._._.h₁'                   19ms
+Setoid.CwF.ntrl𝓁𝒶𝓂                         19ms
+ETU.ExistsFresh._.y#C                      19ms
+WSLN.Sig.Abstraction.cls#                  19ms
+WSLN.Sig.Concretion.suppOpn'               18ms
+Setoid.Universes.coe₀                      18ms
+WSLN.Sig.Abstraction.alphaEquiv            18ms
+ETU.ExistsFresh.𝚷Eta⁻                      18ms
+ETU.Semantics.Total._.q                    18ms
+ETU.WellScoped.⊢supp＝²₂                    18ms
+ETU.Substitution._._.h'                    18ms
+ETU.Admissible.concTm                      18ms
+ETU.WellScoped.⊢supp＝²₁                    18ms
+ETU.Semantics.Total._.q                    18ms
+ETU.Semantics.Substitution._.s₊'           18ms
+Setoid.CwF.𝒫𝒾ℰ𝓉𝒶.etaPf                     18ms
+ETU.Semantics.Substitution.lift⟦sb⟧⁻       17ms
+ETU.Semantics.ExistsFresh._.e              17ms
+ETU.WellScoped.⊢supp²                      17ms
+ETU.Substitution.rn⨟                       17ms
+ETU.Semantics.Total._.rs                   17ms
+ETU.Semantics.Weakening._.s₊'              17ms
+WSLN.Sig.Abstraction.sbCls'                17ms
+ETU.Admissible.conc＝Ty                     17ms
+WSLN.Sig.Concretion.opn<'                  17ms
+ETU.Semantics.Total._.q                    17ms
+ETU.Semantics.Total._.q                    16ms
+ETU.Semantics.Substitution.ok⟦sb⟧          16ms
+ETU.Substitution._._.h'                    16ms
+ETU.ExistsFresh.𝚷Cong⁻                     16ms
+Setoid.Universes.htrs₀                     16ms
+ETU.Weakening.▷Var                         16ms
+ETU.Admissible._.r                         16ms
+Setoid.CwF.𝒫𝒾𝒷ℯ𝓉𝒶                          16ms
+ETU.Semantics.Relation.resp⟦cx⟧            16ms
+ETU.Substitution.sb＝Ext                    16ms
+WSLN.Index.insert<                         16ms
+Setoid.Universes.trs₀                      15ms
+ETU.Semantics.Substitution._.e₂''          15ms
+ETU.WellScoped.Oksupp                      15ms
+ETU.Admissible.concTm∞                     15ms
+ETU.Semantics.Weakening._.e₂''             15ms
+ETU.Semantics.Total._.T                    15ms
+ETU.Judgement.jgRespSupp                   14ms
+WSLN.Sig.Term._.decTrmEq                   14ms
+ETU.Semantics.ExistsFresh._.p              14ms
+WSLN.Sig.Concretion.sbOpn                  14ms
+ETU.Semantics.SingleValued._.q''           14ms
+ETU.Substitution._.p                       14ms
+ETU.Substitution._._.h'                    14ms
+WSLN.Sig.Size._.sizeRn'                    14ms
+WSLN.Sig.Concretion.ssb[]²                 14ms
+WSLN.Sig.Abstraction.opnCls                14ms
+ETU.ExistsFresh._.q'                       14ms
+WSLN.Sig.Abstraction.abs#                  13ms
+Setoid.Display.Σ                           13ms
+ETU.Substitution.sbVar＝                    13ms
+ETU.Semantics.Relation.⟦_⊢[_]_vr⟧＝         13ms
+WSLN.Sig.Term.𝐨Inj                         13ms
+WSLN.Sig.Abstraction.clsOpn                13ms
+ETU.Substitution.sbUpdate                  13ms
+ETU.Semantics.Substitution._.t'            13ms
+ETU.Substitution._._.h'                    13ms
+ETU.Substitution._._.h'                    13ms
+ETU.Semantics.Soundness.sound              13ms
+Setoid.PiType.pi₌                          12ms
+Setoid.Display._*₀_                        12ms
+ETU.Semantics.Weakening._.t'               12ms
+ETU.Semantics.Total.conv⟦ty⟧               12ms
+ETU.Semantics.SingleValued.sv⟦tm⟧          12ms
+ETU.Semantics.SingleValued.sv⟦vr⟧          12ms
+WSLN.Index.remove<                         12ms
+Setoid.PiType.PI≤                          12ms
+Setoid.CwF.ℱ𝒶𝓂                             12ms
+ETU.Substitution.lift＝Sb                   12ms
+ETU.Substitution._.⊢A'                     12ms
+ETU.ExistsFresh.⊢∙⁻                        12ms
+ETU.Semantics.Weakening.wk⟦vr⟧             12ms
+ETU.Substitution.sbVar                     12ms
+ETU.Semantics.Weakening.⟦_▷_⟧＝             12ms
+ETU.Semantics.Weakening.wk⟦tm⟧             12ms
+ETU.Semantics.Substitution.⟦id⟧            12ms
+WSLN.Sig.Concretion.sbUpdate[]             12ms
+Setoid.Universes._.coh₊                    12ms
+WSLN.Sig.Concretion.rnUpdate[]             12ms
+WSLN.Sig.Substitution.sb‿'                 12ms
+WSLN.Sig.Substitution.sb‿                  12ms
+ETU.Admissible.CxTrans                     11ms
+ETU.Semantics.WellScoped.supp⟦tm¹⟧         11ms
+Setoid.CwF.ntrl𝓇𝒻𝓁                         11ms
+Setoid.Universes._,_≈₀_,_                  11ms
+ETU.Admissible._.q                         11ms
+WSLN.Sig.Concretion.sbOpn'                 11ms
+ETU.ExistsFresh._.y#C                      11ms
+ETU.ExistsFresh._.y#C                      11ms
+ETU.Admissible._.s                         11ms
+ETU.ExistsFresh._.y#Cs                     11ms
+ETU.Semantics.Total.conv⟦tm⟧'              11ms
+ETU.Admissible._.q                         11ms
+WSLN.Sig.Abstraction.suppCls'              11ms
+ETU.Semantics.Weakening.⟦▷⨟⟧⁻              11ms
+ETU.Semantics.Substitution._.p             11ms
+WSLN.Sig.Abstraction.rnAbs                 10ms
+ETU.Semantics.SingleValued.sv⟦ty⟧'         10ms
+WSLN.Sig.Concretion.suppOpn                10ms
+ETU.ExistsFresh._.y#C                      10ms
+Setoid.Universes.hsymω                     10ms
+WSLN.Sig.Term._.decArgEq                   10ms
+WSLN.Sig.Abstraction.opnCls'               10ms
+ETU.ExistsFresh._.x#B                      10ms
+WSLN.Sig.Concretion.sb[]²                  10ms
+WSLN.Sig.Concretion.opnSupp'               10ms
+ETU.WellScoped.⊢supp＝¹₂                    10ms
+ETU.ExistsFresh._.x'#B                     10ms
+WSLN.Sig.Term._._.f                        10ms
+ETU.WellScoped.⊢supp＝¹₃                    10ms
+WSLN.Index.isProp≠                         10ms
+ETU.WellScoped.⊢supp＝¹₁                    10ms
+Setoid.Universes.trsω                      10ms
+ETU.Admissible._.q'                        10ms
+ETU.Semantics.ExistsFresh.⟦𝚷⟧⁻             10ms
+ETU.Semantics.Substitution.⟦_⊢_∶_sb⟧＝      10ms
+WSLN.Sig.Concretion.opnFin<                10ms
+WSLN.Sig.Abstraction.#cls≠                 10ms
+amp12@harston IntensionalSetoids %
