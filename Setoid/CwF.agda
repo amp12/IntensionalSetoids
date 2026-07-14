@@ -99,7 +99,7 @@ cng (unit C) _ _ _ = tt
 ----------------------------------------------------------------------
 
 {- Since we wish to ensure that, up to definitional equality, families
-are elements of universes, we begin with the definition of elements
+are sections of universes, we begin with the definition of elements
 and then define families in terms of them. The use of a record type
 rather than a Σ-type helps with inferring universe levels. -}
 
