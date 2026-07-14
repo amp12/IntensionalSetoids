@@ -109,52 +109,47 @@ instance
 
 -- *unit B = refl
 
--- The fibres of a displayed setoid are setoids
-infix 6 _′_
-_′_ :
-  {A : Setd}
-  (B : Setd[ A ])
-  (x : ∣ A ∣)
-  → -------------
-  Setd
+module Fibres {A : Setd} where
+  infix 6 _′_
+  -- the fibres of a displayed setoid
+  _′_ : Setd[ A ] → ∣ A ∣ → Setd
+  ∣ B ′ x ∣ = ∥ B ∥ x
+  (B ′ x ∋ y ~ y') = B ∋ x , y ≈ x , y'
+  rfl (B ′ x) = hrfl B x
+  sym (_′_ B x) = hsym B (rfl A x)
+  trs (_′_ B x) = htrs B (rfl A x) (rfl A x)
 
-∣ B ′ x ∣ = ∥ B ∥ x
-(B ′ x ∋ y ~ y') = B ∋ x , y ≈ x , y'
-rfl (B ′ x) = hrfl B x
-sym (_′_ {A} B x) = hsym B (rfl A x)
-trs (_′_ {A} B x) = htrs B (rfl A x) (rfl A x)
+  -- induced morphisms between fibres
+  infix 6 _′′_
+  _′′_  :
+    (B : Setd[ A ])
+    {x₁ x₂ : ∣ A ∣}
+    (_ : A ∋ x₁ ~ x₂)
+    → -----------------
+    ∣ B ′ x₁ ⟶ B ′ x₂ ∣
 
--- Induced morphisms between fibres
-infix 6 _′′_
-_′′_  :
-  {A : Setd}
-  (B : Setd[ A ])
-  {x₁ x₂ : ∣ A ∣}
-  (_ : A ∋ x₁ ~ x₂)
-  → -----------------
-  ∣ B ′ x₁ ⟶ B ′ x₂ ∣
+  ∣ B ′′ e ∣ = coe B e
+  cng (_′′_ B e) y y' e' = htrs B
+    (sym A e)
+    e
+    (coh⁻¹ B e y)
+    (htrs B (rfl A _) e e' (coh B e y'))
 
-∣ B ′′ e ∣ = coe B e
-cng (_′′_ {A} B e) y y' e' = htrs B
-  (sym A e)
-  e
-  (coh⁻¹ B e y)
-  (htrs B (rfl A _) e e' (coh B e y'))
+  -- proof irrelevance for the induced morphisms between fibres
+  ′′irrel :
+    (B : Setd[ A ])
+    {x₁ x₂ : ∣ A ∣}
+    (e₁ e₂ : A ∋ x₁ ~ x₂)
+    → -----------------------------------
+    (B ′ x₁ ⟶ B ′ x₂) ∋ B ′′ e₁ ~ B ′′ e₂
 
--- Proof irrelevance for the induced morphisms between fibres
-′′irrel :
-  {A : Setd}
-  (B : Setd[ A ])
-  {x₁ x₂ : ∣ A ∣}
-  (e₁ e₂ : A ∋ x₁ ~ x₂)
-  → -----------------------------------
-  (B ′ x₁ ⟶ B ′ x₂) ∋ B ′′ e₁ ~ B ′′ e₂
+  ′′irrel B e₁ e₂ y = htrs B
+    (sym A e₁)
+    e₂
+    (coh⁻¹ B e₁ y)
+    (coh B e₂ y)
 
-′′irrel {A} B e₁ e₂ y = htrs B
-  (sym A e₁)
-  e₂
-  (coh⁻¹ B e₁ y)
-  (coh B e₂ y)
+open Fibres public
 
 -- Constant displayed setoids
 K :
