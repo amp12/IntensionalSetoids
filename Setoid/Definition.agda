@@ -83,7 +83,7 @@ sym (A ⟶ B) e x    = sym B (e x)
 trs (A ⟶ B) e e' x = trs B (e x) (e' x)
 
 -- Properties of setoid morphisms
-module SetdHomProperties where
+module HomProperties where
   -- identity morphism
   instance
     SetdIdentity : ∀{A} → Identity (SetdHom A A)
@@ -125,28 +125,7 @@ module SetdHomProperties where
 
   setd-unitr _ = refl
 
-open SetdHomProperties public
-
--- Constant morphisms
-ｋ :
-  {B A : Setd}
-  (b : ∣ B ∣)
-  → ----------
-  ∣ A ⟶ B ∣
-
-∣ ｋ b ∣ _ = b
-cng (ｋ{B}  b) _ _ e = rfl B b
-
-----------------------------------------------------------------------
--- Discrete setoids
-----------------------------------------------------------------------
-▵ : Set → Setd
-
-∣ ▵ S ∣ = S
-▵ S ∋ x ~ x' = x ≡ x'
-rfl (▵ S) _ = refl
-sym (▵ S) refl = refl
-trs (▵ S) refl refl = refl
+open HomProperties public
 
 ----------------------------------------------------------------------
 -- Indexed coproduct of setoids
@@ -190,22 +169,3 @@ A ⊗ B ∋ (x , y) ~ (x' , y')  = (A ∋ x ~ x') × (B ∋ y ~ y')
 rfl (A ⊗ B) (x , y) = (rfl A x , rfl B y)
 sym (A ⊗ B) (e , e') = (sym A e , sym B e')
 trs (A ⊗ B) (e , e') (f , f') = (trs A e f , trs B e' f')
-
-----------------------------------------------------------------------
--- Indexed product of setoids
-----------------------------------------------------------------------
-∏ : (I : Set) → (I → Setd) → Setd
-
-∣ ∏ I A ∣ = (i : I) → ∣ A i ∣
-∏ I A ∋ f ~ f' = ∀ i → A i ∋ f i ~ f' i
-rfl (∏ I A) f i = rfl (A i) (f i)
-sym (∏ I A) e i = sym (A i) (e i)
-trs (∏ I A) e e' i = trs (A i) (e i) (e' i)
-
-infix 2 ∏-syntax
-∏-syntax : (I : Set) → (I → Setd) → Setd
-∏-syntax = ∏
-
-syntax ∏-syntax I (λ i → A) = ∏[ i ∈ I ] A
-
-{-# DISPLAY ∏-syntax = ∏ #-}
