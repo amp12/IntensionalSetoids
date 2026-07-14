@@ -707,7 +707,7 @@ conv⟦tm⟧ (Reflect{l} q₀ q₁ q₂ h) =
   (C , T , t , qT , qt ,
     resp⟦tm⟧ qt'
       (rflω C , hrfl (ℱ𝒶𝓂 l) C T ,
-        hsym (ℰ𝓁𝓉 l){a = t}{t'}
+        hsym (ℰ𝓁𝓉 l){y = t}{t'}
           (rfl (Σℱ𝒶𝓂 l) (C , T))
           (𝓇ℯ𝒻𝓁ℯ𝒸𝓉 l T t t' e)))
 
@@ -721,7 +721,7 @@ conv⟦tm⟧ (UIP{l} q₀ q₁ q₂ q₃ h) =
   in
   (C , ℰ𝓆 l T t t' , e , ⟦𝐄𝐪⟧ qT qt qt' , qe , resp⟦tm⟧ qe'
     (rflω C , hrfl (ℱ𝒶𝓂 l) C (ℰ𝓆 l T t t') ,
-      hsym (ℰ𝓁𝓉 l){a = e}{e'}
+      hsym (ℰ𝓁𝓉 l){y = e}{e'}
         (rfl (Σℱ𝒶𝓂 l) (C , ℰ𝓆 l T t t'))
         (𝓊𝒾𝓅 l T t t' e e')))
 
@@ -851,9 +851,9 @@ conv⟦tm⟧{Γ = Γ} (𝚷Eta{l}{l'}{A}{B}{b}{b'} X q₀ q₁ q₂ h₀ h₁)
     (⟦𝐯⟧ (⟦new⟧ qS x#Γ))
 
   e₂ : ℰ𝓁𝓉 l' ∋
-    (C ⋉[ l ] S , ⟪ 𝓆 S ⟫ * T') ⸴ 𝒶𝓅𝓅 l l' S' T' t₁' (𝓆 S)
+    (C ⋉[ l ] S , ⟪ 𝓆 S ⟫ * T') , 𝒶𝓅𝓅 l l' S' T' t₁' (𝓆 S)
     ≈
-    (C ⋉[ l ] S , ⟪ 𝓆 S ⟫ * T') ⸴ 𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S)
+    (C ⋉[ l ] S , ⟪ 𝓆 S ⟫ * T') , 𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S)
   e₂ = htrs (ℰ𝓁𝓉 l')
     {C ⋉[ l ] S , ⟪ 𝓆 S ⟫ * T'}
     {C ⋉[ l ] S , T}
@@ -868,7 +868,7 @@ conv⟦tm⟧{Γ = Γ} (𝚷Eta{l}{l'}{A}{B}{b}{b'} X q₀ q₁ q₂ h₀ h₁)
 
   t₁₀ : (ℰ𝓁𝓉 (max l l')) ′ (C , 𝒫𝒾 l l' S T) ∋  t₁ ~  t₀
   t₁₀ c c' u = htrs (ℰ𝓁 (max l l'))
-    {a' = ∥ 𝓁𝒶𝓂 l l' S {⟪ 𝓆 S ⟫ * T'} (𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S)) ∥ c}
+    {y' = ∥ 𝓁𝒶𝓂 l l' S {⟪ 𝓆 S ⟫ * T'} (𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S)) ∥ c}
     (PI.tyCong (pi l l') _ _ _ _ _ _
       (rfl (𝒰 l)
       (∥ S ∥ c))
@@ -899,38 +899,6 @@ conv⟦tm⟧{Γ = Γ} (𝚷Eta{l}{l'}{A}{B}{b}{b'} X q₀ q₁ q₂ h₀ h₁)
         (λ y y' v →
           e₂ (c , y) (c , y') (hrflω C c , refl , v))))
     (𝒫𝒾ℰ𝓉𝒶.etaPf C l l' S T t₀ c c' u)
-    -- The above proof of t₁₀ optimizes the following slow, but more
-    -- conceptual proof:
-    -- htrs (ℰ𝓁𝓉 (max l l'))
-    -- {C , 𝒫𝒾 l l' S T}
-    -- {C , 𝒫𝒾 l l' S (⟪ 𝓆 S ⟫ * T')}
-    -- {C , 𝒫𝒾 l l' S T}
-    -- {t₁}
-    -- {𝓁𝒶𝓂 l l' S {⟪ 𝓆 S ⟫ * T'} (𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S))}
-    -- {t₀}
-    -- (rflω C , cong𝒫𝒾 l l' {S}{S}{T}{⟪ 𝓆 S ⟫ * T'} (hrfl (ℱ𝒶𝓂 l) C S) (hcng T))
-    -- (rflω C , cong𝒫𝒾 l l' {S}{S}{⟪ 𝓆 S ⟫ * T'}{T} (hrfl (ℱ𝒶𝓂 l) C S) (hcng T))
-    -- (htrs (ℰ𝓁𝓉 (max l l'))
-    --   {C , 𝒫𝒾 l l' S T}
-    --   {C , 𝒫𝒾 l l' S (⟪ 𝓆 S ⟫ * T')}
-    --   {C , 𝒫𝒾 l l' S (⟪ 𝓆 S ⟫ * T')}
-    --   {t₁}
-    --   {𝓁𝒶𝓂 l l' S (𝒶𝓅𝓅 l l' S' T' t₁' (𝓆 S))}
-    --   {𝓁𝒶𝓂 l l' S {⟪ 𝓆 S ⟫ * T'} (𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S))}
-    --   (rflω C , cong𝒫𝒾 l l' {S}{S}{T}{⟪ 𝓆 S ⟫ * T'} (hrfl (ℱ𝒶𝓂 l) C S) (hcng T))
-    --   (rflω C , hrfl (ℱ𝒶𝓂 ((max l l'))) C (𝒫𝒾 l l' S (⟪ 𝓆 S ⟫ * T')))
-    --   (hsym (ℰ𝓁𝓉 (max l l'))
-    --     {C , 𝒫𝒾 l l' S (⟪ 𝓆 S ⟫ * T')}
-    --     {C , 𝒫𝒾 l l' S T}
-    --     {𝓁𝒶𝓂 l l' S (𝒶𝓅𝓅 l l' S' T' t₁' (𝓆 S))}
-    --     {t₁}
-    --     (rflω C , cong𝒫𝒾 l l' {S}{S}{⟪ 𝓆 S ⟫ * T'}{T} (hrfl (ℱ𝒶𝓂 l) C S) (hcng T))
-    --     (𝒫𝒾ℰ𝓉𝒶.etaPf C l l' S T t₁))
-    --   (cong𝓁𝒶𝓂 l l' {S}{S}{⟪ 𝓆 S ⟫ * T'}{⟪ 𝓆 S ⟫ * T'}
-    --     {𝒶𝓅𝓅 l l' S' T' t₁' (𝓆 S)}
-    --     {𝒶𝓅𝓅 l l' S' T' t₀' (𝓆 S)}
-    --     e₂))
-    -- (𝒫𝒾ℰ𝓉𝒶.etaPf C l l' S T t₀)
 
   q : ⟦ Γ ⊢[ max l l' ] b' tm⟧＝ (C , 𝒫𝒾 l l' S T , t₀)
   q = resp⟦tm⟧

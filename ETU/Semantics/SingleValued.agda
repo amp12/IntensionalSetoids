@@ -259,8 +259,8 @@ sv⟦vr⟧' (⟦new⟧{l}{C = C}{T} q x#)
    q'')
   where
   q'' : ℰ𝓁𝓉 l ∋
-    (C ⋉[ l ] T , 𝓅 T * T) ⸴ 𝓆 T ≈
-    (C' ⋉[ l ] T' , 𝓅 T' * T') ⸴ 𝓆 T'
+    (C ⋉[ l ] T , 𝓅 T * T) , 𝓆 T ≈
+    (C' ⋉[ l ] T' , 𝓅 T' * T') , 𝓆 T'
   q'' _ _ (_ , v , w)
     with refl ← ! ⦃ !≡ ⦄ v refl = w
 

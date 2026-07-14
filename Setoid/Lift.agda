@@ -3,6 +3,7 @@ module Setoid.Lift where
 open import Prelude
 
 open import Setoid.Definition
+open import Setoid.Display
 open import Setoid.Universes
 
 ----------------------------------------------------------------------
@@ -11,8 +12,8 @@ open import Setoid.Universes
 Ins :
   {m n : ℕ}
   (_ : n ≥ m)
-  → ---------------
-  Setd[ 𝒰 m ⟶ 𝒰 n ]
+  → -----------
+  ∣ 𝒰 m ⟶ 𝒰 n ∣
 
 ∣ Ins ≥refl ∣ = id
 ∣ Ins (≥step p) ∣ = In ∘ ∣ Ins p ∣

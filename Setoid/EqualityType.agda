@@ -3,6 +3,7 @@ module Setoid.EqualityType where
 open import Prelude
 
 open import Setoid.Definition
+open import Setoid.Display
 open import Setoid.Universes
 open import Setoid.Lift
 
@@ -22,8 +23,8 @@ record EQ (l : ℕ) : Set where
       {x y : El l X}
       {x' y' : El l X'}
       (_ : 𝒰 l ∋ X ~ X')
-      (_ : ℰ𝓁 l ∋ X ⸴ x ≈ X' ⸴ x')
-      (_ : ℰ𝓁 l ∋ X ⸴ y ≈ X' ⸴ y')
+      (_ : ℰ𝓁 l ∋ X , x ≈ X' , x')
+      (_ : ℰ𝓁 l ∋ X , y ≈ X' , y')
       → --------------------------
       𝒰 l ∋ ty X x y ~ ty X' x' y'
 
@@ -38,16 +39,16 @@ record EQ (l : ℕ) : Set where
       {x : El l X}
       {x' : El l X'}
       (_ : 𝒰 l ∋ X ~ X')
-      (_ :  ℰ𝓁 l ∋ X ⸴ x ≈ X' ⸴ x')
+      (_ :  ℰ𝓁 l ∋ X , x ≈ X' , x')
       → --------------------------------------------
-      ℰ𝓁 l ∋ ty X x x ⸴ rfl x ≈ ty X' x' x' ⸴ rfl x'
+      ℰ𝓁 l ∋ ty X x x , rfl x ≈ ty X' x' x' , rfl x'
 
     reflect :
       {X : U l}
       {x y : El l X}
       (_ : El l (ty X x y))
       → -------------------
-      ℰ𝓁 l ∋ X ⸴ x ≈ X ⸴ y
+      ℰ𝓁 l ∋ X , x ≈ X , y
 
     uip :
       {X : U l}
@@ -70,22 +71,3 @@ EQ.rfl     (eq(1+ _)) {X} = hrfl₊ X
 EQ.rflCong (eq(1+ _)) _ _ = tt
 EQ.reflect (eq(1+ _)) e = e
 EQ.uip     (eq(1+ _)) _ _ = tt
-
--- Equality types
--- Eq :
---   (n : ℕ)
---   (T : U n)
---   (t t' : El n T)
---   → -------------
---   U n
-
--- Eq n = EQ.ty (eq n)
-
--- Rfl :
---   (n : ℕ)
---   {T : U n}
---   (t : El n T)
---   → ----------
---   El n (Eq n T t t)
-
--- Rfl n = EQ.rfl (eq n)

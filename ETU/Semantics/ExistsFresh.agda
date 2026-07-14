@@ -42,8 +42,8 @@ open import ETU.Semantics.Substitution
     (ssb[] x (𝐯 x') b x#b)
     (sb⟦tm⟧ p q₁)
   where
-  e : ℋℴ𝓂 ∋ (C ⋉[ l ] (id * S) , C ⋉[ l ] S) ⸴ id ⋉′[ l ] S ≈
-    (C ⋉[ l ] S , C ⋉[ l ] S) ⸴ id
+  e : ℋℴ𝓂 ∋ (C ⋉[ l ] (id * S) , C ⋉[ l ] S) , id ⋉′[ l ] S ≈
+    (C ⋉[ l ] S , C ⋉[ l ] S) , id
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
   p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶ A ⦂ l sb⟧＝
@@ -88,10 +88,10 @@ open import ETU.Semantics.Substitution
   where
   e : ℋℴ𝓂 ∋
     (C ⋉[ l ] (id * S) ⋉[ l' ] (id ⋉′[ l ] S * T) ,
-     C ⋉[ l ] S ⋉[ l' ] T) ⸴ id ⋉′[ l ] S ⋉′[ l' ] T
+     C ⋉[ l ] S ⋉[ l' ] T) , id ⋉′[ l ] S ⋉′[ l' ] T
     ≈
     (C ⋉[ l ] S ⋉[ l' ] T ,
-     C ⋉[ l ] S ⋉[ l' ] T) ⸴ id
+     C ⋉[ l ] S ⋉[ l' ] T) , id
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
   p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⨟ y' ∶ (x := 𝐯 x') * B ⦂ l' ⊢

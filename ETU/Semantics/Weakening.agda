@@ -149,7 +149,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   f : Hom D C
   f = coe ℋℴ𝓂 (rflω D , symω e₁) f'
 
-  e : ℋℴ𝓂 ∋ (D , C) ⸴ f ≈ (D , C' ) ⸴ f'
+  e : ℋℴ𝓂 ∋ (D , C) , f ≈ (D , C' ) , f'
   e = coh⁻¹ ℋℴ𝓂 (rflω D , symω e₁) f'
 
   p : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f)
@@ -224,7 +224,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (▷⟦tm⟧ p q₀)
     (rflω D , ntrl𝒫𝒾 l l' S T f ,
      coh (ℰ𝓁𝓉 (max l l'))
-       {y = _ , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)}
+       {x' = _ , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)}
        (rflω D , ntrl𝒫𝒾 l l' S T f)
        (f *₁ t))
 
@@ -310,11 +310,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 
   e₂ :  ℰ𝓁𝓉 l ∋
     (D' ⋉[ l ] (f' * S') ,
-    𝓅 (f' * S') * f' * S') ⸴
+    𝓅 (f' * S') * f' * S') ,
     𝓆 (f' * S')
     ≈
     (D' ⋉[ l ] (f' * S') ,
-    (f' ⋉′[ l ] S') * 𝓅 S' * S') ⸴
+    (f' ⋉′[ l ] S') * 𝓅 S' * S') ,
     (f' ⋉′[ l ] S') *₁ 𝓆 S'
   e₂ _ _ (_ , v , w)
     with refl ← ! ⦃ !≡ ⦄ v refl = w
@@ -337,8 +337,8 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   S' = mkElt₁ X' q'
 
   e' : ℰ𝓁𝓉 l ∋
-    (C' ⋉[ l ] S' , 𝓅 S' * S') ⸴ 𝓆 S' ≈
-    (C  ⋉[ l ] S  , 𝓅 S  * S ) ⸴ 𝓆 S
+    (C' ⋉[ l ] S' , 𝓅 S' * S') , 𝓆 S' ≈
+    (C  ⋉[ l ] S  , 𝓅 S  * S ) , 𝓆 S
   e' _ _ (_ , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = w
 
 ▷⟦vrOld⟧ :
@@ -376,10 +376,10 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     hcng T (∣ f ∣ c) (∣ f ∣ d) (cng f c d u)
 
   e₂ : ℰ𝓁𝓉 l ∋
-    (D ⋉[ l' ] (f * T') , 𝓅 (f * T') * f * T) ⸴
+    (D ⋉[ l' ] (f * T') , 𝓅 (f * T') * f * T) ,
     𝓅 (f * T') *₁ f *₁ t
     ≈
-    (D ⋉[ l' ] (f * T') , f ⋉′[ l' ] T' * 𝓅 T' * T) ⸴
+    (D ⋉[ l' ] (f * T') , f ⋉′[ l' ] T' * 𝓅 T' * T) ,
     (f ⋉′[ l' ] T') *₁ 𝓅 T' *₁ t
   e₂ (c , _) (d , _) (u , v , _)
     with refl ← ! ⦃ !≡ ⦄ v refl =
@@ -404,21 +404,21 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   S' : Fam l C'
   S' = coe (ℱ𝒶𝓂 l) (symω e₂) S
 
-  e : ℱ𝒶𝓂 l ∋ C ⸴ S ≈ C' ⸴ S'
+  e : ℱ𝒶𝓂 l ∋ C , S ≈ C' , S'
   e = coh (ℱ𝒶𝓂 l) (symω e₂) S
 
   s' : Elt l C' S'
   s' = coe (ℰ𝓁𝓉 l) (symω e₂ , e) s
 
-  e' : ℰ𝓁𝓉 l ∋ (C , S) ⸴ s  ≈ (C' , S') ⸴ s'
+  e' : ℰ𝓁𝓉 l ∋ (C , S) , s  ≈ (C' , S') , s'
   e' = coh (ℰ𝓁𝓉 l){C , S}{C' , S'} (symω e₂ , e) s
 
-  e₂' : ℰ𝓁𝓉 l ∋ (C' , S') ⸴ s'  ≈ (C , S) ⸴ s
+  e₂' : ℰ𝓁𝓉 l ∋ (C' , S') , s'  ≈ (C , S) , s
   e₂' = coh⁻¹ (ℰ𝓁𝓉 l){C , S}{C' , S'} (symω e₂ , e) s
 
   e₂'' : ℱ𝒶𝓂 l ∋
-    C' ⋉[ l' ] T' ⸴ 𝓅 T' * S' ≈
-    C ⋉[ l' ] T ⸴ 𝓅 T * S
+    C' ⋉[ l' ] T' , 𝓅 T' * S' ≈
+    C ⋉[ l' ] T , 𝓅 T * S
   e₂'' (c , _) (c' , _) (u , _) =
     coh⁻¹ (ℱ𝒶𝓂 l) (symω e₂) S c c' u
 
@@ -435,7 +435,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   f : Hom D C
   f = coe ℋℴ𝓂 (rflω D , symω e₁) f'
 
-  e : ℋℴ𝓂 ∋ (D , C) ⸴ f ≈ (D , C' ) ⸴ f'
+  e : ℋℴ𝓂 ∋ (D , C) , f ≈ (D , C' ) , f'
   e = coh⁻¹ ℋℴ𝓂 (rflω D , symω e₁) f'
 
   p : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f)

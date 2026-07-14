@@ -3,6 +3,7 @@ module Setoid.NatType where
 open import Prelude
 
 open import Setoid.Definition
+open import Setoid.Display
 open import Setoid.Universes
 open import Setoid.Lift
 
@@ -21,9 +22,9 @@ nrec :
   (_ :
     (n : ℕ)
     (x x' : El l (X n))
-    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X n , x ≈ X n , x')
     → -------------------------------------------
-    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+    ℰ𝓁 l ∋ X (1+ n) , x₊ n x ≈ X (1+ n) , x₊ n x')
   (n : ℕ)
   → ----------------------------------------------
   El l (X n)
@@ -49,32 +50,32 @@ nrecCong :
   {c :
     (n : ℕ)
     (x x' : El l (X n))
-    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X n , x ≈ X n , x')
     → -------------------------------------------
-    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x'}
+    ℰ𝓁 l ∋ X (1+ n) , x₊ n x ≈ X (1+ n) , x₊ n x'}
   {c' :
     (n : ℕ)
     (x x' : El l (X' n))
-    (_ : ℰ𝓁 l ∋ X' n ⸴ x ≈ X' n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X' n , x ≈ X' n , x')
     → -----------------------------------------------
-    ℰ𝓁 l ∋ X' (1+ n) ⸴ x₊' n x ≈ X' (1+ n) ⸴ x₊' n x'}
+    ℰ𝓁 l ∋ X' (1+ n) , x₊' n x ≈ X' (1+ n) , x₊' n x'}
   (n n' : ℕ)
   (_ :
     (n : ℕ)
     → --------------
     𝒰 l ∋ X n ~ X' n)
-  (_ : ℰ𝓁 l ∋ X 0 ⸴ x₀ ≈ X' 0 ⸴ x₀')
+  (_ : ℰ𝓁 l ∋ X 0 , x₀ ≈ X' 0 , x₀')
   (_ :
     (n : ℕ)
     (x : El l (X n))
     (x' : El l (X' n))
-    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X' n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X n , x ≈ X' n , x')
     → ---------------------------------------------
-    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X' (1+ n) ⸴ x₊' n x')
+    ℰ𝓁 l ∋ X (1+ n) , x₊ n x ≈ X' (1+ n) , x₊' n x')
   (_ : n ≡ n')
   → ------------------------------------------------
-  ℰ𝓁 l ∋ X  n ⸴ nrec l X  x₀  x₊  c  n  ≈
-         X' n' ⸴ nrec l X' x₀' x₊' c' n'
+  ℰ𝓁 l ∋ X  n , nrec l X  x₀  x₊  c  n  ≈
+         X' n' , nrec l X' x₀' x₊' c' n'
 
 nrecCong 0 _ _ e _ refl = e
 nrecCong{l}{X}{X'}{x₀}{x₀'}{x₊}{x₊'}{c}{c'} (1+ n) _ f e g refl = g n
@@ -94,11 +95,11 @@ natbeta₀ :
   (c :
     (n : ℕ)
     (x x' : El l (X n))
-    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X n , x ≈ X n , x')
     → -------------------------------------------
-    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+    ℰ𝓁 l ∋ X (1+ n) , x₊ n x ≈ X (1+ n) , x₊ n x')
   → ----------------------------------------------
-  ℰ𝓁 l ∋ X 0 ⸴ nrec l X x₀ x₊ c 0 ≈ X 0 ⸴ x₀
+  ℰ𝓁 l ∋ X 0 , nrec l X x₀ x₊ c 0 ≈ X 0 , x₀
 
 natbeta₀ l X x₀ _ _ = hrfl (ℰ𝓁 l) (X 0) x₀
 
@@ -114,13 +115,13 @@ natbeta₊ :
   (c :
     (n : ℕ)
     (x x' : El l (X n))
-    (_ : ℰ𝓁 l ∋ X n ⸴ x ≈ X n ⸴ x')
+    (_ : ℰ𝓁 l ∋ X n , x ≈ X n , x')
     → -------------------------------------------
-    ℰ𝓁 l ∋ X (1+ n) ⸴ x₊ n x ≈ X (1+ n) ⸴ x₊ n x')
+    ℰ𝓁 l ∋ X (1+ n) , x₊ n x ≈ X (1+ n) , x₊ n x')
   (n : ℕ)
   → ----------------------------------------------
-  ℰ𝓁 l ∋ X (1+ n) ⸴ nrec l X x₀ x₊ c (1+ n) ≈
-         X (1+ n) ⸴ x₊ n (nrec l X x₀ x₊ c n)
+  ℰ𝓁 l ∋ X (1+ n) , nrec l X x₀ x₊ c (1+ n) ≈
+         X (1+ n) , x₊ n (nrec l X x₀ x₊ c n)
 
 natbeta₊ l X x₀ x₊ c n =
   hrfl (ℰ𝓁 l) (X (1+ n)) (x₊ n (nrec l X x₀ x₊ c n))

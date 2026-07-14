@@ -3,6 +3,7 @@ module Setoid.PiType where
 open import Prelude
 
 open import Setoid.Definition
+open import Setoid.Display
 open import Setoid.Universes
 open import Setoid.Lift
 
@@ -24,7 +25,7 @@ record PI
       (Y : ∥ EA ∥ X → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       → --------------------------
@@ -36,19 +37,19 @@ record PI
       (Y' : ∥ EA ∥ X' → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (q' :
         (x x' : ∥ EA ∥ X')
-        (_ : EA ∋ X' ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X' , x ≈ X' , x')
         → -------------------------
         B ∋ Y' x ~ Y' x'           )
       (_ : A ∋ X ~ X')
       (_ :
         (x : ∥ EA ∥ X)
         (x' : ∥ EA ∥ X')
-        (_ : EA ∋ X ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X , x ≈ X' , x')
         → -------------------------
         B ∋ Y x ~ Y' x'            )
       → ----------------------------
@@ -59,15 +60,15 @@ record PI
       (Y : ∥ EA ∥ X → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (b : (x : ∥ EA ∥ X) → ∥ EB ∥ (Y x))
       (_ :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → --------------------------
-        EB ∋ Y x ⸴ b x ≈ Y x' ⸴ b x')
+        EB ∋ Y x , b x ≈ Y x' , b x')
       → ---------------------------------
       El n (ty X Y q)
 
@@ -77,42 +78,42 @@ record PI
       (Y' : ∥ EA ∥ X' → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (q' :
         (x x' : ∥ EA ∥ X')
-        (_ : EA ∋ X' ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X' , x ≈ X' , x')
         → -------------------------
         B ∋ Y' x ~ Y' x'           )
       (b : (x : ∥ EA ∥ X) → ∥ EB ∥ (Y x))
       (b' : (x' : ∥ EA ∥ X') → ∥ EB ∥ (Y' x'))
       (c :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → --------------------------
-        EB ∋ Y x ⸴ b x ≈ Y x' ⸴ b x')
+        EB ∋ Y x , b x ≈ Y x' , b x')
       (c' :
         (x x' : ∥ EA ∥ X')
-        (_ : EA ∋ X' ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X' , x ≈ X' , x')
         → ------------------------------
-        EB ∋ Y' x ⸴ b' x ≈ Y' x' ⸴ b' x')
+        EB ∋ Y' x , b' x ≈ Y' x' , b' x')
       (_ :
         (x : ∥ EA ∥ X)
         (x' : ∥ EA ∥ X')
-        (_ : EA ∋ X ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X , x ≈ X' , x')
         → ----------------------------
-        EB ∋ Y x ⸴ b x ≈ Y' x' ⸴ b' x')
+        EB ∋ Y x , b x ≈ Y' x' , b' x')
       → ---------------------------------------
-      ℰ𝓁 n ∋ ty X  Y  q  ⸴ lam _ _ _ b  c  ≈
-             ty X' Y' q' ⸴ lam _ _ _ b' c'
+      ℰ𝓁 n ∋ ty X  Y  q  , lam _ _ _ b  c  ≈
+             ty X' Y' q' , lam _ _ _ b' c'
 
     app :
       (X : ∣ A ∣)
       (Y : ∥ EA ∥ X → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (_ : El n (ty X Y q))
@@ -126,63 +127,63 @@ record PI
       (Y' : ∥ EA ∥ X' → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (q' :
         (x x' : ∥ EA ∥ X')
-        (_ : EA ∋ X' ⸴ x ≈ X' ⸴ x')
+        (_ : EA ∋ X' , x ≈ X' , x')
         → -------------------------
         B ∋ Y' x ~ Y' x'           )
       (f : El n (ty X Y q))
       (f' : El n (ty X' Y' q'))
       (x : ∥ EA ∥ X)
       (x' : ∥ EA ∥ X')
-      (_ : ℰ𝓁 n ∋ ty X Y q ⸴ f ≈ ty X' Y' q' ⸴ f')
-      (_ : EA ∋ X ⸴ x ≈ X' ⸴ x')
+      (_ : ℰ𝓁 n ∋ ty X Y q , f ≈ ty X' Y' q' , f')
+      (_ : EA ∋ X , x ≈ X' , x')
       → ------------------------------------------------
-      EB ∋ Y x ⸴ app _ _ _ f x ≈ Y' x' ⸴ app _ _ _ f' x'
+      EB ∋ Y x , app _ _ _ f x ≈ Y' x' , app _ _ _ f' x'
 
     beta :
       (X : ∣ A ∣)
       (Y : ∥ EA ∥ X → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (b : (x : ∥ EA ∥ X) → ∥ EB ∥ (Y x))
       (c :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → --------------------------
-        EB ∋ Y x ⸴ b x ≈ Y x' ⸴ b x')
+        EB ∋ Y x , b x ≈ Y x' , b x')
       (x : ∥ EA ∥ X)
       → ------------------------------------------------
-      EB ∋ Y x ⸴ app _ _ q (lam _ _ _ b c) x ≈ Y x ⸴ b x
+      EB ∋ Y x , app _ _ q (lam _ _ _ b c) x ≈ Y x , b x
 
     eta :
       (X : ∣ A ∣)
       (Y : ∥ EA ∥ X → ∣ B ∣)
       (q :
         (x x' : ∥ EA ∥ X)
-        (_ : EA ∋ X ⸴ x ≈ X ⸴ x')
+        (_ : EA ∋ X , x ≈ X , x')
         → -----------------------
         B ∋ Y x ~ Y x'           )
       (f : El n (ty X Y q))
       → -------------------------------------------------------
       ℰ𝓁 n ∋
-      ty X Y q ⸴ lam _ _ _ (app _ _ _ f) (λ _ _ e →
+      ty X Y q , lam _ _ _ (app _ _ _ f) (λ _ _ e →
       appCong _ _ _ _ _ _ _ _ _ _ (hrfl (ℰ𝓁 n) (ty X Y q) f) e)
       ≈
-      ty X Y q ⸴ f
+      ty X Y q , f
 
 PI≤ :
   {A A' B : Setd}
   {EA : Setd[ A ]}
   {EB : Setd[ B ]}
   {n : ℕ}
-  (f : Setd[ A' ⟶ A ])
+  (f : ∣ A' ⟶ A ∣)
   → ------------------------------------
   PI A B EA EB n → PI A' B (EA * f) EB n
 
@@ -201,7 +202,7 @@ PI≥ :
   {EA : Setd[ A ]}
   {EB : Setd[ B ]}
   {m : ℕ}
-  (g : Setd[ B' ⟶ B ])
+  (g : ∣ B' ⟶ B ∣)
   → ------------------------------------
   PI A B EA EB m → PI A B' EA (EB * g) m
 
