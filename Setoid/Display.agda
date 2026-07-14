@@ -67,48 +67,28 @@ record Setd[_] (A : Setd) : Set₁ where
 
 open Setd[_] public
 
--- Re-indexing
-infixl 6 _*₀_
-_*₀_ :
-  {A A' : Setd}
-  (_ : Setd[ A ])
-  (_ : ∣ A' ⟶ A ∣)
-  → -------------
-  Setd[ A' ]
+----------------------------------------------------------------------
+-- Section of a displayed setoid
+----------------------------------------------------------------------
+infix 5 Setd[_⊩_]
+record Setd[_⊩_] (A : Setd)(B : Setd[ A ]) : Set where
+  constructor mkSetd[⊩]
+  infix 8 ∥_∥
+  field
+    -- underlying dependent function
+    ∥_∥ : (x : ∣ A ∣) → ∥ B ∥ x
+    -- the function is equality preserving
+    hcng :
+      (x x' : ∣ A ∣)
+      (_ : A ∋ x ~ x')
+      → -------------------------
+      B ∋ x , ∥_∥ x ≈ x' , ∥_∥ x'
 
-∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
-(B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
-hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
-hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
-htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
-coe (B *₀ f) e = coe B (cng f _ _ e)
-coh (B *₀ f) e = coh B (cng f _ _ e)
+open Setd[_⊩_] public
 
-instance
-  *₀Apply :
-    {B A : Setd}
-    → ---------------------------------
-    Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
-  _*_ ⦃ *₀Apply ⦄ = _*₀_
-
--- *assoc :
---   {A A' A'' : Setd}
---   (B : Setd[ A ])
---   (f : ∣ A' ⟶ A ∣)
---   (g : ∣ A'' ⟶ A' ∣)
---   → -----------------------
---   (B * f) * g ≡ B * (f ∘ g)
-
--- *assoc B f g = refl
-
--- *unit :
---   {A : Setd}
---   (B : Setd[ A ])
---   → -------------
---   B ≡ B * id
-
--- *unit B = refl
-
+----------------------------------------------------------------------
+-- Fibres of a displayed setoid
+----------------------------------------------------------------------
 module Fibres {A : Setd} where
   infix 6 _′_
   -- the fibres of a displayed setoid
@@ -151,41 +131,50 @@ module Fibres {A : Setd} where
 
 open Fibres public
 
--- Constant displayed setoids
-K :
+----------------------------------------------------------------------
+-- Re-indexing displayed setoids and their sections
+----------------------------------------------------------------------
+infixl 6 _*₀_
+_*₀_ :
+  {A A' : Setd}
+  (_ : Setd[ A ])
+  (_ : ∣ A' ⟶ A ∣)
+  → -------------
+  Setd[ A' ]
+
+∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
+(B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
+hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
+hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
+htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
+coe (B *₀ f) e = coe B (cng f _ _ e)
+coh (B *₀ f) e = coh B (cng f _ _ e)
+
+instance
+  *₀Apply :
+    {B A : Setd}
+    → ---------------------------------
+    Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
+  _*_ ⦃ *₀Apply ⦄ = _*₀_
+
+*assoc :
+  {A A' A'' : Setd}
+  (B : Setd[ A ])
+  (f : ∣ A' ⟶ A ∣)
+  (g : ∣ A'' ⟶ A' ∣)
+  → -----------------------
+  (B * f) * g ≡ B * (f ∘ g)
+
+*assoc _ _ _ = refl
+
+*unit :
   {A : Setd}
-  (B : Setd)
-  → --------
-  Setd[ A ]
+  (B : Setd[ A ])
+  → -------------
+  B ≡ B * id
 
-∥ K B ∥ _ = ∣ B ∣
-K B ∋ _ , y ≈ _ , y' = B ∋ y ~ y'
-hrfl (K B) _ a = rfl B a
-hsym (K B) _ e = sym B e
-htrs (K B) _ _ e e' = trs B e e'
-coe (K B) _ y = y
-coh (K B) _ y = rfl B y
+*unit _ = refl
 
-----------------------------------------------------------------------
--- Section of a displayed setoid
-----------------------------------------------------------------------
-infix 5 Setd[_⊩_]
-record Setd[_⊩_] (A : Setd)(B : Setd[ A ]) : Set where
-  constructor mkSetd[⊩]
-  infix 8 ∥_∥
-  field
-    -- underlying dependent function
-    ∥_∥ : (x : ∣ A ∣) → ∥ B ∥ x
-    -- the function is equality preserving
-    hcng :
-      (x x' : ∣ A ∣)
-      (_ : A ∋ x ~ x')
-      → -------------------------
-      B ∋ x , ∥_∥ x ≈ x' , ∥_∥ x'
-
-open Setd[_⊩_] public
-
--- Re-indexing
 infixl 6 [_,_]*_
 [_,_]*_ :
   {A A' : Setd}
@@ -198,25 +187,25 @@ infixl 6 [_,_]*_
 ∥ [ _ , g ]* f ∥ x = ∥ g ∥ (∣ f ∣ x)
 hcng ([ _ , g ]* f) _ _ e = hcng g _ _ (cng f _ _ e)
 
--- [,]*unit :
---   {A  : Setd}
---   (B : Setd[ A ])
---   (f : Setd[ A ⊩ B ])
---   → ------------------
---   f ≡ [ B , f ]* id
+[,]*unit :
+  {A  : Setd}
+  (B : Setd[ A ])
+  (f : Setd[ A ⊩ B ])
+  → -----------------
+  f ≡ [ B , f ]* id
 
--- [,]*unit _ _ = refl
+[,]*unit _ _ = refl
 
--- [,]*assoc :
---   {A A' A'' : Setd}
---   (B : Setd[ A ])
---   (f : Setd[ A ⊩ B ])
---   (g : ∣ A' ⟶ A ∣)
---   (h : ∣ A'' ⟶ A' ∣)
---   → ----------------------------------------------
---   [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
+[,]*assoc :
+  {A A' A'' : Setd}
+  (B : Setd[ A ])
+  (f : Setd[ A ⊩ B ])
+  (g : ∣ A' ⟶ A ∣)
+  (h : ∣ A'' ⟶ A' ∣)
+  → ----------------------------------------------
+  [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
 
--- [,]*assoc _ _ _ _ = refl
+[,]*assoc _ _ _ _ = refl
 
 ----------------------------------------------------------------------
 -- Comprehension structure
@@ -236,57 +225,58 @@ sym (A ⋉ B) (e , e') = (sym A e , hsym B e e')
 trs (A ⋉ B) (e₁ , e₁') (e₂ , e₂') =
   (trs A e₁ e₂ , htrs B e₁ e₂ e₁' e₂')
 
--- module ⋉Properties (A : Setd)(B : Setd[ A ]) where
---   𝓅 : ∣ A ⋉ B ⟶ A ∣
+module Comprehnsion (A : Setd)(B : Setd[ A ]) where
+  𝓅 : ∣ A ⋉ B ⟶ A ∣
 
---   ∣ 𝓅 ∣ = π₁
---   cng 𝓅 _ _ = π₁
+  ∣ 𝓅 ∣ = π₁
+  cng 𝓅 _ _ = π₁
 
---   𝓆 : Setd[ A ⋉ B ⊩ B * 𝓅 ]
+  𝓆 : Setd[ A ⋉ B ⊩ B * 𝓅 ]
 
---   ∥ 𝓆 ∥ = π₂
---   hcng 𝓆 _ _ = π₂
+  ∥ 𝓆 ∥ = π₂
+  hcng 𝓆 _ _ = π₂
 
---   𝒸ℴ𝓃𝓈 :
---     {A' : Setd}
---     (f : ∣ A' ⟶ A ∣)
---     (g : Setd[ A' ⊩ B * f ])
---     → ----------------------
---     ∣ A' ⟶ A ⋉ B ∣
+  𝒸ℴ𝓃𝓈 :
+    {A' : Setd}
+    (f : ∣ A' ⟶ A ∣)
+    (g : Setd[ A' ⊩ B * f ])
+    → ----------------------
+    ∣ A' ⟶ A ⋉ B ∣
 
---   ∣ 𝒸ℴ𝓃𝓈 f g ∣ x = (∣ f ∣ x , ∥ g ∥ x)
---   cng (𝒸ℴ𝓃𝓈 f g) x x' e = (cng f x x' e , hcng g x x' e)
+  ∣ 𝒸ℴ𝓃𝓈 f g ∣ x = (∣ f ∣ x , ∥ g ∥ x)
+  cng (𝒸ℴ𝓃𝓈 f g) x x' e = (cng f x x' e , hcng g x x' e)
 
---   𝓅∘𝒸ℴ𝓃𝓈 :
---     {A' : Setd}
---     (f : ∣ A' ⟶ A ∣)
---     (g : Setd[ A' ⊩ B * f ])
---     → ----------------------
---     𝓅 ∘ 𝒸ℴ𝓃𝓈 f g ≡ f
+  𝓅∘𝒸ℴ𝓃𝓈 :
+    {A' : Setd}
+    (f : ∣ A' ⟶ A ∣)
+    (g : Setd[ A' ⊩ B * f ])
+    → ----------------------
+    𝓅 ∘ 𝒸ℴ𝓃𝓈 f g ≡ f
 
---   𝓅∘𝒸ℴ𝓃𝓈 _ _ = refl
+  𝓅∘𝒸ℴ𝓃𝓈 _ _ = refl
 
---   𝓆∘𝒸ℴ𝓃𝓈 :
---     {A' : Setd}
---     (f : ∣ A' ⟶ A ∣)
---     (g : Setd[ A' ⊩ B * f ])
---     → ------------------------
---     [ B * 𝓅 , 𝓆 ]* 𝒸ℴ𝓃𝓈 f g ≡ g
+  𝓆∘𝒸ℴ𝓃𝓈 :
+    {A' : Setd}
+    (f : ∣ A' ⟶ A ∣)
+    (g : Setd[ A' ⊩ B * f ])
+    → ------------------------
+    [ B * 𝓅 , 𝓆 ]* 𝒸ℴ𝓃𝓈 f g ≡ g
 
---   𝓆∘𝒸ℴ𝓃𝓈 _ _ = refl
+  𝓆∘𝒸ℴ𝓃𝓈 _ _ = refl
 
---   𝒸ℴ𝓃𝓈∘ :
---     {A' A'' : Setd}
---     (f : ∣ A' ⟶ A ∣)
---     (g : Setd[ A' ⊩ B * f ])
---     (h : ∣ A'' ⟶ A' ∣)
---     → ----------------------------------------------
---     (𝒸ℴ𝓃𝓈 f g) ∘ h ≡ 𝒸ℴ𝓃𝓈 (f ∘ h) ([ B * f , g ]* h)
+  𝒸ℴ𝓃𝓈∘ :
+    {A' A'' : Setd}
+    (f : ∣ A' ⟶ A ∣)
+    (g : Setd[ A' ⊩ B * f ])
+    (h : ∣ A'' ⟶ A' ∣)
+    → ----------------------------------------------
+    (𝒸ℴ𝓃𝓈 f g) ∘ h ≡ 𝒸ℴ𝓃𝓈 (f ∘ h) ([ B * f , g ]* h)
 
---   𝒸ℴ𝓃𝓈∘ _ _ _ = refl
+  𝒸ℴ𝓃𝓈∘ _ _ _ = refl
 
---   𝒸ℴ𝓃𝓈Eta : 𝒸ℴ𝓃𝓈 𝓅 𝓆 ≡ id
---   𝒸ℴ𝓃𝓈Eta = refl
+  𝒸ℴ𝓃𝓈Eta : 𝒸ℴ𝓃𝓈 𝓅 𝓆 ≡ id
+
+  𝒸ℴ𝓃𝓈Eta = refl
 
 ----------------------------------------------------------------------
 -- Setoid dependent product type

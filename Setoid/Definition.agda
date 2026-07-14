@@ -72,19 +72,6 @@ record SetdHom (A B : Setd) : Set
 
 open SetdHom public
 
--- Identity morphism
-instance
-  SetdIdentity : ∀{A} → Identity (SetdHom A A)
-  ∣ id ⦃ SetdIdentity ⦄ ∣ x = x
-  cng (id ⦃ SetdIdentity ⦄) _ _ = id
-
--- Composition of morphisms
-instance
-  SetdComp : ∀{A B C} →
-    Composition (SetdHom B C) (SetdHom A B) (SetdHom A C)
-  ∣ _∘_ ⦃ SetdComp ⦄ g f ∣ x = ∣ g ∣ (∣ f ∣ x)
-  cng (_∘_ ⦃ SetdComp ⦄ g f) _ _ = cng g _ _ ∘ cng f _ _
-
 -- The setoid of setoid morphisms
 infixr 5 _⟶_
 _⟶_ : Setd → Setd → Setd
@@ -95,32 +82,50 @@ rfl (A ⟶ B) γ x    = rfl B (∣ γ ∣ x)
 sym (A ⟶ B) e x    = sym B (e x)
 trs (A ⟶ B) e e' x = trs B (e x) (e' x)
 
--- -- Composition is associative and unitary up to conversion
--- setd-assoc :
---   {A B C D : Setd}
---   (h : ∣ C ⟶ D ∣)
---   (g : ∣ B ⟶ C ∣)
---   (f : ∣ A ⟶ B ∣)
---   → -----------------------
---   h ∘ (g ∘ f) ≡ (h ∘ g) ∘ f
+-- Properties of setoid morphisms
+module SetdHomProperties where
+  -- identity morphism
+  instance
+    SetdIdentity : ∀{A} → Identity (SetdHom A A)
+    ∣ id ⦃ SetdIdentity ⦄ ∣ x = x
+    cng (id ⦃ SetdIdentity ⦄) _ _ = id
 
--- setd-assoc _ _ _ = refl
+  -- composition of morphisms
+  instance
+    SetdComp : ∀{A B C} →
+      Composition (SetdHom B C) (SetdHom A B) (SetdHom A C)
+    ∣ _∘_ ⦃ SetdComp ⦄ g f ∣ x = ∣ g ∣ (∣ f ∣ x)
+    cng (_∘_ ⦃ SetdComp ⦄ g f) _ _ = cng g _ _ ∘ cng f _ _
 
--- setd-unitl :
---   {A B  : Setd}
---   (f : ∣ A ⟶ B ∣)
---   → -------------
---   id ∘ f ≡ f
+  -- composition is associative up to conversion
+  setd-assoc :
+    {A B C D : Setd}
+    (h : ∣ C ⟶ D ∣)
+    (g : ∣ B ⟶ C ∣)
+    (f : ∣ A ⟶ B ∣)
+    → -----------------------
+    h ∘ (g ∘ f) ≡ (h ∘ g) ∘ f
 
--- setd-unitl _ = refl
+  setd-assoc _ _ _ = refl
 
--- setd-unitr :
---   {A B  : Setd}
---   (f : ∣ A ⟶ B ∣)
---   → -------------
---   f ∘ id ≡ f
+  -- composition is unitary up to conversion
+  setd-unitl :
+    {A B  : Setd}
+    (f : ∣ A ⟶ B ∣)
+    → -------------
+    id ∘ f ≡ f
 
--- setd-unitr _ = refl
+  setd-unitl _ = refl
+
+  setd-unitr :
+    {A B  : Setd}
+    (f : ∣ A ⟶ B ∣)
+    → -------------
+    f ∘ id ≡ f
+
+  setd-unitr _ = refl
+
+open SetdHomProperties public
 
 -- Constant morphisms
 ｋ :
