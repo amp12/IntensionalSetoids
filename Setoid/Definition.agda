@@ -95,6 +95,33 @@ rfl (A ⟶ B) γ x    = rfl B (∣ γ ∣ x)
 sym (A ⟶ B) e x    = sym B (e x)
 trs (A ⟶ B) e e' x = trs B (e x) (e' x)
 
+-- -- Composition is associative and unitary up to conversion
+-- setd-assoc :
+--   {A B C D : Setd}
+--   (h : ∣ C ⟶ D ∣)
+--   (g : ∣ B ⟶ C ∣)
+--   (f : ∣ A ⟶ B ∣)
+--   → -----------------------
+--   h ∘ (g ∘ f) ≡ (h ∘ g) ∘ f
+
+-- setd-assoc _ _ _ = refl
+
+-- setd-unitl :
+--   {A B  : Setd}
+--   (f : ∣ A ⟶ B ∣)
+--   → -------------
+--   id ∘ f ≡ f
+
+-- setd-unitl _ = refl
+
+-- setd-unitr :
+--   {A B  : Setd}
+--   (f : ∣ A ⟶ B ∣)
+--   → -------------
+--   f ∘ id ≡ f
+
+-- setd-unitr _ = refl
+
 -- Constant morphisms
 ｋ :
   {B A : Setd}

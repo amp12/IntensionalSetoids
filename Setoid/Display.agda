@@ -3,9 +3,6 @@ module Setoid.Display where
 open import Prelude
 open import Setoid.Definition
 
-{- Although not exactly the same, the following definition is
-comparible with Definition 5.3.4 in Martin Hofmann's thesis. -}
-
 ----------------------------------------------------------------------
 -- Displayed setoids
 ----------------------------------------------------------------------
@@ -73,19 +70,19 @@ open Setd[_] public
 -- Re-indexing
 infixl 6 _*₀_
 _*₀_ :
-  {B A : Setd}
+  {A A' : Setd}
   (_ : Setd[ A ])
-  (_ : ∣ B ⟶ A ∣)
+  (_ : ∣ A' ⟶ A ∣)
   → -------------
-  Setd[ B ]
+  Setd[ A' ]
 
-∥ C *₀ f ∥ y = ∥ C ∥ (∣ f ∣ y)
-(C *₀ f ∋ y , z ≈ y' , z') = C ∋ ∣ f ∣ y , z ≈ ∣ f ∣ y' , z'
-hrfl (C *₀ f) x = hrfl C (∣ f ∣ x)
-hsym (C *₀ f) x e = hsym C (cng f _ _ x) e
-htrs (C *₀ f) x x' e e' = htrs C (cng f _ _ x) (cng f _ _ x') e e'
-coe (C *₀ f) e = coe C (cng f _ _ e)
-coh (C *₀ f) e = coh C (cng f _ _ e)
+∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
+(B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
+hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
+hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
+htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
+coe (B *₀ f) e = coe B (cng f _ _ e)
+coh (B *₀ f) e = coh B (cng f _ _ e)
 
 instance
   *₀Apply :
@@ -93,6 +90,24 @@ instance
     → ---------------------------------
     Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
   _*_ ⦃ *₀Apply ⦄ = _*₀_
+
+-- *assoc :
+--   {A A' A'' : Setd}
+--   (B : Setd[ A ])
+--   (f : ∣ A' ⟶ A ∣)
+--   (g : ∣ A'' ⟶ A' ∣)
+--   → -----------------------
+--   (B * f) * g ≡ B * (f ∘ g)
+
+-- *assoc B f g = refl
+
+-- *unit :
+--   {A : Setd}
+--   (B : Setd[ A ])
+--   → -------------
+--   B ≡ B * id
+
+-- *unit B = refl
 
 -- The fibres of a displayed setoid are setoids
 infix 6 _′_
@@ -108,6 +123,38 @@ _′_ :
 rfl (B ′ x) = hrfl B x
 sym (_′_ {A} B x) = hsym B (rfl A x)
 trs (_′_ {A} B x) = htrs B (rfl A x) (rfl A x)
+
+-- Induced morphisms between fibres
+infix 6 _′′_
+_′′_  :
+  {A : Setd}
+  (B : Setd[ A ])
+  {x₁ x₂ : ∣ A ∣}
+  (_ : A ∋ x₁ ~ x₂)
+  → -----------------
+  ∣ B ′ x₁ ⟶ B ′ x₂ ∣
+
+∣ B ′′ e ∣ = coe B e
+cng (_′′_ {A} B e) y y' e' = htrs B
+  (sym A e)
+  e
+  (coh⁻¹ B e y)
+  (htrs B (rfl A _) e e' (coh B e y'))
+
+-- Proof irrelevance for the induced morphisms between fibres
+′′irrel :
+  {A : Setd}
+  (B : Setd[ A ])
+  {x₁ x₂ : ∣ A ∣}
+  (e₁ e₂ : A ∋ x₁ ~ x₂)
+  → -----------------------------------
+  (B ′ x₁ ⟶ B ′ x₂) ∋ B ′′ e₁ ~ B ′′ e₂
+
+′′irrel {A} B e₁ e₂ y = htrs B
+  (sym A e₁)
+  e₂
+  (coh⁻¹ B e₁ y)
+  (coh B e₂ y)
 
 -- Constant displayed setoids
 K :
@@ -136,30 +183,50 @@ record Setd[_⊩_] (A : Setd)(B : Setd[ A ]) : Set where
     ∥_∥ : (x : ∣ A ∣) → ∥ B ∥ x
     -- the function is equality preserving
     hcng :
-      (x y : ∣ A ∣)
-      (_ : A ∋ x ~ y)
-      → -----------------------
-      B ∋ x , ∥_∥ x ≈ y , ∥_∥ y
+      (x x' : ∣ A ∣)
+      (_ : A ∋ x ~ x')
+      → -------------------------
+      B ∋ x , ∥_∥ x ≈ x' , ∥_∥ x'
 
 open Setd[_⊩_] public
 
 -- Re-indexing
 infixl 6 [_,_]*_
 [_,_]*_ :
-  {B A : Setd}
-  (C : Setd[ A ])
-  (_ : Setd[ A ⊩ C ])
-  (f : ∣ B ⟶ A ∣)
+  {A A' : Setd}
+  (B : Setd[ A ])
+  (_ : Setd[ A ⊩ B ])
+  (f : ∣ A' ⟶ A ∣)
   → -----------------
-  Setd[ B ⊩ C * f ]
+  Setd[ A' ⊩ B * f ]
 
-∥ [ _ , c ]* f ∥ y = ∥ c ∥ (∣ f ∣ y)
-hcng ([ _ , c ]* f) _ _ e = hcng c _ _ (cng f _ _ e)
+∥ [ _ , g ]* f ∥ x = ∥ g ∥ (∣ f ∣ x)
+hcng ([ _ , g ]* f) _ _ e = hcng g _ _ (cng f _ _ e)
+
+-- [,]*unit :
+--   {A  : Setd}
+--   (B : Setd[ A ])
+--   (f : Setd[ A ⊩ B ])
+--   → ------------------
+--   f ≡ [ B , f ]* id
+
+-- [,]*unit _ _ = refl
+
+-- [,]*assoc :
+--   {A A' A'' : Setd}
+--   (B : Setd[ A ])
+--   (f : Setd[ A ⊩ B ])
+--   (g : ∣ A' ⟶ A ∣)
+--   (h : ∣ A'' ⟶ A' ∣)
+--   → ----------------------------------------------
+--   [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
+
+-- [,]*assoc _ _ _ _ = refl
 
 ----------------------------------------------------------------------
 -- Comprehension structure
 ----------------------------------------------------------------------
-infixl 5 _⋉_
+infixl 6 _⋉_
 _⋉_ :
   (A : Setd)
   (_ : Setd[ A ])
@@ -173,6 +240,58 @@ rfl (A ⋉ B) (x , y) = (rfl A x , hrfl B x y)
 sym (A ⋉ B) (e , e') = (sym A e , hsym B e e')
 trs (A ⋉ B) (e₁ , e₁') (e₂ , e₂') =
   (trs A e₁ e₂ , htrs B e₁ e₂ e₁' e₂')
+
+-- module ⋉Properties (A : Setd)(B : Setd[ A ]) where
+--   𝓅 : ∣ A ⋉ B ⟶ A ∣
+
+--   ∣ 𝓅 ∣ = π₁
+--   cng 𝓅 _ _ = π₁
+
+--   𝓆 : Setd[ A ⋉ B ⊩ B * 𝓅 ]
+
+--   ∥ 𝓆 ∥ = π₂
+--   hcng 𝓆 _ _ = π₂
+
+--   𝒸ℴ𝓃𝓈 :
+--     {A' : Setd}
+--     (f : ∣ A' ⟶ A ∣)
+--     (g : Setd[ A' ⊩ B * f ])
+--     → ----------------------
+--     ∣ A' ⟶ A ⋉ B ∣
+
+--   ∣ 𝒸ℴ𝓃𝓈 f g ∣ x = (∣ f ∣ x , ∥ g ∥ x)
+--   cng (𝒸ℴ𝓃𝓈 f g) x x' e = (cng f x x' e , hcng g x x' e)
+
+--   𝓅∘𝒸ℴ𝓃𝓈 :
+--     {A' : Setd}
+--     (f : ∣ A' ⟶ A ∣)
+--     (g : Setd[ A' ⊩ B * f ])
+--     → ----------------------
+--     𝓅 ∘ 𝒸ℴ𝓃𝓈 f g ≡ f
+
+--   𝓅∘𝒸ℴ𝓃𝓈 _ _ = refl
+
+--   𝓆∘𝒸ℴ𝓃𝓈 :
+--     {A' : Setd}
+--     (f : ∣ A' ⟶ A ∣)
+--     (g : Setd[ A' ⊩ B * f ])
+--     → ------------------------
+--     [ B * 𝓅 , 𝓆 ]* 𝒸ℴ𝓃𝓈 f g ≡ g
+
+--   𝓆∘𝒸ℴ𝓃𝓈 _ _ = refl
+
+--   𝒸ℴ𝓃𝓈∘ :
+--     {A' A'' : Setd}
+--     (f : ∣ A' ⟶ A ∣)
+--     (g : Setd[ A' ⊩ B * f ])
+--     (h : ∣ A'' ⟶ A' ∣)
+--     → ----------------------------------------------
+--     (𝒸ℴ𝓃𝓈 f g) ∘ h ≡ 𝒸ℴ𝓃𝓈 (f ∘ h) ([ B * f , g ]* h)
+
+--   𝒸ℴ𝓃𝓈∘ _ _ _ = refl
+
+--   𝒸ℴ𝓃𝓈Eta : 𝒸ℴ𝓃𝓈 𝓅 𝓆 ≡ id
+--   𝒸ℴ𝓃𝓈Eta = refl
 
 ----------------------------------------------------------------------
 -- Setoid dependent product type
