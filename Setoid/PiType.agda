@@ -262,13 +262,13 @@ PI.eta (pi₌ (1+ _)) _ _ _ (_ , e) = e
 ----------------------------------------------------------------------
 pi≤ : ∀{m n} → n ≥ m → PI (𝒰 m) (𝒰 n) (ℰ𝓁 m) (ℰ𝓁 n) (max m n)
 pi≤ p
-  rewrite Insℰ𝓁 p
-  | max≤ (≥→≤ p) = PI≤ (Ins p) (pi₌ _)
+  rewrite Lftsℰ𝓁 p
+  | max≤ (≥→≤ p) = PI≤ (Lfts p) (pi₌ _)
 
 pi≥ : ∀{m n} → m ≥ n → PI (𝒰 m) (𝒰 n) (ℰ𝓁 m) (ℰ𝓁 n) (max m n)
 pi≥ p
-  rewrite Insℰ𝓁 p
-  | max≥ (≥→≤ p) = PI≥ (Ins p) (pi₌ _)
+  rewrite Lftsℰ𝓁 p
+  | max≥ (≥→≤ p) = PI≥ (Lfts p) (pi₌ _)
 
 pi : ∀ m n → PI (𝒰 m) (𝒰 n) (ℰ𝓁 m) (ℰ𝓁 n) (max m n)
 pi m n = ∨elim pi≤ pi≥ (≥total m n)

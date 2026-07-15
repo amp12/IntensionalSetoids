@@ -245,8 +245,8 @@ coh ℰ𝓁₀ = coh₀
 ----------------------------------------------------------------------
 module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
 
-  {- An outer structural recusion over ℕ and inner inductive-recursive
-  definition of U₊ , El₊, _~₊_ and _,_≈₊_,_ -}
+  {- An inductive-recursive definition of U₊ , El₊, _~₊_ and _,_≈₊_,_
+  -}
   infix 3 _~₊_ _,_≈₊_,_
 
   data U₊ : Set
@@ -258,7 +258,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
 
   data U₊ where
     Univ : U₊
-    In :
+    Lft :
       (A : ∣ 𝒰 ∣)
       → ---------
       U₊
@@ -279,46 +279,46 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
       U₊
 
   El₊ Univ = ∣ 𝒰 ∣
-  El₊ (In A) = ∥ ℰ ∥ A
+  El₊ (Lft A) = ∥ ℰ ∥ A
   El₊ (Pi₊ A B x) =
     ∑[ f ∈ ((a : El₊ A) → El₊ (B a)) ]
     (∀ a a' → A , a ≈₊ A , a' → B a , f a ≈₊ B a' , f a')
   El₊ (Eq₊ A a a') = A , a ≈₊ A , a'
 
   Univ ~₊ Univ = ⊤
-  Univ ~₊ In _ = Ø
+  Univ ~₊ Lft _ = Ø
   Univ ~₊ Pi₊ _ _ _ = Ø
   Univ ~₊ Eq₊ _ _ _ = Ø
-  In A ~₊ Univ = Ø
-  In A ~₊ In A' = 𝒰 ∋ A ~ A'
-  In A ~₊ Pi₊ _ _ _ = Ø
-  In A ~₊ Eq₊ _ _ _ = Ø
+  Lft A ~₊ Univ = Ø
+  Lft A ~₊ Lft A' = 𝒰 ∋ A ~ A'
+  Lft A ~₊ Pi₊ _ _ _ = Ø
+  Lft A ~₊ Eq₊ _ _ _ = Ø
   Pi₊ _ _ _ ~₊ Univ = Ø
-  Pi₊ _ _ _ ~₊ In _ = Ø
+  Pi₊ _ _ _ ~₊ Lft _ = Ø
   Pi₊ A B _ ~₊ Pi₊ A' B' _ =
     (A ~₊ A') × (∀ a a' → A , a ≈₊ A' , a' → B a ~₊ B' a')
   Pi₊ _ _ _ ~₊ Eq₊ _ _ _ = Ø
   Eq₊ _ _ _ ~₊ Univ = Ø
-  Eq₊ _ _ _ ~₊ In _ = Ø
+  Eq₊ _ _ _ ~₊ Lft _ = Ø
   Eq₊ _ _ _ ~₊ Pi₊ _ _ _ = Ø
   Eq₊ A a b ~₊ Eq₊ A' a' b' =
     (A ~₊ A') × (A , a ≈₊ A' , a') × (A , b ≈₊ A' , b')
 
   Univ , A ≈₊ Univ , A' = 𝒰 ∋ A ~ A'
-  Univ , _ ≈₊ (In _) , _ = Ø
+  Univ , _ ≈₊ (Lft _) , _ = Ø
   Univ , _ ≈₊ (Pi₊ _ _ _) , _ = Ø
   Univ , _ ≈₊ (Eq₊ _ _ _) , _ = Ø
-  (In _) , A ≈₊ Univ , _ = Ø
-  (In A) , x ≈₊ (In A') , x' = ℰ ∋ A , x ≈ A' , x'
-  (In _) , _ ≈₊ (Pi₊ _ _ _) , _ = Ø
-  (In _) , _ ≈₊ (Eq₊ _ _ _) , _ = Ø
+  (Lft _) , A ≈₊ Univ , _ = Ø
+  (Lft A) , x ≈₊ (Lft A') , x' = ℰ ∋ A , x ≈ A' , x'
+  (Lft _) , _ ≈₊ (Pi₊ _ _ _) , _ = Ø
+  (Lft _) , _ ≈₊ (Eq₊ _ _ _) , _ = Ø
   (Pi₊ _ _ _) , _ ≈₊ Univ , _ = Ø
-  (Pi₊ _ _ _) , _ ≈₊ (In _) , _ = Ø
+  (Pi₊ _ _ _) , _ ≈₊ (Lft _) , _ = Ø
   (Pi₊ A B _) , (f , _) ≈₊ (Pi₊ A' B' _) , (f' , _) =
     ∀ a a' → A , a ≈₊ A' , a' → B a , f a ≈₊ B' a' , f' a'
   (Pi₊ _ _ _) , _ ≈₊ (Eq₊ _ _ _) , _ = Ø
   (Eq₊ _ _ _) , _ ≈₊ Univ , _ = Ø
-  (Eq₊ _ _ _) , _ ≈₊ (In _) , _ = Ø
+  (Eq₊ _ _ _) , _ ≈₊ (Lft _) , _ = Ø
   (Eq₊ _ _ _) , _ ≈₊ (Pi₊ _ _ _) , _ = Ø
   (Eq₊ _ _ _) , _ ≈₊ (Eq₊ _ _ _) , _ = ⊤
 
@@ -334,12 +334,12 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
     A , a ≈₊ A , a
 
   rfl₊ Univ = tt
-  rfl₊ (In A) = rfl 𝒰 A
+  rfl₊ (Lft A) = rfl 𝒰 A
   rfl₊ (Pi₊ A B q) = (rfl₊ A , q)
   rfl₊ (Eq₊ A a a') = (rfl₊ A , hrfl₊ A a , hrfl₊ A a')
 
   hrfl₊ Univ = rfl 𝒰
-  hrfl₊ (In A) = hrfl ℰ A
+  hrfl₊ (Lft A) = hrfl ℰ A
   hrfl₊ (Pi₊ _ _ _) (_ , e) = e
   hrfl₊ (Eq₊ _ _ _) _ = tt
 
@@ -359,7 +359,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
     A' , a' ≈₊ A , a
 
   sym₊{Univ}{Univ} _ = tt
-  sym₊{In _}{In _} = sym 𝒰
+  sym₊{Lft _}{Lft _} = sym 𝒰
   sym₊{Pi₊ A B _}{Pi₊ A' B' _} (e , f) =
     (sym₊{A} e , λ a a' e' →
       sym₊{B a'} (f a' a (hsym₊{A'} (sym₊{A} e) e')))
@@ -367,7 +367,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
     (sym₊{A} q , hsym₊{A} q q' , hsym₊{A} q q'')
 
   hsym₊{Univ}{Univ} _ = sym 𝒰
-  hsym₊{In _}{In _} = hsym ℰ
+  hsym₊{Lft _}{Lft _} = hsym ℰ
   hsym₊{Pi₊ A B _}{Pi₊ A' B' _} (f , f') g a' a e' =
     let s = hsym₊{A'} (sym₊{A} f) e' in
     hsym₊{B a}{B' a'} (f' a a' s) (g a a' s)
@@ -404,7 +404,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
     A , a ≈₊ A' , coe₊{A}{A'} q a
 
   trs₊{Univ}{Univ}{Univ} _ _ = tt
-  trs₊{In _}{In _}{In _} = trs 𝒰
+  trs₊{Lft _}{Lft _}{Lft _} = trs 𝒰
   trs₊{Pi₊ A B _}{Pi₊ A' B' _}{Pi₊ A'' B'' _} (e , f) (e' , f') =
     (trs₊{A} e e' , λ a a'' r →
       let
@@ -425,7 +425,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
      htrs₊{A} q₀ q₀' q₂ q₂')
 
   htrs₊{Univ}{Univ}{Univ} _ _ = trs 𝒰
-  htrs₊{In _}{In _}{In _} = htrs ℰ
+  htrs₊{Lft _}{Lft _}{Lft _} = htrs ℰ
   htrs₊{Pi₊ A B _}{Pi₊ A' B' _}{Pi₊ A'' B'' _}
     (e , f) (e' , f') g g' a a'' r =
     let
@@ -443,7 +443,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
   htrs₊{Eq₊ _ _ _}{Eq₊ _ _ _}{Eq₊ _ _ _} _ _ _ _ = tt
 
   coe₊{Univ}{Univ} _ a = a
-  coe₊{In _}{In _} = coe ℰ
+  coe₊{Lft _}{Lft _} = coe ℰ
   coe₊{Pi₊ A B e}{Pi₊ A' B' _} (e₁ , e₂) (f₁ , f₂) =
     let
       e₁' = sym₊{A} e₁
@@ -481,7 +481,7 @@ module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
       (htrs₊{A} (rfl₊ A) e s r')
 
   coh₊{Univ}{Univ} _ a = rfl 𝒰 a
-  coh₊{In _}{In _} = coh ℰ
+  coh₊{Lft _}{Lft _} = coh ℰ
   coh₊{Pi₊ A B e}{Pi₊ A' _ _} (e₁ , e₂) (f₁ , f₂) a a' r =
     let
       e₁'   = sym₊{A} e₁

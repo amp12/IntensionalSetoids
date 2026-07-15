@@ -9,33 +9,33 @@ open import Setoid.Universes
 ----------------------------------------------------------------------
 -- Lifting from a universe to a higher one
 ----------------------------------------------------------------------
-Ins :
+Lfts :
   {m n : ℕ}
   (_ : n ≥ m)
   → -----------
   ∣ 𝒰 m ⟶ 𝒰 n ∣
 
-∣ Ins ≥refl ∣ = id
-∣ Ins (≥step p) ∣ = In ∘ ∣ Ins p ∣
-cng (Ins ≥refl) _ _ e = e
-cng (Ins (≥step p)) = cng (Ins p)
+∣ Lfts ≥refl ∣ = id
+∣ Lfts (≥step p) ∣ = Lft ∘ ∣ Lfts p ∣
+cng (Lfts ≥refl) _ _ e = e
+cng (Lfts (≥step p)) = cng (Lfts p)
 
-Insℰ𝓁 :
+Lftsℰ𝓁 :
   {m n : ℕ}
   (p : n ≥ m)
   → -----------------
-  ℰ𝓁 m ≡ ℰ𝓁 n * Ins p
+  ℰ𝓁 m ≡ ℰ𝓁 n * Lfts p
 
-Insℰ𝓁 ≥refl = refl
-Insℰ𝓁 (≥step p) = Insℰ𝓁 p
+Lftsℰ𝓁 ≥refl = refl
+Lftsℰ𝓁 (≥step p) = Lftsℰ𝓁 p
 
-InsInj :
+LftsInj :
   {m n : ℕ}
   (p : n ≥ m)
   {A B : U m}
-  (_ : 𝒰 n ∋ ∣ Ins p ∣ A ~ ∣ Ins p ∣ B)
+  (_ : 𝒰 n ∋ ∣ Lfts p ∣ A ~ ∣ Lfts p ∣ B)
   → -----------------------------------
   𝒰 m ∋ A ~ B
 
-InsInj ≥refl e = e
-InsInj (≥step p) e = InsInj p e
+LftsInj ≥refl e = e
+LftsInj (≥step p) e = LftsInj p e
