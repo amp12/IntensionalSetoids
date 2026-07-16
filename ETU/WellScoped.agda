@@ -5,7 +5,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 
 ----------------------------------------------------------------------
@@ -451,7 +451,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
 ⊢#{Γ} p = ⊆∉ (⊢supp p)
 
 ----------------------------------------------------------------------
--- Convertible contexts have extensionally equal domains
+-- Definitionally equal contexts have extensionally equal domains
 ----------------------------------------------------------------------
 dom＝ :
   {Γ Γ' : Cx}

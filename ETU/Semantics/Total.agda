@@ -6,7 +6,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 
 open import ETU.Semantics.Relation
 open import ETU.Semantics.Ok
@@ -18,7 +18,7 @@ open import ETU.Semantics.ExistsFresh
 
 ----------------------------------------------------------------------
 -- The semantic relations are total on typeable expressions and are
--- sound for conversion
+-- sound for definitional equality
 ----------------------------------------------------------------------
 
 -- Totality for contexts
@@ -43,7 +43,7 @@ tot⟦tm⟧ :
   ⟦ Γ ⊢[ l ] A ty⟧＝(C , T) ∧
   ⟦ Γ ⊢[ l ] a tm⟧＝(C , T , t)
 
--- Soundness of term conversion
+-- Soundness of term definitional equality
 conv⟦tm⟧ :
   {l : Lvl}
   {Γ : Cx}
@@ -87,7 +87,7 @@ tot⟦tm⟧'{l}{C = C}{T} p q =
   in
   (t , resp⟦tm⟧ q'' e')
 
--- Conditional version of soundness of term conversion
+-- Conditional version of soundness of definitional equality for terms
 conv⟦tm⟧' :
   {l : Lvl}
   {Γ : Cx}
@@ -150,7 +150,7 @@ tot⟦ty⟧' :
 
 tot⟦ty⟧' p q = tot⟦tm⟧' p (⟦𝐔⟧ q)
 
--- Absolute version of soundness of type conversion
+-- Absolute version of soundness of definitional equality for types
 conv⟦ty⟧ :
   {l : Lvl}
   {Γ : Cx}
@@ -171,7 +171,7 @@ conv⟦ty⟧{l} p =
    resp⟦tm⟧ q' (rflω C , π₂ e , coh (ℰ𝓁𝓉 (1+ l)) e t) ,
    resp⟦tm⟧ q'' (rflω C , π₂ e , coh (ℰ𝓁𝓉 (1+ l)) e t))
 
--- Conditional soundness of type conversion
+-- Conditional soundness of definitional equality for types
 conv⟦ty⟧' :
   {l : Lvl}
   {Γ : Cx}

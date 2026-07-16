@@ -5,7 +5,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 open import ETU.WellScoped
 

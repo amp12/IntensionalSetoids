@@ -8,7 +8,7 @@ open import WSLN public
 -- type, empty type and equality types
 open import ETU.Syntax public
 open import ETU.Judgement public
-open import ETU.Cofinite public
+open import ETU.Rules public
 open import ETU.Ok public
 open import ETU.WellScoped public
 open import ETU.Weakening public

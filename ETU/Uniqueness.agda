@@ -5,7 +5,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 open import ETU.WellScoped
 open import ETU.Weakening
@@ -14,7 +14,8 @@ open import ETU.Admissible
 open import ETU.ExistsFresh
 
 ----------------------------------------------------------------------
--- Types of terms are unique up to conversion and have a unique level
+-- Types of terms are unique up to definitional equality
+-- and have a unique level
 ----------------------------------------------------------------------
 svVr :
  {l l' : Lvl}

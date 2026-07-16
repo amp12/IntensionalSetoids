@@ -1,4 +1,4 @@
-module ETU.Cofinite where
+module ETU.Rules where
 
 open import Prelude
 open import WSLN
@@ -8,7 +8,7 @@ open import ETU.Judgement
 
 ----------------------------------------------------------------------
 -- Provable judgements in context, using cofinite quantification
--- for fresh names
+-- instead of freshness assumptions
 ----------------------------------------------------------------------
 infix 1 _⊢_
 data Ok : Cx → Set
@@ -170,9 +170,9 @@ data _⊢_  Γ where
     → --------------------------------------
     Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶ C [ a ] ⦂ l
 
-  ---------------------------------------
-  -- Term conversion: Γ ⊢ a ＝ a' ∶ A ⦂ l
-  ---------------------------------------
+  ---------------------------------------------
+  -- Definitional equality: Γ ⊢ a ＝ a' ∶ A ⦂ l
+  ---------------------------------------------
   Refl :
     {l : Lvl}
     {A : Ty}
@@ -401,7 +401,7 @@ data _⊢_  Γ where
     Γ ⊢ e ＝ e' ∶ 𝐄𝐪 A a b ⦂ l
 
 ----------------------------------------------------------------------
--- Context conversion
+-- Definitional equality of contexts
 ----------------------------------------------------------------------
 infix 4 ⊢_＝_
 data ⊢_＝_ : (Γ Γ' : Cx) → Set where
@@ -480,7 +480,7 @@ _⊢ʳ_∶_ : Cx → Rn → Cx → Set
 (Δ ⊢ʳ ρ ∶ Γ) = Δ ⊢ˢ 𝐚 ∘ ρ ∶ Γ
 
 ----------------------------------------------------------------------
--- Convertible well-typed substitutions
+-- Definitionally equal well-typed substitutions
 ----------------------------------------------------------------------
 infix 4 _⊢ˢ_＝_∶_
 data _⊢ˢ_＝_∶_ (Γ' : Cx) : Sb → Sb → Cx → Set where

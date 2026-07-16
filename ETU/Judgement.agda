@@ -15,7 +15,7 @@ infix 4
 data Jg : Set where
   -- well-formed term of given type and level
   _∶_⦂_     : (a : Tm)(A : Ty)(l : Lvl)    → Jg
-  -- conversion between terms of given type and level
+  -- definitional equality of terms of given type and level
   _＝_∶_⦂_  : (a a' : Tm)(A : Ty)(l : Lvl) → Jg
 
 infix 4 _⦂_ _＝_⦂_

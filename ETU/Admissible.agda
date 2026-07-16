@@ -5,7 +5,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 open import ETU.WellScoped
 open import ETU.Weakening
@@ -14,7 +14,7 @@ open import ETU.Substitution
 {- Futher admissible properties of the type system. -}
 
 ----------------------------------------------------------------------
--- Reflexivity of context conversion
+-- Reflexivity of definitional equality for contexts
 ----------------------------------------------------------------------
 CxRefl :
   {Γ : Cx}
@@ -28,7 +28,7 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
 -- Symmetry and transitivity for context conversion are proved below
 
 ----------------------------------------------------------------------
--- Change context up to conversion
+-- Change context up to definitional equality
 ----------------------------------------------------------------------
 ＝⊢idˢ :
   {Γ Γ' : Cx}
@@ -670,7 +670,7 @@ ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty 
 ⊢∶ty (⊢𝐧𝐫𝐞𝐜{C = C} S _ _ q h) = concTy∞ C S h q
 
 ----------------------------------------------------------------------
--- Properties of context conversion
+-- Properties of definitional equality for contexts
 ----------------------------------------------------------------------
 {- Reflexivity (CxRefl) was proved above. -}
 

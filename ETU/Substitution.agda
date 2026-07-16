@@ -5,7 +5,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 open import ETU.WellScoped
 open import ETU.Weakening
@@ -861,7 +861,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
     (liftSb⁻ h q q' q₃)
 
 ----------------------------------------------------------------------
--- Action of convertible substitutions
+-- Action of definitionally equal substitutions
 ----------------------------------------------------------------------
 ＝sbTm :
   {l : Lvl}

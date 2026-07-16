@@ -6,7 +6,7 @@ open import WSLN
 
 open import ETU.Syntax
 open import ETU.Judgement
-open import ETU.Cofinite
+open import ETU.Rules
 open import ETU.Ok
 open import ETU.WellScoped
 open import ETU.Weakening
@@ -182,7 +182,7 @@ tm⟦⟧⁻irrel q q' =
   in tm⟦⟧irrel q q' h₀ h₀' h₁ h₁'
 
 ----------------------------------------------------------------------
--- Soundess of the semantics for conversion
+-- Soundess of the semantics for definitional equality
 ----------------------------------------------------------------------
 sound :
   {l : Lvl}
