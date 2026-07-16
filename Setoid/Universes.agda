@@ -578,6 +578,8 @@ Unit ~ω (Sigma _ _ _ _) = Ø
 (Sigma C n X _) ~ω (Sigma C' n' X' _) =
   (C ~ω C')
   ×
+  -- ∑[ p ∈ (n ≡ n') ]
+  -- ∀ c c' → (C , c ≈ω C' , c') → 𝒰 n' ∋ subst _ p (X c) ~ X' c'
   ∑ (n ≡ n') λ{ refl →
   ∀ c c' → (C , c ≈ω C' , c') → 𝒰 n ∋ X c ~ X' c'}
 
@@ -587,6 +589,7 @@ Unit , _ ≈ω (Sigma _ _ _ _) , _ = Ø
 (Sigma C n X _) , (c , t) ≈ω (Sigma C' n' X' _) , (c' , t') =
   (C , c ≈ω C' , c')
   ×
+  -- ∑[ p ∈ (n ≡ n') ] (ℰ𝓁 n' ∋ subst _ p (X c , t) ≈ X' c' , t')
   ∑ (n ≡ n') λ{refl → (ℰ𝓁 n ∋ X c , t ≈ X' c' , t')}
 
 -- Reflexivity
