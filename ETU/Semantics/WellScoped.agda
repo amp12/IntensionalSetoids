@@ -15,7 +15,7 @@ open import ETU.Semantics.Ok
 -- Semantic relations are well-scoped
 ----------------------------------------------------------------------
 supp⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
   {CTt : ∑[ C ∈ Uω ] ∑(Fam l C) (Elt l C)}
@@ -28,7 +28,7 @@ supp⟦vr⟧ (⟦new⟧ _ _) = ∈∪₂ ∈｛｝
 supp⟦vr⟧ (⟦old⟧ _ q _) = ∈∪₁ (supp⟦vr⟧ q)
 
 supp⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {a : Tm}
   {CTt : ∑[ C ∈ Uω ] ∑(Fam l C) (Elt l C)}
@@ -37,7 +37,7 @@ supp⟦tm⟧ :
   supp a ⊆ dom Γ
 
 supp⟦tm¹⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   (b : Tm[ 1 ])
@@ -57,7 +57,7 @@ supp⟦tm¹⟧{l} b x q x# p
 ... | ∈∪₂ ∈｛｝ = Øelim (∉→¬∈ x# p)
 
 supp⟦tm²⟧ :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   (b : Tm[ 2 ])
@@ -138,7 +138,7 @@ supp⟦tm⟧ (⟦𝐧𝐫𝐞𝐜⟧{l}{B = B}{a = a}{b₊ = b₊}{C}{S}{s₀}{s
       (⊆ub (supp⟦tm⟧ q₃) λ())))
 
 supp⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {CT : ∑ Uω (Fam l)}

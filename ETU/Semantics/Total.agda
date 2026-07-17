@@ -31,7 +31,7 @@ tot⟦cx⟧ :
 
 -- Totality for terms
 tot⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -45,7 +45,7 @@ tot⟦tm⟧ :
 
 -- Soundness of term definitional equality
 conv⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -60,7 +60,7 @@ conv⟦tm⟧ :
 
 -- Conditional version of totality for terms
 tot⟦tm⟧' :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -89,7 +89,7 @@ tot⟦tm⟧'{l}{C = C}{T} p q =
 
 -- Conditional version of soundness of definitional equality for terms
 conv⟦tm⟧' :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -119,7 +119,7 @@ conv⟦tm⟧'{l}{C = C}{T} p q =
 
 -- Absolute version of totality for types
 tot⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   (_ : Γ ⊢ A ⦂ l)
@@ -138,7 +138,7 @@ tot⟦ty⟧{l} p =
 
 -- Conditional version of totality for types
 tot⟦ty⟧' :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {C : Uω}
@@ -152,7 +152,7 @@ tot⟦ty⟧' p q = tot⟦tm⟧' p (⟦𝐔⟧ q)
 
 -- Absolute version of soundness of definitional equality for types
 conv⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   (_ : Γ ⊢ A ＝ A' ⦂ l)
@@ -173,7 +173,7 @@ conv⟦ty⟧{l} p =
 
 -- Conditional soundness of definitional equality for types
 conv⟦ty⟧' :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {C : Uω}
@@ -188,7 +188,7 @@ conv⟦ty⟧' p q = conv⟦tm⟧' p (⟦𝐔⟧ q)
 
 -- Absolute version of totality for variables
 tot⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}

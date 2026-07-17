@@ -60,7 +60,7 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
   {Γ : Cx}
   {x : 𝔸}
   {A A' : Ty}
-  {l : Lvl}
+  {l : ℕ}
   {J : Jg}
   (_ : Γ ⊢ A' ＝ A ⦂ l)
   (_ : Γ ⨟ x ∶ A ⦂ l ⊢ J)
@@ -77,7 +77,7 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
 ----------------------------------------------------------------------
 -- "exists-fresh" version
 concTm :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -99,7 +99,7 @@ concTm{l' = l'}{Γ}{a = a} B b x p q (x#B ∉∪ x#b)
 
 -- cofinite version
 concTm∞ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -118,7 +118,7 @@ concTm∞ B b S q₀ q₁
 
 -- "exists-fresh" version
 conc＝Ty :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -151,7 +151,7 @@ conc＝Ty{l' = l'}{Γ}{A}{a}{a'} B B' x q₀ q₁ (q₂ ∉∪ q₂') h₀ h₁ 
 
 -- cofinite version
 conc＝Ty∞ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -174,7 +174,7 @@ conc＝Ty∞ B B' S q₀ q₁ h₀ h₁ h₂
 
 -- "exists-fresh" version
 conc＝Ty² :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A B : Ty}
   {a a' b b' : Tm}
@@ -216,7 +216,7 @@ conc＝Ty²{l'' = l''}{Γ}{A}{B}{a}{a'}{b}{b'}
 
 -- cofinite version
 conc＝Ty²∞ :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' b b' : Tm}
@@ -277,7 +277,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 Γ ⊢ a ＝ a' ∶ A also implies Γ ⊢ a' ∶ A. -}
 
 ⊢ty₁ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -286,7 +286,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   Γ ⊢ a ∶ A ⦂ l
 
 ⊢ty₂ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -544,7 +544,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 -- Congruence property of substitution
 ----------------------------------------------------------------------
 congSbTm :
-  {l : Lvl}
+  {l : ℕ}
   {σ σ' : Sb}
   {Γ Γ' : Cx}
   {A : Ty}
@@ -562,7 +562,7 @@ congSbTm q q' = Trans
 -- Substitution properties of concretion, continued
 ----------------------------------------------------------------------
 concTy :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -577,7 +577,7 @@ concTy :
 concTy B x q₀ q₁ q₂ = concTm (𝐔 _) B x q₀ q₁ (∉∅ ∉∪ q₂)
 
 concTy∞ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -592,7 +592,7 @@ concTy∞ :
 concTy∞ = concTm∞ (𝐔 _)
 
 concTy² :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A B : Ty}
   {a b : Tm}
@@ -617,7 +617,7 @@ concTy²{l'' = l''}{Γ}{a = a}{b} C x y q₀ q₁ q₂ q₃ q₄
 -- Well-formed contexts contain well-formed types
 ----------------------------------------------------------------------
 ok→ty :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -633,7 +633,7 @@ ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty 
 -- Well-typed terms have well-formed types
 ----------------------------------------------------------------------
 ⊢∶ty :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}

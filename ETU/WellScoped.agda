@@ -22,7 +22,7 @@ Oksupp :
   {Γ : Cx}
   {x : 𝔸}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (_ : Ok Γ)
   (_ : (x , A , l) isIn Γ)
   → ----------------------
@@ -34,7 +34,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
 ⊢supp¹ :
   {Γ : Cx}
   {A B : Ty}
-  {l l' : Lvl}
+  {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ b [ x ] ∶ B ⦂ l')
@@ -50,7 +50,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
 ⊢supp² :
   {Γ : Cx}
   {A B C : Ty}
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
@@ -70,7 +70,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {Γ : Cx}
   {A B : Ty}
   {b' : Tm}
-  {l l' : Lvl}
+  {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
@@ -88,7 +88,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {Γ : Cx}
   {A B : Ty}
   {b' : Tm}
-  {l l' : Lvl}
+  {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
@@ -106,7 +106,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {Γ : Cx}
   {A : Ty}
   {b b' : Tm}
-  {l l' : Lvl}
+  {l l' : ℕ}
   (B : Tm[ 1 ])
   (x : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
@@ -124,7 +124,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {Γ : Cx}
   {A B C : Ty}
   {c' : Tm}
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
@@ -144,7 +144,7 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {Γ : Cx}
   {A B C : Ty}
   {c' : Tm}
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
   (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢

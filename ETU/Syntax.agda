@@ -5,21 +5,14 @@ open import Prelude
 open import WSLN
 
 ----------------------------------------------------------------------
--- Universe levels
-----------------------------------------------------------------------
-Lvl : Set
-
-Lvl = ℕ
-
-----------------------------------------------------------------------
 -- Signature for types and terms
 ----------------------------------------------------------------------
 -- Operators
 data OpETU : Set where
   -- Universe type
-  ′Univ′ : Lvl → OpETU
+  ′Univ′ : ℕ → OpETU
   -- Dependent function type
-  ′Pi′ :  Lvl → Lvl → OpETU
+  ′Pi′ :  ℕ → ℕ → OpETU
   -- Function abstraction
   ′lam′ :  OpETU
   -- Function application
@@ -113,7 +106,7 @@ data Cx : Set where
     (Γ : Cx)
     (x : 𝔸)
     (A : Ty)
-    (l : Lvl)
+    (l : ℕ)
     → -------
     Cx
 
@@ -133,7 +126,7 @@ cx⁻¹ :
   {x x' : 𝔸}
 
   {A A' : Ty}
-  {l l' : Lvl}
+  {l l' : ℕ}
   (_ : (Γ ⨟ x ∶ A ⦂ l) ≡ (Γ' ⨟ x' ∶ A' ⦂ l'))
   → -----------------------------------------
   (Γ ≡ Γ') ∧ (x ≡ x') ∧ (A ≡ A') ∧ (l ≡ l')
@@ -144,20 +137,20 @@ cx⁻¹ refl = (refl , refl , refl , refl)
 -- Membership of contexts
 ----------------------------------------------------------------------
 infix 4 _isIn_
-data _isIn_ : (𝔸 × Ty × Lvl) → Cx → Set where
+data _isIn_ : (𝔸 × Ty × ℕ) → Cx → Set where
   isInNew :
     {Γ : Cx}
     {x : 𝔸}
     {A : Ty}
-    {l : Lvl}
+    {l : ℕ}
     → ------------------------------
     (x , A , l) isIn (Γ ⨟ x ∶ A ⦂ l)
   isInOld :
-    {xAl : 𝔸 × Ty × Lvl}
+    {xAl : 𝔸 × Ty × ℕ}
     {Γ : Cx}
     {x' : 𝔸}
     {A' : Ty}
-    {l' : Lvl}
+    {l' : ℕ}
     (p : xAl isIn Γ)
     → -------------------------
     xAl isIn (Γ ⨟ x' ∶ A' ⦂ l')
@@ -166,7 +159,7 @@ isIn→dom :
   {Γ : Cx}
   {x : 𝔸}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (_ : (x , A , l) isIn Γ)
   → ----------------------
   x ∈ dom Γ

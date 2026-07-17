@@ -22,7 +22,7 @@ open import ETU.WellScoped
 ▷id (ok⨟ q₀ q₁ q₂) = ▷⨟ (▷id q₂) q₀ q₁ q₀
 
 proj :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -37,7 +37,7 @@ proj q = ▷proj (▷id (⊢ok q)) q
 -- Types of variables under weakening
 ----------------------------------------------------------------------
 ▷Var :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {x : 𝔸}
   {A : Ty}
@@ -230,7 +230,7 @@ proj q = ▷proj (▷id (⊢ok q)) q
   {Δ Γ : Cx}
   {A : Ty}
   {x : 𝔸}
-  {l : Lvl}
+  {l : ℕ}
   {J : Jg}
   (_ : Γ ⨟ x ∶ A ⦂ l ⊢ J)
   (_ : Δ ▷ Γ)
@@ -246,7 +246,7 @@ proj q = ▷proj (▷id (⊢ok q)) q
 -- Admissible rule for context weakening
 ----------------------------------------------------------------------
 ▷⨟⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {A : Ty}
   {x : 𝔸}

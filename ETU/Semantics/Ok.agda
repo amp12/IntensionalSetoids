@@ -14,7 +14,7 @@ open import ETU.Semantics.Relation
 -- The semantics of terms-in-context contains that for contexts
 ----------------------------------------------------------------------
 ok⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {a : Tm}
   {C : Uω}
@@ -24,7 +24,7 @@ ok⟦tm⟧ :
   ⟦ Γ cx⟧＝ C
 
 ok⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
   {C : Uω}
@@ -53,7 +53,7 @@ ok⟦vr⟧ (⟦new⟧ q₀ q₁) = ⟦⨟⟧ q₀ q₁
 ok⟦vr⟧ (⟦old⟧ q₀ _ q₂) = ⟦⨟⟧ q₀ q₂
 
 ok⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {C : Uω}
@@ -68,7 +68,7 @@ ok⟦ty⟧ = ok⟦tm⟧
 -- Context inversion
 ----------------------------------------------------------------------
 ⟦⨟⟧⁻¹ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -85,7 +85,7 @@ ok⟦ty⟧ = ok⟦tm⟧
 -- Membership of contexts
 ----------------------------------------------------------------------
 ⟦∈⟧→dom :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
   {CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}

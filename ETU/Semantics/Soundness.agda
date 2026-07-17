@@ -44,7 +44,7 @@ infix 3 ty⟦_⊢_⦂_⟧
 ty⟦_⊢_⦂_⟧ :
   (Γ : Cx)
   (A : Ty)
-  (l : Lvl)
+  (l : ℕ)
   (_ : Γ ⊢ A ⦂ l)
   -- helper hypothesis
   (_ : Ok Γ)
@@ -61,7 +61,7 @@ infix 3 ty⟦_⊢_⦂_⟧⁻
 ty⟦_⊢_⦂_⟧⁻ :
   (Γ : Cx)
   (A : Ty)
-  (l : Lvl)
+  (l : ℕ)
   (_ : Γ ⊢ A ⦂ l)
   → -------------
   ∣ Σℱ𝒶𝓂 l ∣
@@ -76,7 +76,7 @@ tm⟦_⊢_∶_⦂_⟧ :
   (Γ : Cx)
   (a : Tm)
   (A : Ty)
-  (l : Lvl)
+  (l : ℕ)
   (_ : Γ ⊢ a ∶ A ⦂ l)
   -- helper hypotheses
   (_ : Ok Γ)
@@ -97,7 +97,7 @@ tm⟦_⊢_∶_⦂_⟧⁻ :
   (Γ : Cx)
   (a : Tm)
   (A : Ty)
-  (l : Lvl)
+  (l : ℕ)
   (_ : Γ ⊢ a ∶ A ⦂ l)
   → ------------------
   ∣ Σℰ𝓁𝓉 l ∣
@@ -120,7 +120,7 @@ cx⟦⟧irrel q q' = sv⟦cx⟧
 ty⟦⟧irrel :
   {Γ : Cx}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (q q' : Γ ⊢ A ⦂ l)
   (h h' : Ok Γ)
   → --------------------------------------------------
@@ -136,7 +136,7 @@ ty⟦⟧irrel q q' h h' =
 ty⟦⟧⁻irrel :
   {Γ : Cx}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (q q' : Γ ⊢ A ⦂ l)
   → -----------------------------------------------
   Σℱ𝒶𝓂 l ∋ ty⟦ Γ ⊢ A ⦂ l ⟧⁻ q ~ ty⟦ Γ ⊢ A ⦂ l ⟧⁻ q'
@@ -147,7 +147,7 @@ tm⟦⟧irrel :
   {Γ : Cx}
   {a : Tm}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (q q' : Γ ⊢ a ∶ A ⦂ l)
   (h₀ h₀' : Ok Γ)
   (h₁ h₁' : Γ ⊢ A ⦂ l)
@@ -168,7 +168,7 @@ tm⟦⟧⁻irrel :
   {Γ : Cx}
   {a : Tm}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   (q q' : Γ ⊢ a ∶ A ⦂ l)
   → -------------------------------------------------------
   Σℰ𝓁𝓉 l ∋ tm⟦ Γ ⊢ a ∶ A ⦂ l ⟧⁻ q ~ tm⟦ Γ ⊢ a ∶ A ⦂ l ⟧⁻ q'
@@ -185,7 +185,7 @@ tm⟦⟧⁻irrel q q' =
 -- Soundess of the semantics for definitional equality
 ----------------------------------------------------------------------
 sound :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -218,7 +218,7 @@ sound{l} q q' q'' h₀ h₀' h₁ h₁' =
     (sv⟦tm⟧ q₂'' q₂' )
 
 sound⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}

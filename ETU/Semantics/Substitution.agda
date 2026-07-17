@@ -42,7 +42,7 @@ data ⟦_⊢_∶_sb⟧＝ (Δ : Cx) :
     ⟦ Δ ⊢ σ ∶ ◇ sb⟧＝ ((D , Unit) , unit D)
 
   ⟦⨟ˢ⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {σ : Sb}
     {A : Ty}
@@ -79,7 +79,7 @@ ok⟦sb⟧ (⟦⨟ˢ⟧ p _ _ _) = ok⟦sb⟧ p
 -- Weakening
 ----------------------------------------------------------------------
 wk⟦sb⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {σ : Sb}
   {A : Ty}
@@ -141,7 +141,7 @@ wk⟦sb⟧ x (⟦⨟ˢ⟧ p₀ p₁ p₂ p₃) q q' =
 -- Lifting substitutions
 ----------------------------------------------------------------------
 lift⟦sb⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A : Ty}
@@ -177,7 +177,7 @@ lift⟦sb⟧{l}{σ}{Δ}{Γ}{A}{x}{x'}{D}{C}{f}{T} p q x# x'# h = ⟦⨟ˢ⟧
   q' rewrite :=Eq{f = σ}{𝐯 x'} x = ⟦𝐯⟧ (⟦new⟧ h x'#)
 
 lift⟦sb⟧² :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A A' B B' : Ty}
@@ -214,7 +214,7 @@ lift⟦sb⟧² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h h' =
 -- Semantics of substitution
 ----------------------------------------------------------------------
 sb⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {a : Tm}
@@ -228,7 +228,7 @@ sb⟦tm⟧ :
   ⟦ Δ ⊢[ l ] σ * a tm⟧＝ (D , f * T , f *₁ t)
 
 sb⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {x : 𝔸}
@@ -430,7 +430,7 @@ sb⟦tm⟧{σ = σ}{Δ}{Γ}{D = D}{f = f} p
 -- The next two functions, sb⟦vrNew⟧ and sb⟦vrOld⟧, are helpers that
 -- enable use of UIP at the decidable type ℕ in the proof of sb⟦vr⟧.
 sb⟦vrNew⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {x : 𝔸}
@@ -470,7 +470,7 @@ sb⟦vrNew⟧{l}{σ = σ}{Δ}{D = D}{C}{S}{f}
   e' _ _ (_ , v , w) with  refl ← ! ⦃ !≡ ⦄ v refl = w
 
 sb⟦vrOld⟧ :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A' : Ty}
@@ -553,7 +553,7 @@ sb⟦vr⟧{l}{σ}{Δ}{Γ}{D = D}{C'}{f'}{T'}{t'} p'
     ((rflω D , symω e₁) , coh ℋℴ𝓂 (rflω D , symω e₁) f')
 
 sb⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A : Ty}
@@ -590,7 +590,7 @@ sb⟦ty⟧ = sb⟦tm⟧
 -- Lifting renamings without the helper hypotheses
 ----------------------------------------------------------------------
 lift⟦sb⟧⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A : Ty}
@@ -609,7 +609,7 @@ lift⟦sb⟧⁻ :
 lift⟦sb⟧⁻ p q₀ q₁ q₂ = lift⟦sb⟧ p q₀ q₁ q₂ (sb⟦ty⟧ p q₀)
 
 lift⟦sb⟧²⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {σ : Sb}
   {Δ Γ : Cx}
   {A A' B B' : Ty}
@@ -647,7 +647,7 @@ lift⟦sb⟧²⁻ q₀ q₁ q₂ q₃ q₄ q₅ refl refl = lift⟦sb⟧⁻
 -- Semantics of substitution update
 ----------------------------------------------------------------------
 ⟦sb⟧Update :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {σ : Sb}
   {A : Ty}
@@ -678,7 +678,7 @@ lift⟦sb⟧²⁻ q₀ q₁ q₂ q₃ q₄ q₅ refl refl = lift⟦sb⟧⁻
 -- Semantics of concretion
 ----------------------------------------------------------------------
 ⟦conc⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -702,7 +702,7 @@ lift⟦sb⟧²⁻ q₀ q₁ q₂ q₃ q₄ q₅ refl refl = lift⟦sb⟧⁻
     (sb⟦tm⟧ (⟦sb⟧Update (⟦id⟧ (ok⟦ty⟧ q)) q q₁ x#Γ) q₀)
 
 ⟦conc⟧² :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {a a' : Tm}
@@ -745,7 +745,7 @@ lift⟦sb⟧²⁻ q₀ q₁ q₂ q₃ q₄ q₅ refl refl = lift⟦sb⟧⁻
 -- 𝚷- and 𝛌-terms in Total.agda
 ----------------------------------------------------------------------
 sound⟦cx⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {b : Tm}

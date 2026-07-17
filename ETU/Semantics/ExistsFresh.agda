@@ -19,7 +19,7 @@ open import ETU.Semantics.Substitution
 -- Semantics respects α-equivalence
 ----------------------------------------------------------------------
 ⟦α⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {C : Uω}
@@ -53,7 +53,7 @@ open import ETU.Semantics.Substitution
     ((rflω (C ⋉[ l ] S) , rflω (C ⋉[ l ] S)) , e)
 
 ⟦α⟧² :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A B : Ty}
   {C : Uω}
@@ -111,7 +111,7 @@ open import ETU.Semantics.Substitution
       rflω (C ⋉[ l ] S ⋉[ l' ] T)) , e)
 
 ⟦α⟧²' :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {C : Uω}
@@ -143,7 +143,7 @@ open import ETU.Semantics.Substitution
 ----------------------------------------------------------------------
 ⟦𝚷⟧⁻ :
   {Γ : Cx}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {A : Ty}
   {B : Ty[ 1 ]}
   {C : Uω}
@@ -161,7 +161,7 @@ open import ETU.Semantics.Substitution
 
 ⟦𝛌⟧⁻ :
   {Γ : Cx}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {A : Ty}
   {b : Tm[ 1 ]}
   {C : Uω}
@@ -180,7 +180,7 @@ open import ETU.Semantics.Substitution
 
 ⟦∙⟧⁻ :
   {Γ : Cx}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {A : Ty}
   {B : Ty[ 1 ]}
   {a b : Tm}
@@ -203,7 +203,7 @@ open import ETU.Semantics.Substitution
 
 ⟦𝐧𝐫𝐞𝐜⟧⁻ :
   {Γ : Cx}
-  {l : Lvl}
+  {l : ℕ}
   {B : Ty[ 1 ]}
   {b₀ a : Tm}
   {b₊ : Tm[ 2 ]}

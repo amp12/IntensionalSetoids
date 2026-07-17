@@ -23,7 +23,7 @@ data Ok where
   -----------------------------
   ok◇ : Ok ◇
   ok⨟ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {A : Ty}
     {x : 𝔸}
@@ -39,7 +39,7 @@ data _⊢_  Γ where
   -- Well-formed terms: Γ ⊢ a ∶ A ⦂ l
   -----------------------------------
   ⊢conv :
-    {l : Lvl}
+    {l : ℕ}
     {a : Tm}
     {A A' : Ty}
     (q₀ : Γ ⊢ a ∶ A ⦂ l)
@@ -48,7 +48,7 @@ data _⊢_  Γ where
     Γ ⊢ a ∶ A' ⦂ l
 
   ⊢𝐯 :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {x : 𝔸}
     (q₀ : Ok Γ)
@@ -57,13 +57,13 @@ data _⊢_  Γ where
     Γ ⊢ 𝐯 x ∶ A ⦂ l
 
   ⊢𝐔 :
-    {l : Lvl}
+    {l : ℕ}
     (q : Ok Γ)
     → ---------------
     Γ ⊢ 𝐔 l ⦂ (1+ l)
 
   ⊢𝚷 :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Tm}
     {B : Tm[ 1 ]}
     (S : Fset𝔸)
@@ -74,7 +74,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝚷 l l' A B ⦂ (max l l')
 
   ⊢𝛌 :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {B : Ty[ 1 ]}
     {b : Tm[ 1 ]}
@@ -89,7 +89,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝛌 A b ∶ 𝚷 l l' A B ⦂ max l l'
 
   ⊢∙ :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {B : Ty[ 1 ]}
     {a b : Tm}
@@ -104,7 +104,7 @@ data _⊢_  Γ where
     Γ ⊢ b ∙[ A , B ] a ∶ B [ a ] ⦂ l'
 
   ⊢𝐄𝐪 :
-    {l : Lvl}
+    {l : ℕ}
     {A a b : Tm}
     (q₀ : Γ ⊢ a ∶ A ⦂ l)
     (q₁ : Γ ⊢ b ∶ A ⦂ l)
@@ -114,7 +114,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐄𝐪 A a b ⦂ l
 
   ⊢𝐫𝐞𝐟𝐥 :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a : Tm}
     (q : Γ ⊢ a ∶ A ⦂ l)
@@ -129,7 +129,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐄𝐦𝐩 ⦂ 0
 
   ⊢𝐞𝐦𝐩 :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {e : Tm}
     (q₀ : Γ ⊢ A ⦂ l)
@@ -154,7 +154,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐬𝐮𝐜𝐜 a ∶ 𝐍𝐚𝐭 ⦂ 0
 
   ⊢𝐧𝐫𝐞𝐜 :
-    {l : Lvl}
+    {l : ℕ}
     {C : Ty[ 1 ]}
     {c₀ a : Tm}
     {c₊ : Tm[ 2 ]}
@@ -174,7 +174,7 @@ data _⊢_  Γ where
   -- Definitional equality: Γ ⊢ a ＝ a' ∶ A ⦂ l
   ---------------------------------------------
   Refl :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a : Tm}
     (q : Γ ⊢ a ∶ A ⦂ l)
@@ -182,7 +182,7 @@ data _⊢_  Γ where
     Γ ⊢ a ＝ a ∶ A ⦂ l
 
   Symm :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a a' : Tm}
     (q : Γ ⊢ a ＝ a' ∶ A ⦂ l)
@@ -190,7 +190,7 @@ data _⊢_  Γ where
     Γ ⊢ a' ＝ a ∶ A ⦂ l
 
   Trans :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a a' a'' : Tm}
     (q₀ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
@@ -199,7 +199,7 @@ data _⊢_  Γ where
     Γ ⊢ a ＝ a'' ∶ A ⦂ l
 
   ＝conv :
-    {l : Lvl}
+    {l : ℕ}
     {A A' : Ty}
     {a a' : Tm}
     (q₀ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
@@ -208,7 +208,7 @@ data _⊢_  Γ where
     Γ ⊢ a ＝ a' ∶ A' ⦂ l
 
   𝚷Cong :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A A' : Ty}
     {B B' : Ty[ 1 ]}
     (S : Fset𝔸)
@@ -221,7 +221,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝚷 l l' A B ＝ 𝚷 l l' A' B' ⦂ (max l l')
 
   𝛌Cong :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A A' : Ty}
     {B : Ty[ 1 ]}
     {b b' : Tm[ 1 ]}
@@ -237,7 +237,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝛌 A b ＝ 𝛌 A' b' ∶ 𝚷 l l' A B ⦂ max l l'
 
   ∙Cong :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A A' : Ty}
     {B B' : Ty[ 1 ]}
     {a a' b b' : Tm}
@@ -255,7 +255,7 @@ data _⊢_  Γ where
     Γ ⊢ b ∙[ A , B ] a ＝ b' ∙[ A' , B' ] a' ∶ B [ a ] ⦂ l'
 
   𝐄𝐪Cong :
-    {l : Lvl}
+    {l : ℕ}
     {A A' : Ty}
     {a a' b b' : Tm}
     (q₀ : Γ ⊢ A ＝ A' ⦂ l)
@@ -265,7 +265,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐄𝐪 A a b ＝ 𝐄𝐪 A' a' b' ⦂ l
 
   𝐫𝐞𝐟𝐥Cong :
-    {l : Lvl}
+    {l : ℕ}
     {A A' : Ty}
     {a a' : Tm}
     (q₀ : Γ ⊢ A ＝ A' ⦂ l)
@@ -274,7 +274,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐫𝐞𝐟𝐥 A a ＝ 𝐫𝐞𝐟𝐥 A' a' ∶ 𝐄𝐪 A a a ⦂ l
 
   𝐞𝐦𝐩Cong :
-    {l : Lvl}
+    {l : ℕ}
     {A A' : Ty}
     {e e' : Tm}
     (q₀ : Γ ⊢ A ＝ A' ⦂ l)
@@ -289,7 +289,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐬𝐮𝐜𝐜 a ＝ 𝐬𝐮𝐜𝐜 a' ∶ 𝐍𝐚𝐭 ⦂ 0
 
   𝐧𝐫𝐞𝐜Cong :
-    {l : Lvl}
+    {l : ℕ}
     {C C' : Ty[ 1 ]}
     {c₀ c₀' a a'  : Tm}
     {c₊ c₊' : Tm[ 2 ]}
@@ -308,7 +308,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ＝ 𝐧𝐫𝐞𝐜 C' c₀' c₊' a' ∶ C [ a ] ⦂ l
 
   𝚷Beta :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {a : Tm}
     {B : Ty[ 1 ]}
@@ -325,7 +325,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝛌 A b ∙[ A , B ] a ＝ b [ a ] ∶ B [ a ] ⦂ l'
 
   𝐍𝐚𝐭Beta₀ :
-    {l : Lvl}
+    {l : ℕ}
     {C : Ty[ 1 ]}
     {c₀ : Tm}
     {c₊ : Tm[ 2 ]}
@@ -341,7 +341,7 @@ data _⊢_  Γ where
     Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ 𝐳𝐞𝐫𝐨 ＝ c₀ ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l
 
   𝐍𝐚𝐭Beta₊ :
-    {l : Lvl}
+    {l : ℕ}
     {C : Ty[ 1 ]}
     {c₀ a : Tm}
     {c₊ : Tm[ 2 ]}
@@ -359,7 +359,7 @@ data _⊢_  Γ where
     c₊ [ a ][ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ] ∶ C [ 𝐬𝐮𝐜𝐜 a ] ⦂ l
 
   𝚷Eta :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {B : Ty[ 1 ]}
     {b b' : Tm}
@@ -376,7 +376,7 @@ data _⊢_  Γ where
     Γ ⊢ b ＝ b' ∶ 𝚷 l l' A B ⦂ max l l'
 
   Reflect :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a b e : Tm}
     (q₀ : Γ ⊢ a ∶ A ⦂ l)
@@ -388,7 +388,7 @@ data _⊢_  Γ where
     Γ ⊢ a ＝ b ∶ A ⦂ l
 
   UIP :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a b e e' : Tm}
     (q₀ : Γ ⊢ a ∶ A ⦂ l)
@@ -407,7 +407,7 @@ infix 4 ⊢_＝_
 data ⊢_＝_ : (Γ Γ' : Cx) → Set where
   ＝◇ : ⊢ ◇ ＝ ◇
   ＝⨟ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ Γ' : Cx}
     {A A' : Ty}
     {x : 𝔸}
@@ -427,7 +427,7 @@ infix 4 _▷_
 data _▷_ : (Δ Γ : Cx) → Set where
     ▷◇ : ◇ ▷ ◇
     ▷proj :
-      {l : Lvl}
+      {l : ℕ}
       {Δ Γ : Cx}
       {A : Ty}
       {x : 𝔸}
@@ -437,7 +437,7 @@ data _▷_ : (Δ Γ : Cx) → Set where
       → ---------------
       Δ ⨟ x ∶ A ⦂ l ▷ Γ
     ▷⨟ :
-      {l : Lvl}
+      {l : ℕ}
       {Δ Γ : Cx}
       {A : Ty}
       {x : 𝔸}
@@ -460,7 +460,7 @@ data _⊢ˢ_∶_ (Γ' : Cx) : Sb → Cx → Set where
     → ---------
     Γ' ⊢ˢ σ ∶ ◇
   ⨟ˢ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {σ : Sb}
     {A : Ty}
@@ -490,7 +490,7 @@ data _⊢ˢ_＝_∶_ (Γ' : Cx) : Sb → Sb → Cx → Set where
     → ---------------
     Γ' ⊢ˢ σ ＝ σ' ∶ ◇
   ＝⨟ˢ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {σ σ' : Sb}
     {A : Ty}

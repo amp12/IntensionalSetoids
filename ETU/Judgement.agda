@@ -14,15 +14,15 @@ infix 4
   _＝_∶_⦂_
 data Jg : Set where
   -- well-formed term of given type and level
-  _∶_⦂_     : (a : Tm)(A : Ty)(l : Lvl)    → Jg
+  _∶_⦂_     : (a : Tm)(A : Ty)(l : ℕ)    → Jg
   -- definitional equality of terms of given type and level
-  _＝_∶_⦂_  : (a a' : Tm)(A : Ty)(l : Lvl) → Jg
+  _＝_∶_⦂_  : (a a' : Tm)(A : Ty)(l : ℕ) → Jg
 
 infix 4 _⦂_ _＝_⦂_
-_⦂_ : Ty → Lvl → Jg
+_⦂_ : Ty → ℕ → Jg
 (A ⦂ l) = A ∶ 𝐔 l ⦂ 1+ l
 
-_＝_⦂_ : Ty → Ty → Lvl → Jg
+_＝_⦂_ : Ty → Ty → ℕ → Jg
 (A ＝ A' ⦂ l) = A ＝ A' ∶ 𝐔 l ⦂ 1+ l
 
 ----------------------------------------------------------------------

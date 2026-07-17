@@ -20,7 +20,7 @@ infix 3
 
 -- Terms
 data ⟦_⊢[_]_tm⟧＝ (Γ : Cx) :
-  (l : Lvl)
+  (l : ℕ)
   (a : Tm)
   (CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C))
   → ----------------------------------------
@@ -29,7 +29,7 @@ data ⟦_⊢[_]_tm⟧＝ (Γ : Cx) :
 -- Variables
 data ⟦_⊢[_]_vr⟧＝ :
   (Γ : Cx)
-  (l : Lvl)
+  (l : ℕ)
   (x : 𝔸)
   (CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C))
   → ----------------------------------------
@@ -38,7 +38,7 @@ data ⟦_⊢[_]_vr⟧＝ :
 -- Types
 ⟦_⊢[_]_ty⟧＝ :
   (Γ : Cx)
-  (l : Lvl)
+  (l : ℕ)
   (A : Ty)
   (CT : ∑ Uω (Fam l))
   → ------------------
@@ -58,7 +58,7 @@ data ⟦_cx⟧＝ :
 
 data ⟦_⊢[_]_tm⟧＝ Γ where
   resp⟦tm⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {a : Tm}
     {CTt CTt' : ∑[ C ∈ Uω ] ∑(Fam l C) (Elt l C)}
     (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
@@ -67,14 +67,14 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
     ⟦ Γ ⊢[ l ] a tm⟧＝ CTt'
 
   ⟦𝐔⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {C : Uω}
     (q : ⟦ Γ cx⟧＝ C)
     → ----------------------------------
     ⟦ Γ ⊢[ 1+ l ] 𝐔 l ty⟧＝ (C , 𝒰𝓃𝒾𝓋 l)
 
   ⟦𝚷⟧ :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {B : Ty[ 1 ]}
     {C : Uω}
@@ -89,7 +89,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
 
 
   ⟦𝐄𝐪⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a a' : Tm}
     {C : Uω}
@@ -114,7 +114,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
     ⟦ Γ ⊢[ 0 ] 𝐍𝐚𝐭 ty⟧＝ (C , 𝒩𝒶𝓉)
 
   ⟦𝐯⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {x : 𝔸}
     {CTt : ∣ Σℰ𝓁𝓉 l ∣}
     (q : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
@@ -122,7 +122,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
     ⟦ Γ ⊢[ l ] 𝐯 x tm⟧＝ CTt
 
   ⟦𝛌⟧ :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {b : Tm[ 1 ]}
     {C : Uω}
@@ -139,7 +139,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
       (C , 𝒫𝒾 l l' S T , 𝓁𝒶𝓂 l l' S t)
 
   ⟦∙⟧ :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {A : Ty}
     {B : Ty[ 1 ]}
     {a b : Tm}
@@ -161,7 +161,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
     (C , ⟪ s ⟫ * T , 𝒶𝓅𝓅 l l' S T t s)
 
   ⟦𝐫𝐞𝐟𝐥⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {A : Ty}
     {a : Tm}
     {C : Uω}
@@ -174,7 +174,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
       (C , ℰ𝓆 l T t t , 𝓇𝒻𝓁 l T t)
 
   ⟦𝐞𝐦𝐩⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {B : Ty}
     {a : Tm}
     {C : Uω}
@@ -200,7 +200,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
     ⟦ Γ ⊢[ 0 ] 𝐬𝐮𝐜𝐜 a tm⟧＝ (C , 𝒩𝒶𝓉 , 𝓈𝓊𝒸𝒸 t)
 
   ⟦𝐧𝐫𝐞𝐜⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {B : Ty[ 1 ]}
     {b₀ a : Tm}
     {b₊ : Tm[ 2 ]}
@@ -227,7 +227,7 @@ data ⟦_⊢[_]_tm⟧＝ Γ where
 
 data ⟦_⊢[_]_vr⟧＝ where
   resp⟦vr⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {x : 𝔸}
     {CTt CTt' : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
@@ -237,7 +237,7 @@ data ⟦_⊢[_]_vr⟧＝ where
     ⟦ Γ ⊢[ l ] x vr⟧＝ CTt'
 
   ⟦new⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {A : Ty}
     {C : Uω}
@@ -250,7 +250,7 @@ data ⟦_⊢[_]_vr⟧＝ where
       (C ⋉[ l ] T , 𝓅 T * T , 𝓆 T)
 
   ⟦old⟧ :
-    {l l' : Lvl}
+    {l l' : ℕ}
     {Γ : Cx}
     {A' : Ty}
     {C : Uω}
@@ -269,7 +269,7 @@ data ⟦_cx⟧＝ where
   ⟦◇⟧ : ⟦ ◇ cx⟧＝ Unit
 
   ⟦⨟⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Γ : Cx}
     {A : Ty}
     {C : Uω}
@@ -284,7 +284,7 @@ data ⟦_cx⟧＝ where
 -- derivable:
 resp⟦ty⟧ :
   {Γ : Cx}
-  {l : Lvl}
+  {l : ℕ}
   {A : Ty}
   {CT CT' : ∑ Uω (Fam l)}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ CT)

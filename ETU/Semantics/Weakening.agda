@@ -35,7 +35,7 @@ data ⟦_▷_⟧＝ :
     ⟦ ◇ ▷ ◇ ⟧＝ ((Unit , Unit) , id)
 
   ⟦proj▷⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Δ Γ : Cx}
     {A : Ty}
     {x : 𝔸}
@@ -49,7 +49,7 @@ data ⟦_▷_⟧＝ :
     ⟦ (Δ ⨟ x ∶ A ⦂ l) ▷ Γ ⟧＝ ((D ⋉[ l ] T , C) , f ∘ 𝓅 T)
 
   ⟦▷⨟⟧ :
-    {l : Lvl}
+    {l : ℕ}
     {Δ Γ : Cx}
     {A : Ty}
     {x : 𝔸}
@@ -97,7 +97,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   ((rflω C , rflω C ) , λ _ _ z → z)
 
 ⟦proj⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -114,7 +114,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 -- Semantics of weakening
 ----------------------------------------------------------------------
 ▷⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {a : Tm}
   {D C : Uω}
@@ -127,7 +127,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   ⟦ Δ ⊢[ l ] a tm⟧＝ (D , f * T , f *₁ t)
 
 ▷⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {x : 𝔸}
   {D C : Uω}
@@ -278,7 +278,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 -- The next two functions, ▷⟦vrNew⟧ and ▷⟦vrOld⟧, are helpers that
 -- enable use of UIP at the decidable type ℕ in the proof of ▷⟦vr⟧.
 ▷⟦vrNew⟧ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Δ Γ : Cx}
   {x : 𝔸}
   {A : Ty}
@@ -342,7 +342,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   e' _ _ (_ , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = w
 
 ▷⟦vrOld⟧ :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Δ Γ : Cx}
   {A' : Ty}
   {x x' : 𝔸}
@@ -444,7 +444,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     ((rflω D , symω e₁) , coh ℋℴ𝓂 (rflω D , symω e₁) f')
 
 ▷⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {A : Ty}
   {D C : Uω}
@@ -461,7 +461,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 --- Contexts that denote contain types that denote
 ----------------------------------------------------------------------
 ok→⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -483,7 +483,7 @@ ok→⟦ty⟧ (isInOld p) (⟦⨟⟧{T = T'} q₀ q₁)
 -- Lifting weakening without the helper hypothesis
 ----------------------------------------------------------------------
 ⟦▷⨟⟧⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Δ Γ : Cx}
   {A : Ty}
   {x : 𝔸}
@@ -504,7 +504,7 @@ ok→⟦ty⟧ (isInOld p) (⟦⨟⟧{T = T'} q₀ q₁)
 ----------------------------------------------------------------------
 wk⟦tm⟧ :
   {x : 𝔸}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a' : Tm}
@@ -523,7 +523,7 @@ wk⟦tm⟧ q₀ q₁ q₂ = ▷⟦tm⟧ (⟦proj⟧ q₀ q₂) q₁
 
 wk⟦vr⟧ :
   {x : 𝔸}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x' : 𝔸}
@@ -542,7 +542,7 @@ wk⟦vr⟧ q₀ q₁ q₂ = ▷⟦vr⟧ (⟦proj⟧ q₀ q₂) q₁
 
 wk⟦ty⟧ :
   {x : 𝔸}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {C : Uω}

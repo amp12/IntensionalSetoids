@@ -14,7 +14,7 @@ open import ETU.Weakening
 -- Weakening substitutions
 ----------------------------------------------------------------------
 ▷Sb :
-  {l : Lvl}
+  {l : ℕ}
   {Γ Γ' : Cx}
   {σ : Sb}
   {A : Ty}
@@ -30,7 +30,7 @@ open import ETU.Weakening
   ⨟ˢ (▷Sb x q q₀ q') q₁ (▷Jg (proj q q') q₂)  q₃
 
 ▷＝Sb :
-  {l : Lvl}
+  {l : ℕ}
   {Γ Γ' : Cx}
   {σ σ' : Sb}
   {A : Ty}
@@ -102,7 +102,7 @@ sb＝Ext{σ'}{τ'} (＝⨟ˢ{σ = σ}{τ}{A = A}{x} q₀ q₁ q₂ q₃) e e'
 -- Lifting substitutions
 ----------------------------------------------------------------------
 liftSb :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Γ Γ' : Cx}
   {A : Ty}
@@ -130,7 +130,7 @@ liftSb{l}{σ}{Γ}{Γ'}{A}{x}{x'} ⊢σ ⊢A x#Γ x'#Γ' ⊢σA =
 
 -- Iterated lifting
 liftSb² :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {σ : Sb}
   {Γ Γ' : Cx}
   {A A' B B' : Ty}
@@ -157,7 +157,7 @@ liftSb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h h' =
 -- Types of variables under substitution
 ----------------------------------------------------------------------
 sbVar :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Γ Γ' : Cx}
   {x : 𝔸}
@@ -171,7 +171,7 @@ sbVar (⨟ˢ _ _ q _)  isInNew     = q
 sbVar (⨟ˢ q _ _ _) (isInOld q') = sbVar q q'
 
 sbVar＝ :
-  {l : Lvl}
+  {l : ℕ}
   {σ σ' : Sb}
   {Γ Γ' : Cx}
   {x : 𝔸}
@@ -658,7 +658,7 @@ sb＝Refl (⨟ˢ q₀ q₁ q₂ q₃) = ＝⨟ˢ (sb＝Refl q₀) q₁ (Refl q�
 -- Properties of substitution update
 ----------------------------------------------------------------------
 sbUpdate :
-  {l : Lvl}
+  {l : ℕ}
   {Γ Γ' : Cx}
   {σ : Sb}
   {A : Ty}
@@ -683,7 +683,7 @@ sbUpdate{l}{Γ' = Γ'}{σ}{A}{a}{x} ⊢σ ⊢a x#Γ ⊢A = ⨟ˢ
   x#Γ
 
 sb＝Update :
-  {l : Lvl}
+  {l : ℕ}
   {Γ Γ' : Cx}
   {σ σ' : Sb}
   {A : Ty}
@@ -712,7 +712,7 @@ sb＝Update{l}{Γ' = Γ'}{σ}{σ'}{A}{a}{a'}{x} σ=σ' a=a' x#Γ ⊢A = ＝⨟ˢ
   x#Γ
 
 ssbUpdate :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -731,7 +731,7 @@ ssbUpdate{l}{Γ}{A}{a} q x#Γ h = sbUpdate
   h
 
 ssb＝Update :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
@@ -750,7 +750,7 @@ ssb＝Update{l}{Γ}{A}{a}{a'} q x#Γ h = sb＝Update
   h
 
 ssbUpdate² :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {x y : 𝔸}
   {a b : Tm}
@@ -767,7 +767,7 @@ ssbUpdate² q₀ q₁ q₂ q₃
   sbUpdate (ssbUpdate q₀ q' q) q₂ q₃ q₁
 
 ssb＝Update² :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {x y : 𝔸}
   {a a' b b' : Tm}
@@ -788,7 +788,7 @@ ssb＝Update² q₀ q₁ q₂ q₃
 -- Lifting substitutions, again
 ----------------------------------------------------------------------
 liftSb⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {σ : Sb}
   {Γ Γ' : Cx}
   {A : Ty}
@@ -803,7 +803,7 @@ liftSb⁻ :
 liftSb⁻ q₀ q₁ q₂ q₃ = liftSb q₀ q₁ q₂ q₃ (sbJg q₀ q₁)
 
 lift＝Sb :
-  {l : Lvl}
+  {l : ℕ}
   {σ σ' : Sb}
   {Γ Γ' : Cx}
   {A : Ty}
@@ -834,7 +834,7 @@ lift＝Sb{l}{σ}{σ'}{Γ}{Γ'}{A}{x}{x'} p q x#Γ x'#Γ h =
     Refl (⊢𝐯 ([]⁻ (sbJg h q) x'#Γ) isInNew)
 
 lift＝Sb² :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {x y x' y' : 𝔸}
   {σ σ' : Sb}
   {Γ Γ' : Cx}
@@ -864,7 +864,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
 -- Action of definitionally equal substitutions
 ----------------------------------------------------------------------
 ＝sbTm :
-  {l : Lvl}
+  {l : ℕ}
   {σ σ' : Sb}
   {Δ Γ : Cx}
   {A : Ty}
@@ -1039,7 +1039,7 @@ rn⨟ :
   {Γ : Cx}
   {x x' : 𝔸}
   {A : Ty}
-  {l : Lvl}
+  {l : ℕ}
   {J : Jg}
   (_ : Γ ⨟ x ∶ A ⦂ l ⊢ J)
   (_ : x' # Γ)
@@ -1058,7 +1058,7 @@ rn⨟² :
   {Γ : Cx}
   {x x' y y' : 𝔸}
   {A B : Ty}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {J : Jg}
   (_ : Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l' ⊢ J)
   (_ : x' # Γ)

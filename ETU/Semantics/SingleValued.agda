@@ -29,7 +29,7 @@ sv⟦cx⟧ :
 
 sv⟦tm⟧' :
   -- includes a uniqueness-of-levels property
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {a : Tm}
   {CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
@@ -37,10 +37,10 @@ sv⟦tm⟧' :
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
   (_ : ⟦ Γ ⊢[ l' ] a tm⟧＝ CTt')
   → -------------------------------------------
-  ∐ Lvl Σℰ𝓁𝓉 ∋ (l , CTt) ~ (l' , CTt')
+  ∐ ℕ Σℰ𝓁𝓉 ∋ (l , CTt) ~ (l' , CTt')
 
 sv⟦tm⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {a : Tm}
   {CTt CTt' : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
@@ -55,7 +55,7 @@ sv⟦tm⟧ q q'
 
 sv⟦vr⟧' :
   -- includes a uniqueness-of-levels property
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {x x' : 𝔸}
   {CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
@@ -64,10 +64,10 @@ sv⟦vr⟧' :
   (_ : ⟦ Γ ⊢[ l' ] x' vr⟧＝ CTt')
   (_ : x ≡ x')
   → -------------------------------------------
-  ∐ Lvl Σℰ𝓁𝓉 ∋ (l , CTt) ~ (l' , CTt')
+  ∐ ℕ Σℰ𝓁𝓉 ∋ (l , CTt) ~ (l' , CTt')
 
 sv⟦vr⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
   {CTt CTt' : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
@@ -82,7 +82,7 @@ sv⟦vr⟧ q q'
 
 sv⟦ty⟧' :
   -- includes a uniqueness-of-levels property
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {CT : ∑ Uω (Fam l)}
@@ -90,14 +90,14 @@ sv⟦ty⟧' :
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ CT)
   (_ : ⟦ Γ ⊢[ l' ] A  ty⟧＝ CT')
   → --------------------------------
-  ∐ Lvl Σℱ𝒶𝓂 ∋ (l , CT) ~ (l' , CT')
+  ∐ ℕ Σℱ𝒶𝓂 ∋ (l , CT) ~ (l' , CT')
 
 sv⟦ty⟧'{l}{l'} q q'
   with (refl , e , _ , e') ← sv⟦tm⟧'{1+ l}{1+ l'} q q' =
   (refl , e , e')
 
 sv⟦ty⟧ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {CT CT' : ∑ Uω (Fam l)}

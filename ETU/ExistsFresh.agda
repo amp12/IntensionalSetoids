@@ -17,7 +17,7 @@ open import ETU.Admissible
 ----------------------------------------------------------------------
 ⊢𝚷⁻ :
   {Γ : Cx}
-  {l l' : Lvl}
+  {l l' : ℕ}
   {A : Tm}
   {B : Tm[ 1 ]}
   {x : 𝔸}
@@ -35,7 +35,7 @@ open import ETU.Admissible
     (rn⨟ q₁ y#Γ)
 
 ⊢𝛌⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {B : Ty[ 1 ]}
@@ -59,7 +59,7 @@ open import ETU.Admissible
     (rn⨟ (⊢∶ty q) y#Γ)
 
 ⊢∙⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {B : Ty[ 1 ]}
@@ -82,7 +82,7 @@ open import ETU.Admissible
   (⊢∶ty q₁)
 
 ⊢𝐄𝐪⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A a b : Tm}
   (_ : Γ ⊢ a ∶ A ⦂ l)
@@ -93,7 +93,7 @@ open import ETU.Admissible
 ⊢𝐄𝐪⁻ q₀ q₁ = ⊢𝐄𝐪 q₀ q₁ (⊢∶ty q₀)
 
 ⊢𝐫𝐞𝐟𝐥⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -104,7 +104,7 @@ open import ETU.Admissible
 ⊢𝐫𝐞𝐟𝐥⁻ q = ⊢𝐫𝐞𝐟𝐥 q (⊢∶ty q)
 
 ⊢𝐧𝐫𝐞𝐜⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {C : Ty[ 1 ]}
   {c₀ a : Tm}
@@ -158,7 +158,7 @@ open import ETU.Admissible
     ∎
 
 𝚷Cong⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {B B' : Ty[ 1 ]}
@@ -180,7 +180,7 @@ open import ETU.Admissible
   (⊢ty₁ q₀)
 
 𝛌Cong⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {B : Ty[ 1 ]}
@@ -209,7 +209,7 @@ open import ETU.Admissible
     (rn⨟ (⊢∶ty (⊢ty₁ q₁)) x'#Γ)
 
 ∙Cong⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {B B' : Ty[ 1 ]}
@@ -241,7 +241,7 @@ open import ETU.Admissible
     (rn⨟ (⊢ty₁ q₁) x'#Γ)
 
 𝐧𝐫𝐞𝐜Cong⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {C C' : Ty[ 1 ]}
   {c₀ c₀' a a'  : Tm}
@@ -303,7 +303,7 @@ open import ETU.Admissible
     ∎
 
 𝚷Beta⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
@@ -331,7 +331,7 @@ open import ETU.Admissible
     (rn⨟ (⊢∶ty q₀) x'#Γ)
 
 𝐍𝐚𝐭Beta₀⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {C : Ty[ 1 ]}
   {c₀ : Tm}
@@ -383,7 +383,7 @@ open import ETU.Admissible
     ∎
 
 𝐍𝐚𝐭Beta₊⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {C : Ty[ 1 ]}
   {c₀ a : Tm}
@@ -438,7 +438,7 @@ open import ETU.Admissible
     ∎
 
 𝚷⁻¹ :
-  {l l' l'' : Lvl}
+  {l l' l'' : ℕ}
   {Γ : Cx}
   {A C : Ty}
   {B : Ty[ 1 ]}
@@ -456,7 +456,7 @@ open import ETU.Admissible
     (rn⨟ (q₁ x' x'#S) x#Γ)
 
 𝚷Eta⁻ :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
   {B : Ty[ 1 ]}
@@ -532,7 +532,7 @@ open import ETU.Admissible
        | updateEq{σ = id}{𝐯 y} x = refl
 
 Reflect⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a b e : Tm}
@@ -545,7 +545,7 @@ Reflect⁻ :
 Reflect⁻ q₀ q₁ q₂ = Reflect q₀ q₁ q₂ (⊢∶ty q₀)
 
 UIP⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a b e e' : Tm}
@@ -559,7 +559,7 @@ UIP⁻ :
 UIP⁻ q₀ q₁ q₂ q₃ = UIP q₀ q₁ q₂ q₃ (⊢∶ty q₀)
 
 Cx[]⁻ :
-  {l : Lvl}
+  {l : ℕ}
   {Γ Γ' : Cx}
   {A A' : Ty}
   {x : 𝔸}

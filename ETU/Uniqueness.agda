@@ -18,7 +18,7 @@ open import ETU.ExistsFresh
 -- and have a unique level
 ----------------------------------------------------------------------
 svVr :
- {l l' : Lvl}
+ {l l' : ℕ}
  {Γ : Cx}
  {A A' : Ty}
  {x x' : 𝔸}
@@ -37,7 +37,7 @@ svVr (ok⨟ _ q _) (isInOld p) isInNew refl =
 svVr (ok⨟ _ _ q) (isInOld p) (isInOld p') e = svVr q p p' e
 
 svTy :
-  {l l' : Lvl}
+  {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
   {a : Tm}
