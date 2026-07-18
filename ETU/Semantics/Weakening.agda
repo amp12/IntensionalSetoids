@@ -39,7 +39,7 @@ data ⟦_▷_⟧＝ :
     {Δ Γ : Cx}
     {A : Ty}
     {x : 𝔸}
-    {D C : Uω}
+    {D C : ∣ 𝒞 ∣}
     {f : Hom D C}
     {T : Fam l D}
     (q₀ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
@@ -53,7 +53,7 @@ data ⟦_▷_⟧＝ :
     {Δ Γ : Cx}
     {A : Ty}
     {x : 𝔸}
-    {D C : Uω}
+    {D C : ∣ 𝒞 ∣}
     {f : Hom D C}
     {S : Fam l C}
     (q₀ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
@@ -70,7 +70,7 @@ data ⟦_▷_⟧＝ :
 ----------------------------------------------------------------------
 ok⟦▷⟧ :
   {Δ Γ : Cx}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   (_ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
   → -----------------------------
@@ -86,7 +86,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ----------------------------------------------------------------------
 ⟦▷id⟧ :
   {Γ : Cx}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   (_ : ⟦ Γ cx⟧＝ C)
   → ------------------------
   ⟦ Γ ▷ Γ ⟧＝ ((C , C) , id)
@@ -94,14 +94,14 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ⟦▷id⟧ ⟦◇⟧ = ⟦▷◇⟧
 ⟦▷id⟧{C = C} (⟦⨟⟧{l}{T = T} q₀ q₁) = resp⟦▷⟧
   (⟦▷⨟⟧ (⟦▷id⟧ (ok⟦ty⟧ q₀)) q₀ q₁ q₀)
-  ((rflω C , rflω C ) , λ _ _ z → z)
+  ((rflᶜ C , rflᶜ C ) , λ _ _ z → z)
 
 ⟦proj⟧ :
   {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   (q₀ : ⟦ Γ ⊢[ l ] A ty⟧＝ (C , T))
   (q₁ : x # Γ)
@@ -117,7 +117,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {l : ℕ}
   {Δ Γ : Cx}
   {a : Tm}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {T : Fam l C}
   {t : Elt l C T}
@@ -130,7 +130,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {l : ℕ}
   {Δ Γ : Cx}
   {x : 𝔸}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {T : Fam l C}
   {t : Elt l C T}
@@ -142,19 +142,19 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ▷⟦tm⟧{l}{Δ}{Γ}{D = D}{C'}{f'}{T'}{t'} p'
   (resp⟦tm⟧{CTt = C , T , t} q (e₁ , e₂ , e₃)) = resp⟦tm⟧
   (▷⟦tm⟧ p q )
-  (rflω D ,
+  (rflᶜ D ,
    (λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
    cng*₁{l}{T = T}{T'}{t}{t'} f f' e e₃)
   where
   f : Hom D C
-  f = coe ℋℴ𝓂 (rflω D , symω e₁) f'
+  f = coe ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f'
 
   e : ℋℴ𝓂 ∋ (D , C) , f ≈ (D , C' ) , f'
-  e = coh⁻¹ ℋℴ𝓂 (rflω D , symω e₁) f'
+  e = coh⁻¹ ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f'
 
   p : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f)
   p = resp⟦▷⟧ p'
-    ((rflω D , symω e₁) , coh ℋℴ𝓂 (rflω D , symω e₁) f')
+    ((rflᶜ D , symᶜ e₁) , coh ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f')
 
 ▷⟦tm⟧ p (⟦𝐔⟧ _) = ⟦𝐔⟧ (ok⟦▷⟧ p)
 
@@ -165,7 +165,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (▷⟦tm⟧ p q₀)
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₀ x#Δ (▷⟦tm⟧ p q₀)) (q₁ x x#X)}))
-  (rflω D , (sym (ℱ𝒶𝓂 (max l l') ′ D)
+  (rflᶜ D , (sym (ℱ𝒶𝓂 (max l l') ′ D)
     {f * (𝒫𝒾 l l' S T)}
     {𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)}
     (ntrl𝒫𝒾 l l' S T f)))
@@ -173,7 +173,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ▷⟦tm⟧{Δ = Δ}{D = D}{f = f} p
   (⟦𝐄𝐪⟧{l}{C = C}{T}{t}{t'} q₀ q₁ q₂) = resp⟦ty⟧
   (⟦𝐄𝐪⟧ (▷⟦tm⟧ p q₀) (▷⟦tm⟧ p q₁) (▷⟦tm⟧ p q₂))
-  (rflω D , (sym (ℱ𝒶𝓂 l ′ D)
+  (rflᶜ D , (sym (ℱ𝒶𝓂 l ′ D)
     {f * ℰ𝓆 l T t t'}
     {ℰ𝓆 l (f * T) (f *₁ t) (f *₁ t')}
     (ntrlℰ𝓆 l T t t' f)))
@@ -191,7 +191,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (▷⟦tm⟧ p q₀)
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₀ x#Δ (▷⟦tm⟧ p q₀)) (q₁ x x#X)}))
-  (rflω D ,
+  (rflᶜ D ,
    sym (Σℱ𝒶𝓂ℰ𝓁𝓉 (max l l') ′ D)
      {f * 𝒫𝒾 l l' S T , f *₁ 𝓁𝒶𝓂 l l' S t}
      {𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T) ,
@@ -206,7 +206,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₁ x#Δ (▷⟦tm⟧ p q₁)) (q₂ x x#X)})
     (▷⟦tm⟧ p q₃))
-  (rflω D , sym (Σℱ𝒶𝓂ℰ𝓁𝓉 l' ′ D)
+  (rflᶜ D , sym (Σℱ𝒶𝓂ℰ𝓁𝓉 l' ′ D)
     {f * ⟪ s ⟫ * T , f *₁ 𝒶𝓅𝓅 l l' S T t s}
     {⟪ f *₁ s ⟫ * (f ⋉′[ l ] S) * T ,
      𝒶𝓅𝓅 l l' (f * S) (f ⋉′[ l ] S * T) t' (f *₁ s)}
@@ -215,17 +215,17 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   where
   t' : Elt (max l l') D (𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T))
   t' = coe (ℰ𝓁𝓉 (max l l'))
-    (rflω D , ntrl𝒫𝒾 l l' S T f)
+    (rflᶜ D , ntrl𝒫𝒾 l l' S T f)
     (f *₁ t)
 
   q₀' : ⟦ Δ ⊢[ max l l' ]  b tm⟧＝
     (D , 𝒫𝒾 l l' (f * S ) (f ⋉′[ l ] S * T) , t')
   q₀' = resp⟦tm⟧
     (▷⟦tm⟧ p q₀)
-    (rflω D , ntrl𝒫𝒾 l l' S T f ,
+    (rflᶜ D , ntrl𝒫𝒾 l l' S T f ,
      coh (ℰ𝓁𝓉 (max l l'))
        {x' = _ , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)}
-       (rflω D , ntrl𝒫𝒾 l l' S T f)
+       (rflᶜ D , ntrl𝒫𝒾 l l' S T f)
        (f *₁ t))
 
 ▷⟦tm⟧ p (⟦𝐫𝐞𝐟𝐥⟧ q₀ q₁) = ⟦𝐫𝐞𝐟𝐥⟧
@@ -236,7 +236,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   (▷⟦tm⟧ p q₀)
   (resp⟦tm⟧
     (▷⟦tm⟧ p q₁)
-    ((rflω D , (λ _ _ _ → tt) , λ _ _ _ → tt)))
+    ((rflᶜ D , (λ _ _ _ → tt) , λ _ _ _ → tt)))
 
 ▷⟦tm⟧ p (⟦𝐳𝐞𝐫𝐨⟧ _) = ⟦𝐳𝐞𝐫𝐨⟧ (ok⟦▷⟧ p)
 
@@ -255,7 +255,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
         (⟦▷⨟⟧ q (q₀ x y#X) (x#Δ ∉∪ (#symm y#x)) (▷⟦tm⟧ q (q₀ x y#X)))
         (q₂ x y (##:: x#X (##:: (y#x ∉∪ y#X) ##◇)))})
     (▷⟦tm⟧ p q₃))
-  (rflω D ,
+  (rflᶜ D ,
    (sym (Σℱ𝒶𝓂ℰ𝓁𝓉 l ′ D)
      {⟪ s' ⟫ * S' , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
      {f * ⟪ s ⟫ * S , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
@@ -282,7 +282,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {Δ Γ : Cx}
   {x : 𝔸}
   {A : Ty}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {f : Hom D (C ⋉[ l ] S)}
   (_ : ⟦ Δ ▷ (Γ ⨟ x ∶ A ⦂ l') ⟧＝ ((D , C ⋉[ l ] S) , f))
@@ -300,7 +300,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     p₀ p₁ p₂ h) q₀ q₁ e
   with refl ← ! ⦃ !≡ ⦄ e refl = resp⟦vr⟧
     (⟦new⟧ h p₂)
-    (rflω (D' ⋉[ l ] (f' * S')) , e₁ , e₂)
+    (rflᶜ (D' ⋉[ l ] (f' * S')) , e₁ , e₂)
   where
   e₁ : (ℱ𝒶𝓂 l) ′ (D' ⋉[ l ] (f' * S')) ∋
     𝓅 (f' * S') * f' * S' ~ (f' ⋉′[ l ] S') * 𝓅 S' * S'
@@ -334,7 +334,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
      λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
   where
   S' : Fam l C'
-  S' = mkElt₁ X' q'
+  S' = mkSect X' q'
 
   e' : ℰ𝓁𝓉 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') , 𝓆 S' ≈
@@ -346,7 +346,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {Δ Γ : Cx}
   {A' : Ty}
   {x x' : 𝔸}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
   {t : Elt l C T}
@@ -367,7 +367,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   with refl ← ! ⦃ !≡ ⦄ e refl =
   resp⟦vr⟧
     (▷⟦vr⟧ (⟦proj▷⟧ p h q₃) q₁)
-    (rflω (D ⋉[ l' ] (f * T')) , e₁ , e₂)
+    (rflᶜ (D ⋉[ l' ] (f * T')) , e₁ , e₂)
   where
   e₁ : (ℱ𝒶𝓂 l) ′ (D ⋉[ l' ] (f * T')) ∋
     𝓅 (f * T') * f * T ~ f ⋉′[ l' ] T' * 𝓅 T' * T
@@ -390,7 +390,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     p ((e₁ , e₂ , refl , e₃) , e₄)) q₀ q₁ q₂ refl = resp⟦vr⟧
   (▷⟦vrOld⟧{T = S'}{t = s'} p
     (resp⟦ty⟧ q₀ (sym (Σℱ𝒶𝓂 l'){C' , T'}{C , T} (e₂ , e₃)))
-    (resp⟦vr⟧ q₁ (symω e₂ , e , e'))
+    (resp⟦vr⟧ q₁ (symᶜ e₂ , e , e'))
     q₂
     refl)
   (e₁ ,
@@ -399,28 +399,28 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
      e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
   where
   T' : Fam l' C'
-  T' = mkElt₁ X' q'
+  T' = mkSect X' q'
 
   S' : Fam l C'
-  S' = coe (ℱ𝒶𝓂 l) (symω e₂) S
+  S' = coe (ℱ𝒶𝓂 l) (symᶜ e₂) S
 
   e : ℱ𝒶𝓂 l ∋ C , S ≈ C' , S'
-  e = coh (ℱ𝒶𝓂 l) (symω e₂) S
+  e = coh (ℱ𝒶𝓂 l) (symᶜ e₂) S
 
   s' : Elt l C' S'
-  s' = coe (ℰ𝓁𝓉 l) (symω e₂ , e) s
+  s' = coe (ℰ𝓁𝓉 l) (symᶜ e₂ , e) s
 
   e' : ℰ𝓁𝓉 l ∋ (C , S) , s  ≈ (C' , S') , s'
-  e' = coh (ℰ𝓁𝓉 l){C , S}{C' , S'} (symω e₂ , e) s
+  e' = coh (ℰ𝓁𝓉 l){C , S}{C' , S'} (symᶜ e₂ , e) s
 
   e₂' : ℰ𝓁𝓉 l ∋ (C' , S') , s'  ≈ (C , S) , s
-  e₂' = coh⁻¹ (ℰ𝓁𝓉 l){C , S}{C' , S'} (symω e₂ , e) s
+  e₂' = coh⁻¹ (ℰ𝓁𝓉 l){C , S}{C' , S'} (symᶜ e₂ , e) s
 
   e₂'' : ℱ𝒶𝓂 l ∋
     C' ⋉[ l' ] T' , 𝓅 T' * S' ≈
     C ⋉[ l' ] T , 𝓅 T * S
   e₂'' (c , _) (c' , _) (u , _) =
-    coh⁻¹ (ℱ𝒶𝓂 l) (symω e₂) S c c' u
+    coh⁻¹ (ℱ𝒶𝓂 l) (symᶜ e₂) S c c' u
 
 ▷⟦vr⟧ p (⟦new⟧ q₀ q₁) = ▷⟦vrNew⟧ p q₀ q₁ refl
 
@@ -429,25 +429,25 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ▷⟦vr⟧{l}{Δ}{Γ}{D = D}{C'}{f'}{T'}{t'} p'
   (resp⟦vr⟧{CTt = C , T , t} q (e₁ , e₂ , e₃)) = resp⟦vr⟧
   (▷⟦vr⟧ p q)
-  (rflω D , (λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
+  (rflᶜ D , (λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
     cng*₁ {l} {T = T} {T'} {t} {t'} f f' e e₃)
   where
   f : Hom D C
-  f = coe ℋℴ𝓂 (rflω D , symω e₁) f'
+  f = coe ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f'
 
   e : ℋℴ𝓂 ∋ (D , C) , f ≈ (D , C' ) , f'
-  e = coh⁻¹ ℋℴ𝓂 (rflω D , symω e₁) f'
+  e = coh⁻¹ ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f'
 
   p : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f)
   p = resp⟦▷⟧
     p'
-    ((rflω D , symω e₁) , coh ℋℴ𝓂 (rflω D , symω e₁) f')
+    ((rflᶜ D , symᶜ e₁) , coh ℋℴ𝓂 (rflᶜ D , symᶜ e₁) f')
 
 ▷⟦ty⟧ :
   {l : ℕ}
   {Δ Γ : Cx}
   {A : Ty}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {T : Fam l C}
   (_ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
@@ -465,7 +465,7 @@ ok→⟦ty⟧ :
   {Γ : Cx}
   {A : Ty}
   {x : 𝔸}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   (_ : (x , A , l) isIn Γ)
   (_ : ⟦ Γ cx⟧＝ C)
   → ------------------------
@@ -487,7 +487,7 @@ ok→⟦ty⟧ (isInOld p) (⟦⨟⟧{T = T'} q₀ q₁)
   {Δ Γ : Cx}
   {A : Ty}
   {x : 𝔸}
-  {D C : Uω}
+  {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {S : Fam l C}
   (_ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
@@ -508,7 +508,7 @@ wk⟦tm⟧ :
   {Γ : Cx}
   {A : Ty}
   {a' : Tm}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
   {t' : Elt l' C T'}
@@ -527,7 +527,7 @@ wk⟦vr⟧ :
   {Γ : Cx}
   {A : Ty}
   {x' : 𝔸}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
   {t' : Elt l' C T'}
@@ -545,7 +545,7 @@ wk⟦ty⟧ :
   {l l' : ℕ}
   {Γ : Cx}
   {A A' : Ty}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ (C , T))

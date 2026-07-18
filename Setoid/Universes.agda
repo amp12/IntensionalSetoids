@@ -534,187 +534,187 @@ El : (n : ℕ) → U n → Set
 El n = ∥ ℰ𝓁 n ∥
 
 ----------------------------------------------------------------------
--- The setoid universe 𝒰ω
+-- A setoid universe for contexts
 ----------------------------------------------------------------------
-{- We need a setoid universe that contains all the 𝒰 n in order to
-model contexts. We only need it to contain a unit type (for modelling
-the empty context) and Σ-types (for modelling context extension). -}
+{- We need a setoid universe to model contexts and their equalities.
+We only need it to contain a unit type (for modelling the empty
+context) and Σ-types (for modelling context extension). -}
 
-infix 4 _~ω_ _,_≈ω_,_
+infix 4 _~ᶜ_ _,_≈ᶜ_,_
 
 -- The universe of semantic contexts
-data Uω : Set
+data Uᶜ : Set
 
 -- The set of elements of a semantic context
-Elω : Uω → Set
+Elᶜ : Uᶜ → Set
 
 -- Equality of semantic contexts
-_~ω_ : Uω → Uω → Set
+_~ᶜ_ : Uᶜ → Uᶜ → Set
 
 -- Heterogeneous equality of elements
-_,_≈ω_,_ : (C : Uω) → Elω C → (C' : Uω) → Elω C' → Set
+_,_≈ᶜ_,_ : (C : Uᶜ) → Elᶜ C → (C' : Uᶜ) → Elᶜ C' → Set
 
 {- We give an inductive recursive-recursive-recursive definition of
-Uω, Elω, _~ω_ and _,_≈ω_,_ -}
+Uᶜ, Elᶜ, _~ᶜ_ and _,_≈ᶜ_,_ -}
 
-data Uω where
+data Uᶜ where
   -- Empty context
-  Unit : Uω
+  Unit : Uᶜ
   -- Context extension
   Sigma :
-    (C : Uω)
+    (C : Uᶜ)
     (n : ℕ)
-    (X : Elω C → U n)
-    (q : ∀ c c' → C , c ≈ω C , c' → 𝒰 n ∋ X c ~ X c')
+    (X : Elᶜ C → U n)
+    (q : ∀ c c' → C , c ≈ᶜ C , c' → 𝒰 n ∋ X c ~ X c')
     → -----------------------------------------------
-    Uω
+    Uᶜ
 
-Elω Unit = ⊤
-Elω (Sigma C n X _) = ∑[ c ∈ Elω C ] El n (X c)
+Elᶜ Unit = ⊤
+Elᶜ (Sigma C n X _) = ∑[ c ∈ Elᶜ C ] El n (X c)
 
-Unit ~ω Unit = ⊤
-Unit ~ω (Sigma _ _ _ _) = Ø
-(Sigma _ _ _ _) ~ω Unit = Ø
-(Sigma C n X _) ~ω (Sigma C' n' X' _) =
-  (C ~ω C')
+Unit ~ᶜ Unit = ⊤
+Unit ~ᶜ (Sigma _ _ _ _) = Ø
+(Sigma _ _ _ _) ~ᶜ Unit = Ø
+(Sigma C n X _) ~ᶜ (Sigma C' n' X' _) =
+  (C ~ᶜ C')
   ×
   -- ∑[ p ∈ (n ≡ n') ]
-  -- ∀ c c' → (C , c ≈ω C' , c') → 𝒰 n' ∋ subst _ p (X c) ~ X' c'
+  -- ∀ c c' → (C , c ≈ᶜ C' , c') → 𝒰 n' ∋ subst _ p (X c) ~ X' c'
   ∑ (n ≡ n') λ{ refl →
-  ∀ c c' → (C , c ≈ω C' , c') → 𝒰 n ∋ X c ~ X' c'}
+  ∀ c c' → (C , c ≈ᶜ C' , c') → 𝒰 n ∋ X c ~ X' c'}
 
-Unit , _ ≈ω Unit , _ = ⊤
-Unit , _ ≈ω (Sigma _ _ _ _) , _ = Ø
-(Sigma _ _ _ _) , _ ≈ω Unit , _ = Ø
-(Sigma C n X _) , (c , t) ≈ω (Sigma C' n' X' _) , (c' , t') =
-  (C , c ≈ω C' , c')
+Unit , _ ≈ᶜ Unit , _ = ⊤
+Unit , _ ≈ᶜ (Sigma _ _ _ _) , _ = Ø
+(Sigma _ _ _ _) , _ ≈ᶜ Unit , _ = Ø
+(Sigma C n X _) , (c , t) ≈ᶜ (Sigma C' n' X' _) , (c' , t') =
+  (C , c ≈ᶜ C' , c')
   ×
   -- ∑[ p ∈ (n ≡ n') ] (ℰ𝓁 n' ∋ subst _ p (X c , t) ≈ X' c' , t')
   ∑ (n ≡ n') λ{refl → (ℰ𝓁 n ∋ X c , t ≈ X' c' , t')}
 
 -- Reflexivity
-rflω :
-    (C : Uω)
+rflᶜ :
+    (C : Uᶜ)
     → ------
-    C ~ω C
+    C ~ᶜ C
 
-rflω Unit = tt
-rflω (Sigma C _ _ q) = (rflω C , refl , q)
+rflᶜ Unit = tt
+rflᶜ (Sigma C _ _ q) = (rflᶜ C , refl , q)
 
-hrflω :
-  (C : Uω)
-  (c : Elω C)
+hrflᶜ :
+  (C : Uᶜ)
+  (c : Elᶜ C)
   → ------------
-  C , c ≈ω C , c
+  C , c ≈ᶜ C , c
 
-hrflω Unit _ = tt
-hrflω (Sigma C n X _) (c , x) =
-  (hrflω C c , refl , hrfl (ℰ𝓁 n) (X c) x)
+hrflᶜ Unit _ = tt
+hrflᶜ (Sigma C n X _) (c , x) =
+  (hrflᶜ C c , refl , hrfl (ℰ𝓁 n) (X c) x)
 
 -- Symmetry
-symω :
-  {C C' : Uω}
-  (_ : C ~ω C')
+symᶜ :
+  {C C' : Uᶜ}
+  (_ : C ~ᶜ C')
   → -----------
-  C' ~ω C
-hsymω :
-  {C C' : Uω}
-  {c : Elω C}
-  {c' : Elω C'}
-  (_ : C ~ω C')
-  (_ : C , c ≈ω C' , c')
+  C' ~ᶜ C
+hsymᶜ :
+  {C C' : Uᶜ}
+  {c : Elᶜ C}
+  {c' : Elᶜ C'}
+  (_ : C ~ᶜ C')
+  (_ : C , c ≈ᶜ C' , c')
   → --------------------
-  C' , c' ≈ω C , c
+  C' , c' ≈ᶜ C , c
 
-symω {Unit} {Unit} _ = tt
-symω {Unit} {Sigma _ _ _ _} ()
-symω {Sigma _ _ _ _} {Unit} ()
-symω {Sigma _ n _ _} {Sigma _ _ _ _} (e , refl , f) =
-  (symω e , refl , λ c c' r →
-    sym (𝒰 n) (f c' c (hsymω (symω e) r)))
+symᶜ {Unit} {Unit} _ = tt
+symᶜ {Unit} {Sigma _ _ _ _} ()
+symᶜ {Sigma _ _ _ _} {Unit} ()
+symᶜ {Sigma _ n _ _} {Sigma _ _ _ _} (e , refl , f) =
+  (symᶜ e , refl , λ c c' r →
+    sym (𝒰 n) (f c' c (hsymᶜ (symᶜ e) r)))
 
-hsymω {Unit} {Unit} _ _ = tt
-hsymω {Sigma _ n _ _} {Sigma _ _ _ _} {a , _}{a' , _}
+hsymᶜ {Unit} {Unit} _ _ = tt
+hsymᶜ {Sigma _ n _ _} {Sigma _ _ _ _} {a , _}{a' , _}
   (q , refl , f) (q' , e , f')
   with refl ←  ! ⦃ !≡ ⦄ e refl =
-  let q'' = hsymω q q' in
+  let q'' = hsymᶜ q q' in
   (q'' , refl , hsym (ℰ𝓁 n) (f a a' q') f')
 
 -- Transitivity and coherent coercion
-trsω :
-  {C C' C'' : Uω}
-  (_ : C ~ω C')
-  (_ : C' ~ω C'')
+trsᶜ :
+  {C C' C'' : Uᶜ}
+  (_ : C ~ᶜ C')
+  (_ : C' ~ᶜ C'')
   → --------------
-  C ~ω C''
-htrsω :
-  {C C' C'' : Uω}
-  {c : Elω C}
-  {c' : Elω C'}
-  {c'' : Elω C''}
-  (_ : C ~ω C')
-  (_ : C' ~ω C'')
-  (_ : C , c ≈ω C' , c')
-  (_ : C' , c' ≈ω C'' , c'')
+  C ~ᶜ C''
+htrsᶜ :
+  {C C' C'' : Uᶜ}
+  {c : Elᶜ C}
+  {c' : Elᶜ C'}
+  {c'' : Elᶜ C''}
+  (_ : C ~ᶜ C')
+  (_ : C' ~ᶜ C'')
+  (_ : C , c ≈ᶜ C' , c')
+  (_ : C' , c' ≈ᶜ C'' , c'')
   → ------------------------
-  C , c ≈ω C'' , c''
-coeω :
-  {C C' : Uω}
-  (_ : C ~ω C')
+  C , c ≈ᶜ C'' , c''
+coeᶜ :
+  {C C' : Uᶜ}
+  (_ : C ~ᶜ C')
   → --------------
-  Elω C → Elω C'
-cohω :
-  {C C' : Uω}
-  (q : C ~ω C')
-  (c : Elω C)
+  Elᶜ C → Elᶜ C'
+cohᶜ :
+  {C C' : Uᶜ}
+  (q : C ~ᶜ C')
+  (c : Elᶜ C)
   → --------------------
-  C , c ≈ω C' , coeω q c
+  C , c ≈ᶜ C' , coeᶜ q c
 
-trsω{Unit}{Unit}{Unit} _ _ = tt
-trsω{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
+trsᶜ{Unit}{Unit}{Unit} _ _ = tt
+trsᶜ{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
   (q , refl , f) (q' , refl , f') =
-  (trsω q q' , refl , λ c c'' r →
+  (trsᶜ q q' , refl , λ c c'' r →
     let
-      c' = coeω q c
-      r' = cohω q c
+      c' = coeᶜ q c
+      r' = cohᶜ q c
     in trs (𝒰 n) (f c c' r') (f' c' c''
-      (htrsω (symω q) (trsω q q') (hsymω q r') r)))
+      (htrsᶜ (symᶜ q) (trsᶜ q q') (hsymᶜ q r') r)))
 
-htrsω{Unit}{Unit}{Unit} _ _ _ _ = tt
-htrsω{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
+htrsᶜ{Unit}{Unit}{Unit} _ _ _ _ = tt
+htrsᶜ{Sigma _ n _ _}{Sigma _ _ _ _}{Sigma _ _ _ _}
   {a , _} {a' , _} {a'' , _}
   (q , refl , f) (q' , refl , f')
   (r , e , g) (r' , e' , g')
   with refl ←  ! ⦃ !≡ ⦄ e refl
   | refl ←  ! ⦃ !≡ ⦄ e' refl =
-  (htrsω q q' r r' ,
+  (htrsᶜ q q' r r' ,
    refl ,
    htrs (ℰ𝓁 n) (f a a' r) (f' a' a'' r') g g')
 
-coeω{Unit}{Unit} _ _ = tt
-coeω{Sigma _ n _ _}{Sigma _ _ _ _} (q , refl , f) (c , t) =
-  (coeω q c , coe (ℰ𝓁 n) (f c (coeω q c) (cohω q c)) t)
+coeᶜ{Unit}{Unit} _ _ = tt
+coeᶜ{Sigma _ n _ _}{Sigma _ _ _ _} (q , refl , f) (c , t) =
+  (coeᶜ q c , coe (ℰ𝓁 n) (f c (coeᶜ q c) (cohᶜ q c)) t)
 
-cohω{Unit}{Unit} _ _ = tt
-cohω {Sigma _ n _ _} {Sigma _ _ _ _} (q , refl , f) (c , t) =
-  (cohω q c ,
+cohᶜ{Unit}{Unit} _ _ = tt
+cohᶜ {Sigma _ n _ _} {Sigma _ _ _ _} (q , refl , f) (c , t) =
+  (cohᶜ q c ,
    refl ,
-   coh (ℰ𝓁 n) (f c (coeω q c) (cohω q c)) t)
+   coh (ℰ𝓁 n) (f c (coeᶜ q c) (cohᶜ q c)) t)
 
-𝒰ω : Setd
+𝒞 : Setd
 
-∣ 𝒰ω ∣ = Uω
-_∋_~_ 𝒰ω = _~ω_
-rfl 𝒰ω = rflω
-sym 𝒰ω = symω
-trs 𝒰ω = trsω
+∣ 𝒞 ∣ = Uᶜ
+_∋_~_ 𝒞 = _~ᶜ_
+rfl 𝒞 = rflᶜ
+sym 𝒞 = symᶜ
+trs 𝒞 = trsᶜ
 
-ℰ𝓁ω : Setd[ 𝒰ω ]
+ℰ : Setd[ 𝒞 ]
 
-∥ ℰ𝓁ω ∥ = Elω
-(ℰ𝓁ω ∋ C , c ≈ D , d) = C , c ≈ω D , d
-hrfl ℰ𝓁ω = hrflω
-hsym ℰ𝓁ω = hsymω
-htrs ℰ𝓁ω = htrsω
-coe ℰ𝓁ω = coeω
-coh ℰ𝓁ω = cohω
+∥ ℰ ∥ = Elᶜ
+(ℰ ∋ C , c ≈ D , d) = C , c ≈ᶜ D , d
+hrfl ℰ = hrflᶜ
+hsym ℰ = hsymᶜ
+htrs ℰ = htrsᶜ
+coe ℰ = coeᶜ
+coh ℰ = cohᶜ

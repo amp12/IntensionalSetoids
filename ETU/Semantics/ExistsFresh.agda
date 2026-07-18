@@ -22,7 +22,7 @@ open import ETU.Semantics.Substitution
   {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {t : Elt l' (C ⋉[ l ] S) T}
@@ -50,13 +50,13 @@ open import ETU.Semantics.Substitution
     ((C ⋉[ l ] S , C ⋉[ l ] S) , id)
   p = resp⟦sb⟧
     (lift⟦sb⟧⁻{l}{id}{A = A} (⟦id⟧ (ok⟦ty⟧ q₀)) q₀ x#Γ x'#Γ)
-    ((rflω (C ⋉[ l ] S) , rflω (C ⋉[ l ] S)) , e)
+    ((rflᶜ (C ⋉[ l ] S) , rflᶜ (C ⋉[ l ] S)) , e)
 
 ⟦α⟧² :
   {l l' l'' : ℕ}
   {Γ : Cx}
   {A B : Ty}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {T' : Fam l'' (C ⋉[ l ] S ⋉[ l' ] T)}
@@ -107,14 +107,14 @@ open import ETU.Semantics.Substitution
       (y'#Γ ∉∪ y'#x')
       refl
       refl)
-    ((rflω (C ⋉[ l ] S ⋉[ l' ] T) ,
-      rflω (C ⋉[ l ] S ⋉[ l' ] T)) , e)
+    ((rflᶜ (C ⋉[ l ] S ⋉[ l' ] T) ,
+      rflᶜ (C ⋉[ l ] S ⋉[ l' ] T)) , e)
 
 ⟦α⟧²' :
   {l l' l'' : ℕ}
   {Γ : Cx}
   {A : Ty}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {T' : Fam l'' (C ⋉[ l ] S ⋉[ l' ] T)}
@@ -146,7 +146,7 @@ open import ETU.Semantics.Substitution
   {l l' : ℕ}
   {A : Ty}
   {B : Ty[ 1 ]}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {x : 𝔸}
@@ -164,7 +164,7 @@ open import ETU.Semantics.Substitution
   {l l' : ℕ}
   {A : Ty}
   {b : Tm[ 1 ]}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {t : Elt l' (C ⋉[ l ] S) T}
@@ -184,7 +184,7 @@ open import ETU.Semantics.Substitution
   {A : Ty}
   {B : Ty[ 1 ]}
   {a b : Tm}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l C}
   {T : Fam l' (C ⋉[ l ] S)}
   {t : Elt (max l l' ) C (𝒫𝒾 l l' S T)}
@@ -207,7 +207,7 @@ open import ETU.Semantics.Substitution
   {B : Ty[ 1 ]}
   {b₀ a : Tm}
   {b₊ : Tm[ 2 ]}
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {S : Fam l (C ⋉[ 0 ] 𝒩𝒶𝓉)}
   {s₀ : Elt l C (⟪ 𝓏ℯ𝓇ℴ ⟫ * S)}
   {s₊ : Elt l (C ⋉[ 0 ] 𝒩𝒶𝓉 ⋉[ l ] S)

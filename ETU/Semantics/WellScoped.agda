@@ -18,7 +18,7 @@ supp⟦vr⟧ :
   {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
-  {CTt : ∑[ C ∈ Uω ] ∑(Fam l C) (Elt l C)}
+  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑(Fam l C) (Elt l C)}
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
   → ---------------------------------------
   x ∈ dom Γ
@@ -31,7 +31,7 @@ supp⟦tm⟧ :
   {l : ℕ}
   {Γ : Cx}
   {a : Tm}
-  {CTt : ∑[ C ∈ Uω ] ∑(Fam l C) (Elt l C)}
+  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑(Fam l C) (Elt l C)}
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
   → ---------------------------------------
   supp a ⊆ dom Γ
@@ -42,7 +42,7 @@ supp⟦tm¹⟧ :
   {A : Ty}
   (b : Tm[ 1 ])
   (x : 𝔸)
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {Tt' : ∑(Fam l' (C ⋉[ l ] T)) (Elt l' (C ⋉[ l ] T))}
   (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] b [ x ] tm⟧＝
@@ -62,7 +62,7 @@ supp⟦tm²⟧ :
   {A A' : Ty}
   (b : Tm[ 2 ])
   (x x' : 𝔸)
-  {C : Uω}
+  {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' (C ⋉[ l ] T)}
   {Tt'' : ∑(Fam l'' (C ⋉[ l ] T ⋉[ l' ] T'))
@@ -141,7 +141,7 @@ supp⟦ty⟧ :
   {l : ℕ}
   {Γ : Cx}
   {A : Ty}
-  {CT : ∑ Uω (Fam l)}
+  {CT : ∑ ∣ 𝒞 ∣ (Fam l)}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ CT)
   → -------------------------
   supp A ⊆ dom Γ

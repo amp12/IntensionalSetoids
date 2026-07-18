@@ -21,19 +21,19 @@ semantic relations. -}
 ----------------------------------------------------------------------
 sv⟦cx⟧ :
   {Γ : Cx}
-  {C C' : Uω}
+  {C C' : ∣ 𝒞 ∣}
   (_ : ⟦ Γ cx⟧＝ C)
   (_ : ⟦ Γ cx⟧＝ C')
   → ----------------
-  𝒰ω ∋ C ~ C'
+  𝒞 ∋ C ~ C'
 
 sv⟦tm⟧' :
   -- includes a uniqueness-of-levels property
   {l l' : ℕ}
   {Γ : Cx}
   {a : Tm}
-  {CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
-  {CTt' : ∑[ C ∈ Uω ] ∑ (Fam l' C) (Elt l' C)}
+  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l C) (Elt l C)}
+  {CTt' : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l' C) (Elt l' C)}
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
   (_ : ⟦ Γ ⊢[ l' ] a tm⟧＝ CTt')
   → -------------------------------------------
@@ -43,7 +43,7 @@ sv⟦tm⟧ :
   {l : ℕ}
   {Γ : Cx}
   {a : Tm}
-  {CTt CTt' : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
+  {CTt CTt' : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l C) (Elt l C)}
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt')
   → --------------------------------------------
@@ -58,8 +58,8 @@ sv⟦vr⟧' :
   {l l' : ℕ}
   {Γ : Cx}
   {x x' : 𝔸}
-  {CTt : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
-  {CTt' : ∑[ C ∈ Uω ] ∑ (Fam l' C) (Elt l' C)}
+  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l C) (Elt l C)}
+  {CTt' : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l' C) (Elt l' C)}
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
   (_ : ⟦ Γ ⊢[ l' ] x' vr⟧＝ CTt')
   (_ : x ≡ x')
@@ -70,7 +70,7 @@ sv⟦vr⟧ :
   {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
-  {CTt CTt' : ∑[ C ∈ Uω ] ∑ (Fam l C) (Elt l C)}
+  {CTt CTt' : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l C) (Elt l C)}
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt')
   → ---------------------------------------------
@@ -85,8 +85,8 @@ sv⟦ty⟧' :
   {l l' : ℕ}
   {Γ : Cx}
   {A : Ty}
-  {CT : ∑ Uω (Fam l)}
-  {CT' : ∑ Uω (Fam l')}
+  {CT : ∑ ∣ 𝒞 ∣ (Fam l)}
+  {CT' : ∑ ∣ 𝒞 ∣ (Fam l')}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ CT)
   (_ : ⟦ Γ ⊢[ l' ] A  ty⟧＝ CT')
   → --------------------------------
@@ -100,7 +100,7 @@ sv⟦ty⟧ :
   {l : ℕ}
   {Γ : Cx}
   {A : Ty}
-  {CT CT' : ∑ Uω (Fam l)}
+  {CT CT' : ∑ ∣ 𝒞 ∣ (Fam l)}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ CT)
   (_ : ⟦ Γ ⊢[ l ] A  ty⟧＝ CT')
   → ----------------------------
@@ -224,9 +224,9 @@ sv⟦tm⟧' (⟦𝐧𝐫𝐞𝐜⟧{l}{C = C}{S}{s₀}{s₊}{s} X q₀ q₁ q₂
     {λ n y → ∥ s₊ ∥ ((c , n) , y)}
     {λ n y → ∥ s₊' ∥ ((c' , n) , y)}
     {λ n _ _ e' → hcng s₊ _ _
-      ((hrflω C c , refl , refl) , refl , e')}
+      ((hrflᶜ C c , refl , refl) , refl , e')}
     {λ n _ _ e' → hcng s₊' _ _
-      ((hrflω C' c' , refl , refl) , refl , e')}
+      ((hrflᶜ C' c' , refl , refl) , refl , e')}
     (∥ s ∥ c)
     (∥ s' ∥ c')
     (λ n → e₅ (c , n) (c' , n) (u , refl , refl))
