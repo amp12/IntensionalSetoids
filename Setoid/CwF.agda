@@ -76,7 +76,7 @@ instance
   cng (_∘_ ⦃ HomComp ⦄ g f) _ _ = cng g _ _ ∘ cng f _ _
 
 compCng :
-  {C C' D D' E E' : Uᶜ}
+  {C C' D D' E E' : ∣ 𝒞 ∣}
   {f : Hom C D}
   {f' : Hom C' D'}
   {g : Hom D E}
@@ -89,7 +89,7 @@ compCng :
 compCng {f = f}{f'} u v c c' w = v (∣ f ∣ c) (∣ f' ∣ c') (u c c' w)
 
 -- Terminal morphism
-unit : (C : Uᶜ) → Hom C Unit
+unit : (C : ∣ 𝒞 ∣) → Hom C Unit
 
 ∣ unit C ∣ _ = tt
 cng (unit C) _ _ _ = tt
@@ -127,7 +127,7 @@ record Sect
 open Sect public
 
 -- Families
-Fam : ℕ → Uᶜ → Set
+Fam : ℕ → ∣ 𝒞 ∣ → Set
 Fam n C =
   -- we rely on the fact that El (1+ n) Univ ≡ U l
   Sect (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
@@ -152,7 +152,7 @@ coh (ℱ𝒶𝓂 n) e T c c' e' =
   hcng T _ _ (htrsᶜ e (symᶜ e) e' (cohᶜ (symᶜ e) c'))
 
 -- Elements of families
-Elt : (n : ℕ)(C : Uᶜ) → Fam n C → Set
+Elt : (n : ℕ)(C : ∣ 𝒞 ∣) → Fam n C → Set
 Elt n C T = Sect n C (∥_∥ T) (hcng T)
 
 ℰ𝓁𝓉 : (n : ℕ) → Setd[ 𝒞 ⋉ ℱ𝒶𝓂 n ]
@@ -217,7 +217,7 @@ coh (ℰ𝓁𝓉 n) {_ , T'} (e , f) t c c' e' =
 infixr 6 _*ᶜ_
 _*ᶜ_ :
   {n : ℕ}
-  {C D : Uᶜ}
+  {C D : ∣ 𝒞 ∣}
   (f : Hom D C)
   (T : Fam n C)
   → -----------
@@ -234,7 +234,7 @@ instance
 infixr 6 _*₁_
 _*₁_ :
   {n : ℕ}
-  {C D : Uᶜ}
+  {C D : ∣ 𝒞 ∣}
   {T : Fam n C}
   (f : Hom D C)
   (t : Elt n C T)
@@ -246,7 +246,7 @@ hcng (f *₁ t) _ _ e = hcng t _ _ (cng f _ _ e)
 
 cng* :
   {n : ℕ}
-  {C C' D D' : Uᶜ}
+  {C C' D D' : ∣ 𝒞 ∣}
   {T : Fam n C}
   {T' : Fam n C'}
   (f : Hom D C)
@@ -260,7 +260,7 @@ cng* f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
 
 cng*₁ :
   {n : ℕ}
-  {C C' D D' : Uᶜ}
+  {C C' D D' : ∣ 𝒞 ∣}
   {T : Fam n C}
   {T' : Fam n C'}
   {t : Elt n C T}
@@ -279,7 +279,7 @@ cng*₁ f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
 ----------------------------------------------------------------------
 𝒰𝓃𝒾𝓋 :
   (n : ℕ)
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   → ----------
   Fam (1+ n) C
 
@@ -289,7 +289,7 @@ hcng (𝒰𝓃𝒾𝓋 n) _ _ _ = rfl (𝒰 (1+ n)) Univ
 -- Families are elements (of universes) up to definitional equality:
 fam-as-elt :
   {n : ℕ}
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   → -----------------------------
   Fam n C ≡ Elt (1+ n) C (𝒰𝓃𝒾𝓋 n)
 
@@ -300,17 +300,17 @@ fam-as-elt = refl
 ----------------------------------------------------------------------
 infixl 8 _⋉[_]_
 _⋉[_]_ :
-  (C : Uᶜ)
+  (C : ∣ 𝒞 ∣)
   (n : ℕ)
   (X : Fam n C)
   → -----------
-  Uᶜ
+  ∣ 𝒞 ∣
 
 C ⋉[ n ] (mkSect X q) = Sigma C n X q
 
 𝓅 :
   {n : ℕ}
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (T : Fam n C)
   → ----------------
   Hom (C ⋉[ n ] T) C
@@ -320,7 +320,7 @@ cng (𝓅 _) _ _ (e , _) = e
 
 𝓆 :
   {n : ℕ}
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (T : Fam n C)
   → ---------------------------
   Elt n (C ⋉[ n ] T) (𝓅 T * T)
@@ -331,7 +331,7 @@ hcng (𝓆 _) _ _ (_ , e , e')
 
 𝒸ℴ𝓃𝓈 :
   {n : ℕ}
-  {C D : Uᶜ}
+  {C D : ∣ 𝒞 ∣}
   {T : Fam n C}
   (f : Hom D C)
   (t : Elt n D (f * T))
@@ -345,7 +345,7 @@ cng (𝒸ℴ𝓃𝓈 f t) _ _ e =
 infixl 8 ⟪_⟫
 ⟪_⟫ :
   {n : ℕ}
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   {T : Fam n C}
   (t : Elt n C T)
   → ----------------
@@ -355,7 +355,7 @@ infixl 8 ⟪_⟫
 
 infixl 8 _⋉′[_]_
 _⋉′[_]_ :
-  {C D : Uᶜ}
+  {C D : ∣ 𝒞 ∣}
   (f : Hom D C)
   (n : ℕ)
   (T : Fam n C)
@@ -365,7 +365,7 @@ _⋉′[_]_ :
 f ⋉′[ n ] T = 𝒸ℴ𝓃𝓈 (f ∘ 𝓅 (f * T)) (𝓆 (f * T))
 
 cong⋉[] :
-  {C C' : Uᶜ}
+  {C C' : ∣ 𝒞 ∣}
   (n : ℕ)
   {T : Fam n C}
   {T' : Fam n C'}
@@ -377,13 +377,13 @@ cong⋉[] :
 cong⋉[] n e e' = (e , refl , λ c c' u → e' c c' u)
 
 img⋉[] :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   {n : ℕ}
   {T : Fam n C}
-  (C'' : Uᶜ)
+  (C'' : ∣ 𝒞 ∣)
   (_ : 𝒞 ∋ C ⋉[ n ] T ~ C'')
   → ------------------------------
-  ∑[ C' ∈ Uᶜ ] ∑[ T' ∈ Fam n C' ]
+  ∑[ C' ∈ ∣ 𝒞 ∣ ] ∑[ T' ∈ Fam n C' ]
   (C ~ᶜ C')
   ∧
   (ℱ𝒶𝓂 n ∋ C , T ≈ C' , T')
@@ -391,7 +391,7 @@ img⋉[] :
 img⋉[] (Sigma C n X q) (e , refl , e') = (C , mkSect X q , e , e')
 
 imgUnit :
-  (C : Uᶜ)
+  (C : ∣ 𝒞 ∣)
   (_ : 𝒞 ∋ Unit ~ C)
   → -----------------
   Unit ≡ C
@@ -402,7 +402,7 @@ imgUnit Unit tt = refl
 -- Pi types
 ----------------------------------------------------------------------
 𝒫𝒾 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   (_ : Fam n (C ⋉[ m ] S))
@@ -418,7 +418,7 @@ hcng (𝒫𝒾 m n S T) x x' e = PI.tyCong (pi m n) _ _ _ _ _ _
   (λ _ _ e' → hcng T _ _ (e , refl , e'))
 
 cong𝒫𝒾 :
-  {C C' : Uᶜ}
+  {C C' : ∣ 𝒞 ∣}
   (m n : ℕ)
   {S : Fam m C}
   {S' : Fam m C'}
@@ -435,7 +435,7 @@ cong𝒫𝒾 m n e e' c c' u = PI.tyCong (pi m n) _ _ _ _ _ _
 
 -- The 𝒫𝒾 operation is natural up to setoid equivalence
 ntrl𝒫𝒾 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   (T : Fam n (C ⋉[ m ] S))
@@ -450,7 +450,7 @@ ntrl𝒫𝒾 m n S T f _ _ e = PI.tyCong (pi m n) _ _ _ _ _ _
     hcng T _ _ (cng f _ _ e , refl , e')
 
 𝓁𝒶𝓂 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   {T : Fam n (C ⋉[ m ] S)}
@@ -466,7 +466,7 @@ hcng (𝓁𝒶𝓂 m n _ t) c c' e =
   λ _ _ e' → hcng t _ _ (e , refl , e')
 
 cong𝓁𝒶𝓂 :
-  {C C' : Uᶜ}
+  {C C' : ∣ 𝒞 ∣}
   (m n : ℕ)
   {S : Fam m C}
   {S' : Fam m C'}
@@ -485,7 +485,7 @@ cong𝓁𝒶𝓂 m n e c c' u =
   λ y y' v → e (c , y) (c' , y') (u , refl , v)
 
 ntrl𝓁𝒶𝓂 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (m n : ℕ)
   {S : Fam m C}
   {T : Fam n (C ⋉[ m ] S)}
@@ -504,7 +504,7 @@ ntrl𝓁𝒶𝓂 m n t f c c' e =
   λ y y' e' → hcng t _ _ (cng f _ _ e , refl , e')
 
 𝒶𝓅𝓅 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   (T : Fam n (C ⋉[ m ] S))
@@ -521,7 +521,7 @@ hcng (𝒶𝓅𝓅 m n _ _ t s) x x' e =
   (hcng s x x' e)
 
 ntrl𝒶𝓅𝓅 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   (T : Fam n (C ⋉[ m ] S))
@@ -547,7 +547,7 @@ ntrl𝒶𝓅𝓅 m n S T t s f c c' e =
   (hcng s (∣ f ∣ c) (∣ f ∣ c') (cng f c c' e))
 
 𝒫𝒾𝒷ℯ𝓉𝒶 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (m n : ℕ)
   (S : Fam m C)
   (T : Fam n (C ⋉[ m ] S))
@@ -572,7 +572,7 @@ ntrl𝒶𝓅𝓅 m n S T t s f c c' e =
 module 𝒫𝒾ℰ𝓉𝒶
 -- The fact that ntrl𝒫𝒾 is not a definitional equality complicates the
 -- proof that the semantics is sound for eta conversion.
-  (C : Uᶜ)
+  (C : ∣ 𝒞 ∣)
   (m n : ℕ)
   (S : Fam m C)
   (T : Fam n (C ⋉[ m ] S))
@@ -648,7 +648,7 @@ module 𝒫𝒾ℰ𝓉𝒶
 -- Equality types
 ----------------------------------------------------------------------
 ℰ𝓆 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t t' : Elt n C T)
@@ -663,7 +663,7 @@ hcng (ℰ𝓆 n T t t') _ _ e = EQ.tyCong (eq n)
   (hcng t' _ _ e)
 
 ntrlℰ𝓆 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t t' : Elt n C T)
@@ -677,7 +677,7 @@ ntrlℰ𝓆 n T t t' f _ _ e = EQ.tyCong (eq n)
   (hcng t' _ _ (cng f _ _ e))
 
 𝓇𝒻𝓁 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t : Elt n C T)
@@ -689,7 +689,7 @@ hcng (𝓇𝒻𝓁 n T t) _ _ e =
   EQ.rflCong (eq n) (hcng T _ _ e) (hcng t _ _ e)
 
 ntrl𝓇𝒻𝓁 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t : Elt n C T)
@@ -705,7 +705,7 @@ ntrl𝓇𝒻𝓁 n T t f c c' e = EQ.rflCong (eq n)
   (hcng t (∣ f ∣ c) (∣ f ∣ c') (cng f c c' e))
 
 𝓇ℯ𝒻𝓁ℯ𝒸𝓉 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t t' : Elt n C T)
@@ -720,7 +720,7 @@ ntrl𝓇𝒻𝓁 n T t f c c' e = EQ.rflCong (eq n)
   (hcng t' c c' u)
 
 𝓊𝒾𝓅 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (T : Fam n C)
   (t t' : Elt n C T)
@@ -738,7 +738,7 @@ ntrl𝓇𝒻𝓁 n T t f c c' e = EQ.rflCong (eq n)
 -- Empty type
 ----------------------------------------------------------------------
 ℰ𝓂𝓅 :
- {C : Uᶜ}
+ {C : ∣ 𝒞 ∣}
  → -------
  Fam 0 C
 
@@ -746,7 +746,7 @@ ntrl𝓇𝒻𝓁 n T t f c c' e = EQ.rflCong (eq n)
 hcng ℰ𝓂𝓅 _ _ _ = tt
 
 ℯ𝓂𝓅 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (S : Fam n C)
   (e : Elt 0 C ℰ𝓂𝓅)
@@ -757,7 +757,7 @@ hcng ℰ𝓂𝓅 _ _ _ = tt
 hcng (ℯ𝓂𝓅 _ _ e) c _ _ = Øelim (∥ e ∥ c)
 
 -- ntrlℯ𝓂𝓅 :
---   {D C : Uᶜ}
+--   {D C : ∣ 𝒞 ∣}
 --   (n : ℕ)
 --   (S : Fam n C)
 --   (e : Elt 0 C ℰ𝓂𝓅)
@@ -772,7 +772,7 @@ hcng (ℯ𝓂𝓅 _ _ e) c _ _ = Øelim (∥ e ∥ c)
 -- Natural number type
 ----------------------------------------------------------------------
 𝒩𝒶𝓉 :
- {C : Uᶜ}
+ {C : ∣ 𝒞 ∣}
  → -------
  Fam 0 C
 
@@ -780,7 +780,7 @@ hcng (ℯ𝓂𝓅 _ _ e) c _ _ = Øelim (∥ e ∥ c)
 hcng 𝒩𝒶𝓉 _ _ _ = tt
 
 𝓏ℯ𝓇ℴ :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   → ---------
   Elt 0 C 𝒩𝒶𝓉
 
@@ -788,7 +788,7 @@ hcng 𝒩𝒶𝓉 _ _ _ = tt
 hcng 𝓏ℯ𝓇ℴ _ _ _ = refl
 
 𝓈𝓊𝒸𝒸 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (t : Elt 0 C 𝒩𝒶𝓉)
   → ---------------
   Elt 0 C 𝒩𝒶𝓉
@@ -797,7 +797,7 @@ hcng 𝓏ℯ𝓇ℴ _ _ _ = refl
 hcng (𝓈𝓊𝒸𝒸 t) _ _ e = cong 1+ (hcng t _ _ e)
 
 ntrl𝓈𝓊𝒸𝒸 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (t : Elt 0 C 𝒩𝒶𝓉)
   (f : Hom D C)
   → --------------------------------
@@ -808,7 +808,7 @@ ntrl𝓈𝓊𝒸𝒸 t f c c' e =
   cong 1+ (hcng t (∣ f ∣ c) (∣ f ∣ c') (cng f c c' e))
 
 𝓃𝓇ℯ𝒸 :
-  {C : Uᶜ}
+  {C : ∣ 𝒞 ∣}
   (n : ℕ)
   (S : Fam n (C ⋉[ 0 ] 𝒩𝒶𝓉))
   (s₀ : Elt n C (⟪ 𝓏ℯ𝓇ℴ ⟫ * S))
@@ -845,7 +845,7 @@ hcng (𝓃𝓇ℯ𝒸 n S s₀ s₊ s) c c' e = nrecCong{n}
   (hcng s _ _ e)
 
 ntrl𝓃𝓇ℯ𝒸 :
-  {D C : Uᶜ}
+  {D C : ∣ 𝒞 ∣}
   (n : ℕ)
   (S : Fam n (C ⋉[ 0 ] 𝒩𝒶𝓉))
   (s₀ : Elt n C (⟪ 𝓏ℯ𝓇ℴ ⟫ * S))
@@ -892,7 +892,7 @@ ntrl𝓃𝓇ℯ𝒸 n S s₀ s₊ s f c c' e = nrecCong{n}
 
 Σℱ𝒶𝓂 : ℕ → Setd
 
-Σℱ𝒶𝓂  l = 𝒞 ⋉ ℱ𝒶𝓂 l
+Σℱ𝒶𝓂 l = 𝒞 ⋉ ℱ𝒶𝓂 l
 
 Σℱ𝒶𝓂ℰ𝓁𝓉 : ℕ → Setd[ 𝒞 ]
 
