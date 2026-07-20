@@ -702,3 +702,38 @@ CxTrans (＝⨟ q₀ q₁ (q₂ ∉∪ _) h₀ _) (＝⨟ q₀' q₁' (_ ∉∪ 
   (q₂ ∉∪ q₂')
   h₀
   h₁'
+
+----------------------------------------------------------------------
+-- Definitional equality of substitutions is an equivalence relation
+----------------------------------------------------------------------
+
+-- Reflexivity (sb＝Refl) was proved in ETU.Substitution.agda
+
+sb＝Symm :
+  {σ σ' : Sb}
+  {Γ Γ' : Cx}
+  (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
+  → ---------------------
+  Γ' ⊢ˢ σ' ＝ σ ∶ Γ
+
+sb＝Symm (＝◇ˢ q) = ＝◇ˢ q
+sb＝Symm (＝⨟ˢ q₀ q₁ q₂ q₃) = ＝⨟ˢ
+  (sb＝Symm q₀)
+  q₁
+  (＝conv (Symm q₂) (＝sbTm q₀ q₁ (⊢sb₁ q₀)))
+  q₃
+
+sb＝Trans :
+  {σ σ' σ'' : Sb}
+  {Γ Γ' : Cx}
+  (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
+  (_ : Γ' ⊢ˢ σ' ＝ σ'' ∶ Γ)
+  → -----------------------
+  Γ' ⊢ˢ σ ＝ σ'' ∶ Γ
+
+sb＝Trans (＝◇ˢ q) (＝◇ˢ _) = ＝◇ˢ q
+sb＝Trans (＝⨟ˢ q₀ q₁ q₂ q₃) (＝⨟ˢ q₀' q₁' q₂' q₃') = ＝⨟ˢ
+  (sb＝Trans q₀ q₀')
+  q₁
+  (Trans q₂ (＝conv q₂' (＝sbTm (sb＝Symm q₀) q₁ (⊢sb₂ q₀))))
+  q₃

@@ -642,7 +642,7 @@ sbJg p (UIP q₀ q₁ q₂ q₃ h) = UIP
   (sbJg p h)
 
 ----------------------------------------------------------------------
--- Conversion for substitutions is reflexive
+-- Definitional equality of substitutions is reflexive
 ----------------------------------------------------------------------
 sb＝Refl :
   {σ : Sb}

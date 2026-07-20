@@ -60,13 +60,14 @@ coh (Term _) _ (_ , q) = Refl q
 ----------------------------------------------------------------------
 -- Displayed setoid of substitutions modulo definitional equality
 ----------------------------------------------------------------------
-Subst : Setd[ Cxt ⊗ Cxt ]
+-- TO DO
+-- Subst : Setd[ Cxt ⊗ Cxt ]
 
-∥ Subst ∥ ((Γ' , _) , Γ , _) = ∑[ σ ∈ Sb ] (Γ' ⊢ˢ σ ∶ Γ)
-Subst ∋ ((Γ' , _) , Γ , _) , σ , _ ≈ _ , σ' , _ =
-  Γ' ⊢ˢ σ ＝ σ' ∶ Γ
-hrfl Subst = {!!}
-hsym Subst = {!!}
-htrs Subst = {!!}
-coe Subst = {!!}
-coh Subst = {!!}
+-- ∥ Subst ∥ ((Γ' , _) , Γ , _) = ∑[ σ ∈ Sb ] (Γ' ⊢ˢ σ ∶ Γ)
+-- Subst ∋ ((Γ' , _) , Γ , _) , σ , _ ≈ _ , σ' , _ =
+--   Γ' ⊢ˢ σ ＝ σ' ∶ Γ
+-- hrfl Subst _ (_ , q) = sb＝Refl q
+-- hsym Subst (p , p') q = {!sb＝Symm q!}
+-- htrs Subst = {!!}
+-- coe Subst = {!!}
+-- coh Subst = {!!}
