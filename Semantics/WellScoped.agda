@@ -1,15 +1,12 @@
-module ETU.Semantics.WellScoped where
+module Semantics.WellScoped where
 
 open import Prelude
 open import Setoid
 open import WSLN
+open import ETU
 
-open import ETU.Syntax
-open import ETU.Judgement
-open import ETU.Rules
-
-open import ETU.Semantics.Relation
-open import ETU.Semantics.Ok
+open import Semantics.Relation
+open import Semantics.Ok
 
 ----------------------------------------------------------------------
 -- Semantic relations are well-scoped
@@ -18,9 +15,9 @@ supp⟦vr⟧ :
   {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
-  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑(Fam l C) (Elt l C)}
+  {CTt : ∣ 𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l ∣}
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
-  → ---------------------------------------
+  → ----------------------------
   x ∈ dom Γ
 
 supp⟦vr⟧ (resp⟦vr⟧ q _) = supp⟦vr⟧ q
@@ -31,9 +28,9 @@ supp⟦tm⟧ :
   {l : ℕ}
   {Γ : Cx}
   {a : Tm}
-  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑(Fam l C) (Elt l C)}
+  {CTt : ∣ 𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l ∣}
   (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ CTt)
-  → ---------------------------------------
+  → ----------------------------
   supp a ⊆ dom Γ
 
 supp⟦tm¹⟧ :
@@ -44,11 +41,12 @@ supp⟦tm¹⟧ :
   (x : 𝔸)
   {C : ∣ 𝒞 ∣}
   {T : Fam l C}
-  {Tt' : ∑(Fam l' (C ⋉[ l ] T)) (Elt l' (C ⋉[ l ] T))}
+  {T' : Fam l' (C ⋉[ l ] T)}
+  {t' : Elem l' (C ⋉[ l ] T) T'}
   (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] b [ x ] tm⟧＝
-    (C ⋉[ l ] T , Tt'))
+    ((C ⋉[ l ] T , T') , t'))
   (_ : x # b)
-  → --------------------------------------------------
+  → ----------------------------------------
   supp b ⊆ dom Γ
 
 supp⟦tm¹⟧{l} b x q x# p
@@ -65,13 +63,13 @@ supp⟦tm²⟧ :
   {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' (C ⋉[ l ] T)}
-  {Tt'' : ∑(Fam l'' (C ⋉[ l ] T ⋉[ l' ] T'))
-           (Elt l'' (C ⋉[ l ] T ⋉[ l' ] T'))}
+  {T'' : Fam l'' (C ⋉[ l ] T ⋉[ l' ] T')}
+  {t'' : Elem l'' (C ⋉[ l ] T ⋉[ l' ] T') T''}
   (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⨟ x' ∶ A' ⦂ l' ⊢[ l'' ]
-    b [ x ][ x' ] tm⟧＝ (C ⋉[ l ] T ⋉[ l' ] T' , Tt''))
+    b [ x ][ x' ] tm⟧＝ ((C ⋉[ l ] T ⋉[ l' ] T' , T'') , t''))
   (_ : x # b)
   (_ : x' # b)
-  → --------------------------------------------------
+  → ----------------------------------------------------------
   supp b ⊆ dom Γ
 
 supp⟦tm²⟧{l}{l'} b x x' q x# x'# p
@@ -102,7 +100,7 @@ supp⟦tm⟧ (⟦𝐯⟧ q) (∈｛｝)= supp⟦vr⟧ q
 supp⟦tm⟧ (⟦𝛌⟧{b = b}{T = T}{t} X q₀ q₁)
   with (x , x#X ∉∪ x#b) ← fresh (X , b)= ⊆ub
   (supp⟦tm⟧ q₀)
-  (⊆ub (supp⟦tm¹⟧ b x {Tt' = T , t} (q₁ x x#X) x#b) λ())
+  (⊆ub (supp⟦tm¹⟧ b x {T' = T}{t} (q₁ x x#X) x#b) λ())
 
 supp⟦tm⟧ (⟦∙⟧{B = B} X q₀ q₁ q₂ q₃)
   with (x , x#X ∉∪ x#B) ← fresh (X , B) = ⊆ub

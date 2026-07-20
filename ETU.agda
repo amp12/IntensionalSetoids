@@ -17,6 +17,3 @@ open import ETU.Admissible public
 open import ETU.ExistsFresh public
 open import ETU.Uniqueness public
 open import ETU.Setoids
-
--- Semantics in the setoid model
-open import ETU.Semantics public

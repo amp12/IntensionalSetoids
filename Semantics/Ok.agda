@@ -1,14 +1,11 @@
-module ETU.Semantics.Ok where
+module Semantics.Ok where
 
 open import Prelude
 open import Setoid
 open import WSLN
+open import ETU
 
-open import ETU.Syntax
-open import ETU.Judgement
-open import ETU.Rules
-
-open import ETU.Semantics.Relation
+open import Semantics.Relation
 
 ----------------------------------------------------------------------
 -- The semantics of terms-in-context contains that for contexts
@@ -18,9 +15,10 @@ ok⟦tm⟧ :
   {Γ : Cx}
   {a : Tm}
   {C : ∣ 𝒞 ∣}
-  {Tt : ∑(Fam l C) (Elt l C)}
-  (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ (C , Tt))
-  → -------------------------------
+  {T : Fam l C}
+  {t : Elem l C T}
+  (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ ((C , T) , t))
+  → ------------------------------------
   ⟦ Γ cx⟧＝ C
 
 ok⟦vr⟧ :
@@ -28,12 +26,13 @@ ok⟦vr⟧ :
   {Γ : Cx}
   {x : 𝔸}
   {C : ∣ 𝒞 ∣}
-  {Tt : ∑(Fam l C) (Elt l C)}
-  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ (C , Tt))
-  → -------------------------------
+  {T : Fam l C}
+  {t : Elem l C T}
+  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ ((C , T) , t))
+  → ------------------------------------
   ⟦ Γ cx⟧＝ C
 
-ok⟦tm⟧ (resp⟦tm⟧ q (e , _)) = resp⟦cx⟧ (ok⟦tm⟧ q) e
+ok⟦tm⟧ (resp⟦tm⟧ q ((e , _) , _)) = resp⟦cx⟧ (ok⟦tm⟧ q) e
 ok⟦tm⟧ (⟦𝐔⟧ q) = q
 ok⟦tm⟧ (⟦𝚷⟧ _ q _) = ok⟦tm⟧ q
 ok⟦tm⟧ (⟦𝐄𝐪⟧ q _ _) = ok⟦tm⟧ q
@@ -48,7 +47,7 @@ ok⟦tm⟧ (⟦𝐳𝐞𝐫𝐨⟧ q) = q
 ok⟦tm⟧ (⟦𝐬𝐮𝐜𝐜⟧ q) = ok⟦tm⟧ q
 ok⟦tm⟧ (⟦𝐧𝐫𝐞𝐜⟧ _ _ q _ _) = ok⟦tm⟧ q
 
-ok⟦vr⟧ (resp⟦vr⟧ q (e , _)) = resp⟦cx⟧ (ok⟦vr⟧ q) e
+ok⟦vr⟧ (resp⟦vr⟧ q ((e , _) , _)) = resp⟦cx⟧ (ok⟦vr⟧ q) e
 ok⟦vr⟧ (⟦new⟧ q₀ q₁) = ⟦⨟⟧ q₀ q₁
 ok⟦vr⟧ (⟦old⟧ q₀ _ q₂) = ⟦⨟⟧ q₀ q₂
 
@@ -88,9 +87,9 @@ ok⟦ty⟧ = ok⟦tm⟧
   {l : ℕ}
   {Γ : Cx}
   {x : 𝔸}
-  {CTt : ∑[ C ∈ ∣ 𝒞 ∣ ] ∑ (Fam l C) (Elt l C)}
+  {CTt : ∣ 𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l ∣}
   (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ CTt)
-  → ----------------------------------------
+  → ----------------------------
   x ∈ dom Γ
 
 ⟦∈⟧→dom (⟦new⟧ _ _) = ∈∪₂ ∈｛｝

@@ -21,7 +21,9 @@ open import Prelude public
 -- Universes of type-valued setoids
 open import Setoid public
 
--- Extensional type theory with universes (ETU), its semantics in the
--- intensional setoid model, and as a corollary its logical
--- consistency.
+-- Extensional type theory with universes (ETU)
 open import ETU public
+
+-- Semantics of ETU in the intensional setoid model, and as a
+-- corollary its logical consistency.
+open import Semantics public
