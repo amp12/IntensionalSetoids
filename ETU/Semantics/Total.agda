@@ -7,6 +7,7 @@ open import WSLN
 open import ETU.Syntax
 open import ETU.Judgement
 open import ETU.Rules
+open import ETU.Admissible
 
 open import ETU.Semantics.Relation
 open import ETU.Semantics.Ok
@@ -904,3 +905,21 @@ conv⟦tm⟧{Γ = Γ} (𝚷Eta{l}{l'}{A}{B}{b}{b'} X q₀ q₁ q₂ h₀ h₁)
   q = resp⟦tm⟧
     qt₁
     (rflᶜ C , ((hrfl (ℱ𝒶𝓂 (max l l')) C (𝒫𝒾 l l' S T)) , t₁₀))
+
+conv⟦cx⟧ :
+  {Γ Γ' : Cx}
+  (_ : ⊢ Γ ＝ Γ')
+  → ------------------------------------------
+  ∑[ C ∈ ∣ 𝒞 ∣ ] (⟦ Γ cx⟧＝ C) ∧ (⟦ Γ' cx⟧＝ C)
+
+conv⟦cx⟧ ＝◇ = (Unit , ⟦◇⟧ , ⟦◇⟧)
+conv⟦cx⟧ (＝⨟{l} q₀ q₁ (q₂ ∉∪ q₂') h₀ h₁) =
+  let
+    (C , q , q') = conv⟦cx⟧ q₀
+    (T , r , r') = conv⟦ty⟧' q₁ q
+    (T' , s , s') = conv⟦ty⟧' (＝⊢ q₁ (CxSymm q₀)) q'
+  in {!!}
+  --
+  --   (T' , q'') = tot⟦ty⟧' (＝⊢ h₁ q₀) q
+  --   (T'' , q''') = tot⟦ty⟧' h₁ q'
+  -- in (C ⋉[ l ] T , ⟦⨟⟧ r q₂ , ⟦⨟⟧ (resp⟦ty⟧ {!!} {!!}) q₂')

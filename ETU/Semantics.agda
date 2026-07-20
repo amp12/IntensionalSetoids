@@ -30,7 +30,7 @@ open import ETU.Semantics.Total public
 -- Functional semantics of ETU contexts, types and terms, together
 -- with proofs of soundness and proof-irrelevance with respect to the
 -- valid judgements of ETU
-open import ETU.Semantics.Soundness public
+open import ETU.Semantics.Function public
 
 -- Consistency of extensional type theory relative to intensional
 -- Martin-Löf Type Theory with inductive-recursive definitions (safe
