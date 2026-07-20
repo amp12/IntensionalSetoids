@@ -1,16 +1,14 @@
-module ETU.Semantics.Weakening where
+module Semantics.Weakening where
 
 open import Prelude
 open import Setoid
 open import WSLN
+open import ETU
 
-open import ETU.Syntax
-open import ETU.Judgement
-open import ETU.Rules
-
-open import ETU.Semantics.Relation
-open import ETU.Semantics.Ok
-open import ETU.Semantics.WellScoped
+open import Semantics.Relation
+open import Semantics.Ok
+open import Semantics.WellScoped
+open import Semantics.SingleValued
 
 ----------------------------------------------------------------------
 -- The graph of the semantic function for weakening
@@ -19,16 +17,16 @@ infix 3 ⟦_▷_⟧＝
 
 data ⟦_▷_⟧＝ :
   (Δ Γ : Cx)
-  (f : ∣ ℱ𝓊𝓃 ∣)
-  → -----------
+  (f : ∣ (𝒞 ⊗ 𝒞) ⋉ ℋℴ𝓂 ∣)
+  → ---------------------
   Set
   where
   resp⟦▷⟧ :
     {Δ Γ : Cx}
-    {f f' : ∣ ℱ𝓊𝓃 ∣}
+    {f f' : ∣ (𝒞 ⊗ 𝒞) ⋉ ℋℴ𝓂 ∣}
     (_ : ⟦ Δ ▷ Γ ⟧＝ f)
-    (_ : ℱ𝓊𝓃 ∋ f ~ f')
-    → -----------------
+    (_ : (𝒞 ⊗ 𝒞) ⋉ ℋℴ𝓂 ∋ f ~ f')
+    → --------------------------
     ⟦ Δ ▷ Γ ⟧＝ f'
 
   ⟦▷◇⟧ :
@@ -120,11 +118,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {T : Fam l C}
-  {t : Elt l C T}
+  {t : Elem l C T}
   (_ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
-  (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ (C , T , t))
-  → -------------------------------------
-  ⟦ Δ ⊢[ l ] a tm⟧＝ (D , f * T , f *₁ t)
+  (_ : ⟦ Γ ⊢[ l ] a tm⟧＝ ((C , T) , t))
+  → ---------------------------------------
+  ⟦ Δ ⊢[ l ] a tm⟧＝ ((D , f * T) , f *₁ t)
 
 ▷⟦vr⟧ :
   {l : ℕ}
@@ -133,17 +131,17 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {D C : ∣ 𝒞 ∣}
   {f : Hom D C}
   {T : Fam l C}
-  {t : Elt l C T}
+  {t : Elem l C T}
   (_ : ⟦ Δ ▷ Γ ⟧＝ ((D , C) , f))
-  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ (C , T , t))
-  → -------------------------------------
-  ⟦ Δ ⊢[ l ] x vr⟧＝ (D , f * T , f *₁ t)
+  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ ((C , T) , t))
+  → ---------------------------------------
+  ⟦ Δ ⊢[ l ] x vr⟧＝ ((D , f * T) , f *₁ t)
 
 ▷⟦tm⟧{l}{Δ}{Γ}{D = D}{C'}{f'}{T'}{t'} p'
-  (resp⟦tm⟧{CTt = C , T , t} q (e₁ , e₂ , e₃)) = resp⟦tm⟧
+  (resp⟦tm⟧{CTt = (C , T) , t} q ((e₁ , e₂) , e₃)) = resp⟦tm⟧
   (▷⟦tm⟧ p q )
-  (rflᶜ D ,
-   (λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
+  ((rflᶜ D ,
+   λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
    cng*₁{l}{T = T}{T'}{t}{t'} f f' e e₃)
   where
   f : Hom D C
@@ -191,12 +189,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (▷⟦tm⟧ p q₀)
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₀ x#Δ (▷⟦tm⟧ p q₀)) (q₁ x x#X)}))
-  (rflᶜ D ,
-   sym (Σℱ𝒶𝓂ℰ𝓁𝓉 (max l l') ′ D)
-     {f * 𝒫𝒾 l l' S T , f *₁ 𝓁𝒶𝓂 l l' S t}
-     {𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T) ,
-      𝓁𝒶𝓂 l l' (f * S)(f ⋉′[ l ] S *₁ t)}
-     (ntrl𝒫𝒾 l l' S T f , ntrl𝓁𝒶𝓂 l l' t f))
+    (sym (𝒞 ⋉ ℱ𝒶𝓂 (max l l') ⋉ ℰ𝓁ℯ𝓂 (max l l'))
+      {(D , f * 𝒫𝒾 l l' S T) , f *₁ 𝓁𝒶𝓂 l l' S t}
+      {(D , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)) ,
+        (𝓁𝒶𝓂 l l' (f * S)(f ⋉′[ l ] S *₁ t))}
+      ((rflᶜ D , ntrl𝒫𝒾 l l' S T f) , ntrl𝓁𝒶𝓂 l l' t f))
 
 ▷⟦tm⟧{Δ = Δ}{D = D}{f = f} p
   (⟦∙⟧{l}{l'}{A}{B}{a}{b}{C}{S}{T}{t}{s} X q₀ q₁ q₂ q₃) = resp⟦tm⟧
@@ -206,24 +203,25 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₁ x#Δ (▷⟦tm⟧ p q₁)) (q₂ x x#X)})
     (▷⟦tm⟧ p q₃))
-  (rflᶜ D , sym (Σℱ𝒶𝓂ℰ𝓁𝓉 l' ′ D)
-    {f * ⟪ s ⟫ * T , f *₁ 𝒶𝓅𝓅 l l' S T t s}
-    {⟪ f *₁ s ⟫ * (f ⋉′[ l ] S) * T ,
-     𝒶𝓅𝓅 l l' (f * S) (f ⋉′[ l ] S * T) t' (f *₁ s)}
-    ((λ _ _ e → hcng (f * ⟪ s ⟫ * T) _ _ e ) ,
-     ntrl𝒶𝓅𝓅 l l' S T t s f))
+    {!!}
+  -- (rflᶜ D , sym ((𝒞 ⋉ ℱ𝒶𝓂 l' ⋉ ℰ𝓁ℯ𝓂 l') ′ D)
+  --   {f * ⟪ s ⟫ * T , f *₁ 𝒶𝓅𝓅 l l' S T t s}
+  --   {⟪ f *₁ s ⟫ * (f ⋉′[ l ] S) * T ,
+  --    𝒶𝓅𝓅 l l' (f * S) (f ⋉′[ l ] S * T) t' (f *₁ s)}
+  --   ((λ _ _ e → hcng (f * ⟪ s ⟫ * T) _ _ e ) ,
+  --    ntrl𝒶𝓅𝓅 l l' S T t s f))
   where
-  t' : Elt (max l l') D (𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T))
-  t' = coe (ℰ𝓁𝓉 (max l l'))
+  t' : Elem (max l l') D (𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T))
+  t' = coe (ℰ𝓁ℯ𝓂 (max l l'))
     (rflᶜ D , ntrl𝒫𝒾 l l' S T f)
     (f *₁ t)
 
   q₀' : ⟦ Δ ⊢[ max l l' ]  b tm⟧＝
-    (D , 𝒫𝒾 l l' (f * S ) (f ⋉′[ l ] S * T) , t')
+    ((D , 𝒫𝒾 l l' (f * S ) (f ⋉′[ l ] S * T)) , t')
   q₀' = resp⟦tm⟧
     (▷⟦tm⟧ p q₀)
-    (rflᶜ D , ntrl𝒫𝒾 l l' S T f ,
-     coh (ℰ𝓁𝓉 (max l l'))
+    ((rflᶜ D , ntrl𝒫𝒾 l l' S T f) ,
+     coh (ℰ𝓁ℯ𝓂 (max l l'))
        {x' = _ , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)}
        (rflᶜ D , ntrl𝒫𝒾 l l' S T f)
        (f *₁ t))
@@ -236,7 +234,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   (▷⟦tm⟧ p q₀)
   (resp⟦tm⟧
     (▷⟦tm⟧ p q₁)
-    ((rflᶜ D , (λ _ _ _ → tt) , λ _ _ _ → tt)))
+    (((rflᶜ D , λ _ _ _ → tt) , λ _ _ _ → tt)))
 
 ▷⟦tm⟧ p (⟦𝐳𝐞𝐫𝐨⟧ _) = ⟦𝐳𝐞𝐫𝐨⟧ (ok⟦▷⟧ p)
 
@@ -255,24 +253,25 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
         (⟦▷⨟⟧ q (q₀ x y#X) (x#Δ ∉∪ (#symm y#x)) (▷⟦tm⟧ q (q₀ x y#X)))
         (q₂ x y (##:: x#X (##:: (y#x ∉∪ y#X) ##◇)))})
     (▷⟦tm⟧ p q₃))
-  (rflᶜ D ,
-   (sym (Σℱ𝒶𝓂ℰ𝓁𝓉 l ′ D)
-     {⟪ s' ⟫ * S' , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
-     {f * ⟪ s ⟫ * S , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
-     ((λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
-      ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f)))
+    {!!}
+  -- (rflᶜ D ,
+  --  (sym ((𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l) ′ D)
+  --    {⟪ s' ⟫ * S' , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
+  --    {f * ⟪ s ⟫ * S , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
+  --    ((λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
+  --     ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f)))
   where
   S' :  Fam l (D ⋉[ 0 ] 𝒩𝒶𝓉)
   S' = f ⋉′[ 0 ] 𝒩𝒶𝓉 * S
 
-  s₀' : Elt l D (⟪ 𝓏ℯ𝓇ℴ ⟫ * S')
+  s₀' : Elem l D (⟪ 𝓏ℯ𝓇ℴ ⟫ * S')
   s₀' = f *₁ s₀
 
-  s₊' : Elt l (D ⋉[ 0 ] 𝒩𝒶𝓉 ⋉[ l ] S')
+  s₊' : Elem l (D ⋉[ 0 ] 𝒩𝒶𝓉 ⋉[ l ] S')
     (𝓅 S' * 𝒸ℴ𝓃𝓈 (𝓅 𝒩𝒶𝓉) (𝓈𝓊𝒸𝒸 (𝓆 𝒩𝒶𝓉)) * S')
   s₊' = (f ⋉′[ 0 ] 𝒩𝒶𝓉 ⋉′[ l ] S) *₁ s₊
 
-  s' : Elt 0 D 𝒩𝒶𝓉
+  s' : Elem 0 D 𝒩𝒶𝓉
   s' = f *₁ s
 
 -- The next two functions, ▷⟦vrNew⟧ and ▷⟦vrOld⟧, are helpers that
@@ -290,7 +289,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   (_ : x # Γ)
   (e : l' ≡ l)
   → -----------------------------------------------------
-  ⟦ Δ ⊢[ l ] x vr⟧＝ (D , f * 𝓅 S * S , f *₁ 𝓆 S)
+  ⟦ Δ ⊢[ l ] x vr⟧＝ ((D , f * 𝓅 S * S) , f *₁ 𝓆 S)
 
 ▷⟦vrNew⟧ (⟦proj▷⟧ p₀ p₁ p₂) q₀ q₁ refl =
   ⟦old⟧ p₁ (▷⟦vrNew⟧ p₀ q₀ q₁ refl) p₂
@@ -300,7 +299,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     p₀ p₁ p₂ h) q₀ q₁ e
   with refl ← ! ⦃ !≡ ⦄ e refl = resp⟦vr⟧
     (⟦new⟧ h p₂)
-    (rflᶜ (D' ⋉[ l ] (f' * S')) , e₁ , e₂)
+    ((rflᶜ (D' ⋉[ l ] (f' * S')) , e₁) , e₂)
   where
   e₁ : (ℱ𝒶𝓂 l) ′ (D' ⋉[ l ] (f' * S')) ∋
     𝓅 (f' * S') * f' * S' ~ (f' ⋉′[ l ] S') * 𝓅 S' * S'
@@ -308,7 +307,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     with refl ← ! ⦃ !≡ ⦄ v refl =
     hcng S' (∣ f' ∣ c) (∣ f' ∣ d) (cng f' c d u)
 
-  e₂ :  ℰ𝓁𝓉 l ∋
+  e₂ :  ℰ𝓁ℯ𝓂 l ∋
     (D' ⋉[ l ] (f' * S') ,
     𝓅 (f' * S') * f' * S') ,
     𝓆 (f' * S')
@@ -322,21 +321,22 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ▷⟦vrNew⟧{l}{Δ = Δ}{D = D}{C}{S}{f}
   (resp⟦▷⟧{f = (D' , Sigma C' _ X' q') , f'}
   p ((e₁ , e₂ , refl , e₃) , e₄)) q x# refl =
-  resp⟦vr⟧
-    (▷⟦vrNew⟧ p
-      (resp⟦ty⟧ q
-        (sym (Σℱ𝒶𝓂 l){C' , S'}{C , S} (e₂ , e₃)))
-      x#
-      refl)
-    (e₁ ,
-     (λ c c' u →
-       e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u))) ,
-     λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
+  {!!}
+  -- resp⟦vr⟧
+  --   (▷⟦vrNew⟧ p
+  --     (resp⟦ty⟧ q
+  --       (sym (𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l){C' , S'}{C , S} (e₂ , e₃)))
+  --     x#
+  --     refl)
+  --   (e₁ ,
+  --    (λ c c' u →
+  --      e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u))) ,
+  --    λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
   where
   S' : Fam l C'
   S' = mkSect X' q'
 
-  e' : ℰ𝓁𝓉 l ∋
+  e' : ℰ𝓁ℯ𝓂 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') , 𝓆 S' ≈
     (C  ⋉[ l ] S  , 𝓅 S  * S ) , 𝓆 S
   e' _ _ (_ , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = w
@@ -349,15 +349,15 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   {D C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
-  {t : Elt l C T}
+  {t : Elem l C T}
   {f : Hom D (C ⋉[ l' ] T')}
   (_ : ⟦ Δ ▷ (Γ ⨟ x' ∶ A' ⦂ l'') ⟧＝ ((D , C ⋉[ l' ] T') , f))
   (_ : ⟦ Γ ⊢[ l' ] A' ty⟧＝ (C , T'))
-  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ (C , T , t))
+  (_ : ⟦ Γ ⊢[ l ] x vr⟧＝ ((C , T) , t))
   (_ : x' # Γ)
   (_ : l'' ≡ l')
   → ----------------------------------------------------------
-  ⟦ Δ ⊢[ l ] x vr⟧＝ (D , f * 𝓅 T' * T , f *₁ (𝓅 T' *₁ t))
+  ⟦ Δ ⊢[ l ] x vr⟧＝ ((D , f * 𝓅 T' * T) , f *₁ (𝓅 T' *₁ t))
 
 ▷⟦vrOld⟧ (⟦proj▷⟧ p₀ p₂ p₃) q₀ q₁ q₂ refl =
   ⟦old⟧ p₂ (▷⟦vrOld⟧ p₀ q₀ q₁ q₂ refl) p₃
@@ -367,7 +367,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   with refl ← ! ⦃ !≡ ⦄ e refl =
   resp⟦vr⟧
     (▷⟦vr⟧ (⟦proj▷⟧ p h q₃) q₁)
-    (rflᶜ (D ⋉[ l' ] (f * T')) , e₁ , e₂)
+    ((rflᶜ (D ⋉[ l' ] (f * T')) , e₁) , e₂)
   where
   e₁ : (ℱ𝒶𝓂 l) ′ (D ⋉[ l' ] (f * T')) ∋
     𝓅 (f * T') * f * T ~ f ⋉′[ l' ] T' * 𝓅 T' * T
@@ -375,7 +375,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     with refl ← ! ⦃ !≡ ⦄ v refl =
     hcng T (∣ f ∣ c) (∣ f ∣ d) (cng f c d u)
 
-  e₂ : ℰ𝓁𝓉 l ∋
+  e₂ : ℰ𝓁ℯ𝓂 l ∋
     (D ⋉[ l' ] (f * T') , 𝓅 (f * T') * f * T) ,
     𝓅 (f * T') *₁ f *₁ t
     ≈
@@ -387,16 +387,17 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 
 ▷⟦vrOld⟧{l}{l'}{Δ = Δ}{Γ}{A'}{x}{x'}{D}{C}{S}{T}{s}{f}
   (resp⟦▷⟧{f = (D' , Sigma C' _ X' q') , f'}
-    p ((e₁ , e₂ , refl , e₃) , e₄)) q₀ q₁ q₂ refl = resp⟦vr⟧
-  (▷⟦vrOld⟧{T = S'}{t = s'} p
-    (resp⟦ty⟧ q₀ (sym (Σℱ𝒶𝓂 l'){C' , T'}{C , T} (e₂ , e₃)))
-    (resp⟦vr⟧ q₁ (symᶜ e₂ , e , e'))
-    q₂
-    refl)
-  (e₁ ,
-   cng*{l}{T = 𝓅{l'} T' * S'}{𝓅 T * S} f' f e₄ e₂'' ,
-   λ c c' u  →
-     e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
+    p ((e₁ , e₂ , refl , e₃) , e₄)) q₀ q₁ q₂ refl = {!!}
+  -- resp⟦vr⟧
+  -- (▷⟦vrOld⟧{T = S'}{t = s'} p
+  --   (resp⟦ty⟧ q₀ (sym (𝒞 ⋉ ℱ𝒶𝓂 l' ⋉ ℰ𝓁ℯ𝓂 l'){C' , T'}{C , T} (e₂ , e₃)))
+  --   (resp⟦vr⟧ q₁ (symᶜ e₂ , e , e'))
+  --   q₂
+  --   refl)
+  -- (e₁ ,
+  --  cng*{l}{T = 𝓅{l'} T' * S'}{𝓅 T * S} f' f e₄ e₂'' ,
+  --  λ c c' u  →
+  --    e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
   where
   T' : Fam l' C'
   T' = mkSect X' q'
@@ -407,14 +408,14 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   e : ℱ𝒶𝓂 l ∋ C , S ≈ C' , S'
   e = coh (ℱ𝒶𝓂 l) (symᶜ e₂) S
 
-  s' : Elt l C' S'
-  s' = coe (ℰ𝓁𝓉 l) (symᶜ e₂ , e) s
+  s' : Elem l C' S'
+  s' = coe (ℰ𝓁ℯ𝓂 l) (symᶜ e₂ , e) s
 
-  e' : ℰ𝓁𝓉 l ∋ (C , S) , s  ≈ (C' , S') , s'
-  e' = coh (ℰ𝓁𝓉 l){C , S}{C' , S'} (symᶜ e₂ , e) s
+  e' : ℰ𝓁ℯ𝓂 l ∋ (C , S) , s  ≈ (C' , S') , s'
+  e' = coh (ℰ𝓁ℯ𝓂 l){C , S}{C' , S'} (symᶜ e₂ , e) s
 
-  e₂' : ℰ𝓁𝓉 l ∋ (C' , S') , s'  ≈ (C , S) , s
-  e₂' = coh⁻¹ (ℰ𝓁𝓉 l){C , S}{C' , S'} (symᶜ e₂ , e) s
+  e₂' : ℰ𝓁ℯ𝓂 l ∋ (C' , S') , s'  ≈ (C , S) , s
+  e₂' = coh⁻¹ (ℰ𝓁ℯ𝓂 l){C , S}{C' , S'} (symᶜ e₂ , e) s
 
   e₂'' : ℱ𝒶𝓂 l ∋
     C' ⋉[ l' ] T' , 𝓅 T' * S' ≈
@@ -427,9 +428,9 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 ▷⟦vr⟧ p (⟦old⟧ q₀ q₁ q₂) = ▷⟦vrOld⟧ p q₀ q₁ q₂ refl
 
 ▷⟦vr⟧{l}{Δ}{Γ}{D = D}{C'}{f'}{T'}{t'} p'
-  (resp⟦vr⟧{CTt = C , T , t} q (e₁ , e₂ , e₃)) = resp⟦vr⟧
+  (resp⟦vr⟧{CTt = (C , T) , t} q ((e₁ , e₂) , e₃)) = resp⟦vr⟧
   (▷⟦vr⟧ p q)
-  (rflᶜ D , (λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
+  ((rflᶜ D , λ c c' u → e₂ (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)) ,
     cng*₁ {l} {T = T} {T'} {t} {t'} f f' e e₃)
   where
   f : Hom D C
@@ -511,13 +512,13 @@ wk⟦tm⟧ :
   {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
-  {t' : Elt l' C T'}
+  {t' : Elem l' C T'}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ (C , T))
-  (_ : ⟦ Γ ⊢[ l' ] a' tm⟧＝ (C , T' , t'))
+  (_ : ⟦ Γ ⊢[ l' ] a' tm⟧＝ ((C , T') , t'))
   (_ : x # Γ)
   → --------------------------------------
   ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] a' tm⟧＝
-  (C ⋉[ l ] T , 𝓅 T * T' , 𝓅 T *₁ t')
+  ((C ⋉[ l ] T , 𝓅 T * T') , 𝓅 T *₁ t')
 
 wk⟦tm⟧ q₀ q₁ q₂ = ▷⟦tm⟧ (⟦proj⟧ q₀ q₂) q₁
 
@@ -530,13 +531,13 @@ wk⟦vr⟧ :
   {C : ∣ 𝒞 ∣}
   {T : Fam l C}
   {T' : Fam l' C}
-  {t' : Elt l' C T'}
+  {t' : Elem l' C T'}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧＝ (C , T))
-  (_ : ⟦ Γ ⊢[ l' ] x' vr⟧＝ (C , T' , t'))
+  (_ : ⟦ Γ ⊢[ l' ] x' vr⟧＝ ((C , T') , t'))
   (_ : x # Γ)
-  → --------------------------------------
+  → ----------------------------------------
   ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] x' vr⟧＝
-  (C ⋉[ l ] T , 𝓅 T * T' , 𝓅 T *₁ t')
+  ((C ⋉[ l ] T , 𝓅 T * T') , 𝓅 T *₁ t')
 
 wk⟦vr⟧ q₀ q₁ q₂ = ▷⟦vr⟧ (⟦proj⟧ q₀ q₂) q₁
 

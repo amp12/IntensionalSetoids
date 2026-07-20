@@ -96,8 +96,8 @@ module Fibres {A : Setd} where
   ∣ B ′ x ∣ = ∥ B ∥ x
   (B ′ x ∋ y ~ y') = B ∋ x , y ≈ x , y'
   rfl (B ′ x) = hrfl B x
-  sym (_′_ B x) = hsym B (rfl A x)
-  trs (_′_ B x) = htrs B (rfl A x) (rfl A x)
+  sym (B ′ x) = hsym B (rfl A x)
+  trs (B ′ x) = htrs B (rfl A x) (rfl A x)
 
   -- induced morphisms between fibres
   infix 6 _′′_
