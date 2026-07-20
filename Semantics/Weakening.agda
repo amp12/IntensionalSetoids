@@ -203,13 +203,12 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₁ x#Δ (▷⟦tm⟧ p q₁)) (q₂ x x#X)})
     (▷⟦tm⟧ p q₃))
-    {!!}
-  -- (rflᶜ D , sym ((𝒞 ⋉ ℱ𝒶𝓂 l' ⋉ ℰ𝓁ℯ𝓂 l') ′ D)
-  --   {f * ⟪ s ⟫ * T , f *₁ 𝒶𝓅𝓅 l l' S T t s}
-  --   {⟪ f *₁ s ⟫ * (f ⋉′[ l ] S) * T ,
-  --    𝒶𝓅𝓅 l l' (f * S) (f ⋉′[ l ] S * T) t' (f *₁ s)}
-  --   ((λ _ _ e → hcng (f * ⟪ s ⟫ * T) _ _ e ) ,
-  --    ntrl𝒶𝓅𝓅 l l' S T t s f))
+    (sym (𝒞 ⋉ ℱ𝒶𝓂 l' ⋉ ℰ𝓁ℯ𝓂 l')
+      {(D , f * ⟪ s ⟫ * T) , f *₁ 𝒶𝓅𝓅 l l' S T t s}
+      {(D , ⟪ f *₁ s ⟫ * (f ⋉′[ l ] S) * T) ,
+        𝒶𝓅𝓅 l l' (f * S) (f ⋉′[ l ] S * T) t' (f *₁ s)}
+      ((rflᶜ D , λ _ _ e → hcng (f * ⟪ s ⟫ * T) _ _ e) ,
+      ntrl𝒶𝓅𝓅 l l' S T t s f))
   where
   t' : Elem (max l l') D (𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T))
   t' = coe (ℰ𝓁ℯ𝓂 (max l l'))
@@ -253,13 +252,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
         (⟦▷⨟⟧ q (q₀ x y#X) (x#Δ ∉∪ (#symm y#x)) (▷⟦tm⟧ q (q₀ x y#X)))
         (q₂ x y (##:: x#X (##:: (y#x ∉∪ y#X) ##◇)))})
     (▷⟦tm⟧ p q₃))
-    {!!}
-  -- (rflᶜ D ,
-  --  (sym ((𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l) ′ D)
-  --    {⟪ s' ⟫ * S' , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
-  --    {f * ⟪ s ⟫ * S , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
-  --    ((λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
-  --     ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f)))
+    (sym (𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l)
+      {(D , ⟪ s' ⟫ * S') , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
+      {(D , f * ⟪ s ⟫ * S) , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
+      ((rflᶜ D , λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
+      ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f))
   where
   S' :  Fam l (D ⋉[ 0 ] 𝒩𝒶𝓉)
   S' = f ⋉′[ 0 ] 𝒩𝒶𝓉 * S
@@ -320,18 +317,13 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 
 ▷⟦vrNew⟧{l}{Δ = Δ}{D = D}{C}{S}{f}
   (resp⟦▷⟧{f = (D' , Sigma C' _ X' q') , f'}
-  p ((e₁ , e₂ , refl , e₃) , e₄)) q x# refl =
-  {!!}
-  -- resp⟦vr⟧
-  --   (▷⟦vrNew⟧ p
-  --     (resp⟦ty⟧ q
-  --       (sym (𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l){C' , S'}{C , S} (e₂ , e₃)))
-  --     x#
-  --     refl)
-  --   (e₁ ,
-  --    (λ c c' u →
-  --      e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u))) ,
-  --    λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
+  p ((e₁ , e₂ , refl , e₃) , e₄)) q x# refl = resp⟦vr⟧
+  (▷⟦vrNew⟧ p
+    (resp⟦ty⟧ q (symᶜ e₂ , λ c c' u →
+      sym (𝒰 l) (e₃ c' c (hsymᶜ (symᶜ e₂) u)))) x# refl)
+  ((e₁ , (λ c c' u →
+     e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u)))) ,
+   (λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u)))
   where
   S' : Fam l C'
   S' = mkSect X' q'
@@ -387,17 +379,15 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
 
 ▷⟦vrOld⟧{l}{l'}{Δ = Δ}{Γ}{A'}{x}{x'}{D}{C}{S}{T}{s}{f}
   (resp⟦▷⟧{f = (D' , Sigma C' _ X' q') , f'}
-    p ((e₁ , e₂ , refl , e₃) , e₄)) q₀ q₁ q₂ refl = {!!}
-  -- resp⟦vr⟧
-  -- (▷⟦vrOld⟧{T = S'}{t = s'} p
-  --   (resp⟦ty⟧ q₀ (sym (𝒞 ⋉ ℱ𝒶𝓂 l' ⋉ ℰ𝓁ℯ𝓂 l'){C' , T'}{C , T} (e₂ , e₃)))
-  --   (resp⟦vr⟧ q₁ (symᶜ e₂ , e , e'))
-  --   q₂
-  --   refl)
-  -- (e₁ ,
-  --  cng*{l}{T = 𝓅{l'} T' * S'}{𝓅 T * S} f' f e₄ e₂'' ,
-  --  λ c c' u  →
-  --    e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
+    p ((e₁ , e₂ , refl , e₃) , e₄)) q₀ q₁ q₂ refl = resp⟦vr⟧
+    (▷⟦vrOld⟧ {T = S'} {t = s'} p
+      (resp⟦ty⟧ q₀ (sym (𝒞 ⋉ ℱ𝒶𝓂 l') {C' , T'} {C , T} (e₂ , e₃)))
+      (resp⟦vr⟧ q₁ ((symᶜ e₂ , e) , e'))
+      q₂
+      refl)
+    ((e₁ , cng*{l}{T = 𝓅{l'} T' * S'}{𝓅 T * S} f' f e₄ e₂'') ,
+    λ c c' u  →
+      e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
   where
   T' : Fam l' C'
   T' = mkSect X' q'
