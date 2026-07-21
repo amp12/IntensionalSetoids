@@ -247,7 +247,7 @@ tot⟦tm⟧ (⊢𝐯 p₀ p₁) =
 
 tot⟦tm⟧ (⊢𝐔{l} p) =
    let (C , q) = tot⟦cx⟧ p in
-   (C , 𝒰𝓃𝒾𝓋 (1+ l) , 𝒰𝓃𝒾𝓋 l , ⟦𝐔⟧ q , ⟦𝐔⟧ q)
+   (C , 𝓊𝓃𝒾𝓋 (1+ l) , 𝓊𝓃𝒾𝓋 l , ⟦𝐔⟧ q , ⟦𝐔⟧ q)
 
 tot⟦tm⟧{Γ = Γ} (⊢𝚷{l}{l'}{B = B} X q₀ q₁)
   with (x , x#X ∉∪ x#B ∉∪ x#Γ) ← fresh (X , B , Γ) =
@@ -255,7 +255,7 @@ tot⟦tm⟧{Γ = Γ} (⊢𝚷{l}{l'}{B = B} X q₀ q₁)
     (C , S , q₀') = tot⟦ty⟧ q₀
     (T , q₁') = tot⟦ty⟧' (q₁ x x#X) (⟦⨟⟧ q₀' x#Γ)
   in
-  (C , 𝒰𝓃𝒾𝓋 (max l l') , 𝒫𝒾 l l' S T ,
+  (C , 𝓊𝓃𝒾𝓋 (max l l') , 𝒫𝒾 l l' S T ,
    ⟦𝐔⟧ (ok⟦ty⟧ q₀') , ⟦𝚷⟧⁻ q₀' q₁' x#B)
 
 tot⟦tm⟧{Γ = Γ} (⊢𝛌{l}{l'}{B = B}{b} X q h₀ h₁)
@@ -284,7 +284,7 @@ tot⟦tm⟧ (⊢𝐄𝐪{l} p₀ p₁ p₂) =
     (t , q₀) = tot⟦tm⟧' p₀ q₂
     (t' , q₁) = tot⟦tm⟧' p₁ q₂
   in
-  (C , 𝒰𝓃𝒾𝓋 l , ℰ𝓆 l T t t' ,
+  (C , 𝓊𝓃𝒾𝓋 l , ℰ𝓆 l T t t' ,
     ⟦𝐔⟧ (ok⟦ty⟧ q₂) , ⟦𝐄𝐪⟧ q₂ q₀ q₁)
 
 tot⟦tm⟧ (⊢𝐫𝐞𝐟𝐥{l} p _) =
@@ -293,7 +293,7 @@ tot⟦tm⟧ (⊢𝐫𝐞𝐟𝐥{l} p _) =
 
 tot⟦tm⟧ (⊢𝐄𝐦𝐩 p) =
   let (C , q) = tot⟦cx⟧ p in
-  (C , 𝒰𝓃𝒾𝓋 0 , ℰ𝓂𝓅 , ⟦𝐔⟧ q , ⟦𝐄𝐦𝐩⟧ q)
+  (C , 𝓊𝓃𝒾𝓋 0 , ℰ𝓂𝓅 , ⟦𝐔⟧ q , ⟦𝐄𝐦𝐩⟧ q)
 
 tot⟦tm⟧ (⊢𝐞𝐦𝐩{l} p₀ p₁) =
   let
@@ -304,7 +304,7 @@ tot⟦tm⟧ (⊢𝐞𝐦𝐩{l} p₀ p₁) =
 
 tot⟦tm⟧ (⊢𝐍𝐚𝐭 p) =
   let (C , q) = tot⟦cx⟧ p in
-  (C , 𝒰𝓃𝒾𝓋 0 , 𝒩𝒶𝓉 , ⟦𝐔⟧ q , ⟦𝐍𝐚𝐭⟧ q)
+  (C , 𝓊𝓃𝒾𝓋 0 , 𝒩𝒶𝓉 , ⟦𝐔⟧ q , ⟦𝐍𝐚𝐭⟧ q)
 
 tot⟦tm⟧ (⊢𝐳𝐞𝐫𝐨 p) =
   let (C , q) = tot⟦cx⟧ p in
@@ -410,7 +410,7 @@ conv⟦tm⟧{Γ = Γ} (𝚷Cong{l}{l'}{B = B}{B'} X q₀ q₁ h)
     (T , qT , qT') = conv⟦ty⟧' (q₁ x x#X) (⟦⨟⟧ q x#Γ)
     q' = resp⟦ty⟧ qS' (sv⟦ty⟧ qS q)
   in
-  (C , 𝒰𝓃𝒾𝓋 (max l l') , 𝒫𝒾 l l' S T ,
+  (C , 𝓊𝓃𝒾𝓋 (max l l') , 𝒫𝒾 l l' S T ,
     ⟦𝐔⟧ (ok⟦ty⟧ q) ,
     ⟦𝚷⟧⁻ q qT x#B ,
     ⟦𝚷⟧⁻ q' (sound⟦cx⟧ q q' qT') x#B')
@@ -449,7 +449,7 @@ conv⟦tm⟧ (𝐄𝐪Cong{l} q₀ q₁ q₂) =
     (s , qs , qs') = conv⟦tm⟧' q₁ qT
     (t , qt , qt') = conv⟦tm⟧' q₂ qT
   in
-  (C , 𝒰𝓃𝒾𝓋 l , ℰ𝓆 l T s t ,
+  (C , 𝓊𝓃𝒾𝓋 l , ℰ𝓆 l T s t ,
     ⟦𝐔⟧ (ok⟦ty⟧ qT) ,
     ⟦𝐄𝐪⟧ qT qs qt ,
     ⟦𝐄𝐪⟧ qT' qs' qt')

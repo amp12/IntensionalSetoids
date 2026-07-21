@@ -264,23 +264,23 @@ cng*₁ :
 cng*₁ f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
 
 ----------------------------------------------------------------------
--- Universes of types
+-- Codes for universes of types
 ----------------------------------------------------------------------
-𝒰𝓃𝒾𝓋 :
+𝓊𝓃𝒾𝓋 :
   (n : ℕ)
   {C : ∣ 𝒞 ∣}
   → ----------
   Fam (1+ n) C
 
-∥ 𝒰𝓃𝒾𝓋 _ ∥ _  = Univ
-hcng (𝒰𝓃𝒾𝓋 n) _ _ _ = rfl (𝒰 (1+ n)) Univ
+∥ 𝓊𝓃𝒾𝓋 _ ∥ _  = Univ
+hcng (𝓊𝓃𝒾𝓋 n) _ _ _ = rfl (𝒰 (1+ n)) Univ
 
--- Families are elements (of universes) up to definitional equality:
+-- Families are elements of universes up to definitional equality:
 fam-as-elt :
   {n : ℕ}
   {C : ∣ 𝒞 ∣}
-  → -----------------------------
-  Fam n C ≡ Elem (1+ n) C (𝒰𝓃𝒾𝓋 n)
+  → ------------------------------
+  Fam n C ≡ Elem (1+ n) C (𝓊𝓃𝒾𝓋 n)
 
 fam-as-elt = refl
 
