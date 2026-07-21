@@ -407,7 +407,7 @@ sb⟦tm⟧{σ = σ}{Δ}{Γ}{D = D}{f = f} p
     (_ : x # (X , B , b₊ , Δ))
     → ------------------------------------------------------
     ⟦ Δ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⊢[ l ] (zero ~> 𝐯 x) (actSb σ B) ty⟧↘
-    (D ⋉[ 0 ] 𝒩𝒶𝓉 , mk𝒰fam (λ c → ∥ S' ∥ c) (hcng S'))
+    (D ⋉[ 0 ] 𝒩𝒶𝓉 , mk𝒰sect (λ c → ∥ S' ∥ c) (hcng S'))
 
   q₀' x (x#X ∉∪ x#B ∉∪ x#b₊ ∉∪ x#Δ) = subst (λ B' →
     ⟦ Δ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⊢[ l ] B' ty⟧↘ (D ⋉[ 0 ] 𝒩𝒶𝓉 , S'))
@@ -455,7 +455,7 @@ sb⟦vrNew⟧{l}{σ = σ}{Δ}{D = D}{C}{S}{f}
      λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
   where
   S' : Fam l C'
-  S' = mk𝒰fam X' q'
+  S' = mk𝒰sect X' q'
 
   e' : ℰ𝓁ℯ𝓂 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') , 𝓆 S' ≈
@@ -500,7 +500,7 @@ sb⟦vrOld⟧{l}{l'}{σ = σ}{Δ}{Γ}{A'}{x}{x'}{D}{C}{S}{T}{s}{f}
      e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
   where
   T' : Fam l' C'
-  T' = mk𝒰fam X' q'
+  T' = mk𝒰sect X' q'
 
   S' : Fam l C'
   S' = coe (ℱ𝒶𝓂 l) (symᶜ e₂) S

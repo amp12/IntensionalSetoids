@@ -87,24 +87,29 @@ cng (unit C) _ _ _ = tt
 -- Families and their elements
 ----------------------------------------------------------------------
 
-{- Since we wish to ensure that, up to definitional equality, families
-are sections of universes, we begin with the definition of "universe
-families" 𝒰fam, and then define families in terms of them. The use of
-a record type rather than a Σ-type helps with inferring universe
-levels. -}
+{- We wish to ensure that, up to definitional equality, families are
+sections of universes, so we begin with a definition of "universe
+section" 𝒰sect, from which both families and their elements can be
+defined. One could take
 
-record 𝒰fam
+  𝒰sect : (l : ℕ)(C : ∣ 𝒞 ∣) → ∣ ℰ ′ C ⟶ 𝒰 l ∣ → Set
+
+to be
+
+  𝒰sect l C F = Setd[ ℰ ′ C  ⊩ F * ℰ𝓁 l ]
+
+but using the following equivalent record type seems to make life
+easier. -}
+
+record 𝒰sect
   (n : ℕ)
   (C : ∣ 𝒞 ∣)
   (X : ∥ ℰ ∥ C → ∣ 𝒰 n ∣)
-  -- The next argument is not used, but including it enables the
-  -- element re-indexing function *ᶜ to only depend implicitly upon
-  -- its family argument
-  (q : ∀ c c' → ℰ ′ C ∋ c ~ c' → 𝒰 n ∋ X c ~ X c')
-  : ----------------------------------------------
+  (q : ∀ c c' → (ℰ ′ C ∋ c ~ c') → (𝒰 n ∋ X c ~ X c'))
+  : --------------------------------------------------
   Set
   where
-  constructor mk𝒰fam
+  constructor mk𝒰sect
   infix 8 ∥_∥
   field
     ∥_∥ : (c : ∥ ℰ ∥ C) → ∥ ℰ𝓁 n ∥ (X c)
@@ -114,13 +119,13 @@ record 𝒰fam
       → --------------------------------
       ℰ𝓁 n ∋ X c , ∥_∥ c ≈ X c' , ∥_∥ c'
 
-open 𝒰fam public
+open 𝒰sect public
 
 -- Families
 Fam : ℕ → ∣ 𝒞 ∣ → Set
 Fam n C =
   -- we rely on the fact that El (1+ n) Univ ≡ U l
-  𝒰fam (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
+  𝒰sect (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
 
 ℱ𝒶𝓂 : ℕ → Setd[ 𝒞 ]
 ∥ ℱ𝒶𝓂 n ∥ = Fam n
@@ -143,7 +148,7 @@ coh (ℱ𝒶𝓂 n) e T c c' e' =
 
 -- Elements of families
 Elem : (n : ℕ)(C : ∣ 𝒞 ∣) → Fam n C → Set
-Elem n C T = 𝒰fam n C (∥_∥ T) (hcng T)
+Elem n C T = 𝒰sect n C (∥_∥ T) (hcng T)
 
 ℰ𝓁ℯ𝓂 : (n : ℕ) → Setd[ 𝒞 ⋉ ℱ𝒶𝓂 n ]
 ∥ ℰ𝓁ℯ𝓂 n ∥ (C , T) = Elem n C T
@@ -296,7 +301,7 @@ _⋉[_]_ :
   → -----------
   ∣ 𝒞 ∣
 
-C ⋉[ n ] (mk𝒰fam X q) = Sigma C n X q
+C ⋉[ n ] (mk𝒰sect X q) = Sigma C n X q
 
 𝓅 :
   {n : ℕ}
@@ -378,7 +383,7 @@ img⋉[] :
   ∧
   (ℱ𝒶𝓂 n ∋ C , T ≈ C' , T')
 
-img⋉[] (Sigma C n X q) (e , refl , e') = (C , mk𝒰fam X q , e , e')
+img⋉[] (Sigma C n X q) (e , refl , e') = (C , mk𝒰sect X q , e , e')
 
 imgUnit :
   (C : ∣ 𝒞 ∣)

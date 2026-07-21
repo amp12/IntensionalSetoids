@@ -327,7 +327,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
    λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
   where
   S' : Fam l C'
-  S' = mk𝒰fam X' q'
+  S' = mk𝒰sect X' q'
 
   e' : ℰ𝓁ℯ𝓂 l ∋
     (C' ⋉[ l ] S' , 𝓅 S' * S') , 𝓆 S' ≈
@@ -391,7 +391,7 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
       e₂' (∣ 𝓅 T' ∘ f' ∣ c) (∣ 𝓅 T ∘ f ∣ c') (π₁ (e₄ c c' u)))
   where
   T' : Fam l' C'
-  T' = mk𝒰fam X' q'
+  T' = mk𝒰sect X' q'
 
   S' : Fam l C'
   S' = coe (ℱ𝒶𝓂 l) (symᶜ e₂) S
