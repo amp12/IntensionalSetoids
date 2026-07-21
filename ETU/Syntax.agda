@@ -99,21 +99,21 @@ pattern 𝐧𝐫𝐞𝐜 C c₀ c₊ a = 𝐨 ′natrec′ (C :: c₀ :: c₊ ::
 ----------------------------------------------------------------------
 -- Contexts
 ----------------------------------------------------------------------
-infixl 5 _⨟_∶_⦂_
+infixl 5 _⨟_∶[_]_
 data Cx : Set where
   ◇     : Cx
-  _⨟_∶_⦂_ :
+  _⨟_∶[_]_ :
     (Γ : Cx)
     (x : 𝔸)
-    (A : Ty)
     (l : ℕ)
-    → -------
+    (A : Ty)
+    → ------
     Cx
 
 -- The domain of a context
 dom : Cx → Fset𝔸
 dom ◇ = ∅
-dom (Γ ⨟ x ∶ _ ⦂ _) = dom Γ ∪ ｛ x ｝
+dom (Γ ⨟ x ∶[ _ ] _) = dom Γ ∪ ｛ x ｝
 
 -- Freshness for contexts
 instance
@@ -124,11 +124,10 @@ instance
 cx⁻¹ :
   {Γ Γ' : Cx}
   {x x' : 𝔸}
-
   {A A' : Ty}
   {l l' : ℕ}
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ≡ (Γ' ⨟ x' ∶ A' ⦂ l'))
-  → -----------------------------------------
+  (_ : (Γ ⨟ x ∶[ l ] A) ≡ (Γ' ⨟ x' ∶[ l' ] A'))
+  → -------------------------------------------
   (Γ ≡ Γ') ∧ (x ≡ x') ∧ (A ≡ A') ∧ (l ≡ l')
 
 cx⁻¹ refl = (refl , refl , refl , refl)
@@ -143,8 +142,8 @@ data _isIn_ : (𝔸 × Ty × ℕ) → Cx → Set where
     {x : 𝔸}
     {A : Ty}
     {l : ℕ}
-    → ------------------------------
-    (x , A , l) isIn (Γ ⨟ x ∶ A ⦂ l)
+    → -------------------------------
+    (x , A , l) isIn (Γ ⨟ x ∶[ l ] A)
   isInOld :
     {xAl : 𝔸 × Ty × ℕ}
     {Γ : Cx}
@@ -152,8 +151,8 @@ data _isIn_ : (𝔸 × Ty × ℕ) → Cx → Set where
     {A' : Ty}
     {l' : ℕ}
     (p : xAl isIn Γ)
-    → -------------------------
-    xAl isIn (Γ ⨟ x' ∶ A' ⦂ l')
+    → --------------------------
+    xAl isIn (Γ ⨟ x' ∶[ l' ] A')
 
 isIn→dom :
   {Γ : Cx}
@@ -172,6 +171,6 @@ dom→isIn :
   (_ : x ∈ dom Γ)
   → ------------------------------
   ∃[ A ] ∃[ l ] (x , A , l) isIn Γ
-dom→isIn {_ ⨟ _ ∶ _ ⦂ _} (∈∪₁ p)
+dom→isIn {_ ⨟ _ ∶[ _ ] _} (∈∪₁ p)
   with (A , l , p') ← dom→isIn p = (A , l , isInOld p')
-dom→isIn {_ ⨟ _ ∶ A ⦂ l} (∈∪₂ ∈｛｝) = (A , l , isInNew)
+dom→isIn {_ ⨟ _ ∶[ l ] A} (∈∪₂ ∈｛｝) = (A , l , isInNew)
