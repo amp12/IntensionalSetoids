@@ -88,43 +88,44 @@ cng (unit C) _ _ _ = tt
 ----------------------------------------------------------------------
 
 {- Since we wish to ensure that, up to definitional equality, families
-are sections of universes, we begin with the definition of sections
-and then define families in terms of them. The use of a record type
-rather than a Σ-type helps with inferring universe levels. -}
+are sections of universes, we begin with the definition of "universe
+families" 𝒰fam, and then define families in terms of them. The use of
+a record type rather than a Σ-type helps with inferring universe
+levels. -}
 
-record Sect
+record 𝒰fam
   (n : ℕ)
   (C : ∣ 𝒞 ∣)
-  (X : ∥ ℰ ∥ C → U n)
+  (X : ∥ ℰ ∥ C → ∣ 𝒰 n ∣)
   -- The next argument is not used, but including it enables the
   -- element re-indexing function *ᶜ to only depend implicitly upon
   -- its family argument
-  (q : ∀ c c' → C , c ≈ᶜ C , c' → 𝒰 n ∋ X c ~ X c')
-  : -----------------------------------------------
+  (q : ∀ c c' → ℰ ′ C ∋ c ~ c' → 𝒰 n ∋ X c ~ X c')
+  : ----------------------------------------------
   Set
   where
-  constructor mkSect
+  constructor mk𝒰fam
   infix 8 ∥_∥
   field
-    ∥_∥ : (c : Elᶜ C) → El n (X c)
+    ∥_∥ : (c : ∥ ℰ ∥ C) → ∥ ℰ𝓁 n ∥ (X c)
     hcng :
-      (c c' : Elᶜ C)
-      (_ : C , c ≈ᶜ C , c')
+      (c c' : Setd[_].∥_∥ ℰ C)
+      (_ : ℰ ′ C ∋ c ~ c')
       → --------------------------------
       ℰ𝓁 n ∋ X c , ∥_∥ c ≈ X c' , ∥_∥ c'
 
-open Sect public
+open 𝒰fam public
 
 -- Families
 Fam : ℕ → ∣ 𝒞 ∣ → Set
 Fam n C =
   -- we rely on the fact that El (1+ n) Univ ≡ U l
-  Sect (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
+  𝒰fam (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
 
 ℱ𝒶𝓂 : ℕ → Setd[ 𝒞 ]
 ∥ ℱ𝒶𝓂 n ∥ = Fam n
 ℱ𝒶𝓂 n ∋ C , T ≈ C' , T' =
-  ∀ c c' → (C , c ≈ᶜ C' , c') → 𝒰 n ∋ ∥ T ∥ c ~ ∥ T' ∥ c'
+  ∀ c c' → (ℰ ∋ C , c ≈ C' , c') → 𝒰 n ∋ ∥ T ∥ c ~ ∥ T' ∥ c'
 hrfl (ℱ𝒶𝓂 n) C T = hcng T
 hsym (ℱ𝒶𝓂 n) e f c c' e' =
   sym (𝒰 n) (f c' c (hsymᶜ (symᶜ e) e'))
@@ -142,14 +143,14 @@ coh (ℱ𝒶𝓂 n) e T c c' e' =
 
 -- Elements of families
 Elem : (n : ℕ)(C : ∣ 𝒞 ∣) → Fam n C → Set
-Elem n C T = Sect n C (∥_∥ T) (hcng T)
+Elem n C T = 𝒰fam n C (∥_∥ T) (hcng T)
 
 ℰ𝓁ℯ𝓂 : (n : ℕ) → Setd[ 𝒞 ⋉ ℱ𝒶𝓂 n ]
 ∥ ℰ𝓁ℯ𝓂 n ∥ (C , T) = Elem n C T
 ℰ𝓁ℯ𝓂 n ∋ (C , T) , t ≈ (C' , T') , t' =
   (c : ∥ ℰ ∥ C)
   (c' : ∥ ℰ ∥ C')
-  (_ : C , c ≈ᶜ C' , c')
+  (_ : ℰ ∋ C , c ≈ C' , c')
   → ----------------------------------------------
   ℰ𝓁 n ∋ ∥ T ∥ c , ∥ t ∥ c ≈ ∥ T' ∥ c' , ∥ t' ∥ c'
 hrfl (ℰ𝓁ℯ𝓂 n) _ T _ _ e = hcng T _ _ e
@@ -295,7 +296,7 @@ _⋉[_]_ :
   → -----------
   ∣ 𝒞 ∣
 
-C ⋉[ n ] (mkSect X q) = Sigma C n X q
+C ⋉[ n ] (mk𝒰fam X q) = Sigma C n X q
 
 𝓅 :
   {n : ℕ}
@@ -377,7 +378,7 @@ img⋉[] :
   ∧
   (ℱ𝒶𝓂 n ∋ C , T ≈ C' , T')
 
-img⋉[] (Sigma C n X q) (e , refl , e') = (C , mkSect X q , e , e')
+img⋉[] (Sigma C n X q) (e , refl , e') = (C , mk𝒰fam X q , e , e')
 
 imgUnit :
   (C : ∣ 𝒞 ∣)
