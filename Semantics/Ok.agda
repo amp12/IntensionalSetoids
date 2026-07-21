@@ -5,6 +5,7 @@ open import Setoid
 open import WSLN
 open import ETU
 
+open import Semantics.CwF
 open import Semantics.Relation
 
 ----------------------------------------------------------------------

@@ -5,6 +5,7 @@ open import Setoid
 open import WSLN
 open import ETU
 
+open import Semantics.CwF
 open import Semantics.Relation
 open import Semantics.Ok
 open import Semantics.WellScoped
@@ -189,11 +190,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
     (▷⟦tm⟧ p q₀)
     (λ{x (x#X ∉∪ x#Δ) →
       ▷⟦tm⟧ (⟦▷⨟⟧ p q₀ x#Δ (▷⟦tm⟧ p q₀)) (q₁ x x#X)}))
-    (sym (𝒞 ⋉ ℱ𝒶𝓂 (max l l') ⋉ ℰ𝓁ℯ𝓂 (max l l'))
-      {(D , f * 𝒫𝒾 l l' S T) , f *₁ 𝓁𝒶𝓂 l l' S t}
-      {(D , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)) ,
-        (𝓁𝒶𝓂 l l' (f * S)(f ⋉′[ l ] S *₁ t))}
-      ((rflᶜ D , ntrl𝒫𝒾 l l' S T f) , ntrl𝓁𝒶𝓂 l l' t f))
+  (sym (𝒞 ⋉ ℱ𝒶𝓂 (max l l') ⋉ ℰ𝓁ℯ𝓂 (max l l'))
+    {(D , f * 𝒫𝒾 l l' S T) , f *₁ 𝓁𝒶𝓂 l l' S t}
+    {(D , 𝒫𝒾 l l' (f * S) (f ⋉′[ l ] S * T)) ,
+      (𝓁𝒶𝓂 l l' (f * S)(f ⋉′[ l ] S *₁ t))}
+    ((rflᶜ D , ntrl𝒫𝒾 l l' S T f) , ntrl𝓁𝒶𝓂 l l' t f))
 
 ▷⟦tm⟧{Δ = Δ}{D = D}{f = f} p
   (⟦∙⟧{l}{l'}{A}{B}{a}{b}{C}{S}{T}{t}{s} X q₀ q₁ q₂ q₃) = resp⟦tm⟧
@@ -252,11 +253,11 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
         (⟦▷⨟⟧ q (q₀ x y#X) (x#Δ ∉∪ (#symm y#x)) (▷⟦tm⟧ q (q₀ x y#X)))
         (q₂ x y (##:: x#X (##:: (y#x ∉∪ y#X) ##◇)))})
     (▷⟦tm⟧ p q₃))
-    (sym (𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l)
-      {(D , ⟪ s' ⟫ * S') , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
-      {(D , f * ⟪ s ⟫ * S) , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
-      ((rflᶜ D , λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
-      ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f))
+  (sym (𝒞 ⋉ ℱ𝒶𝓂 l ⋉ ℰ𝓁ℯ𝓂 l)
+    {(D , ⟪ s' ⟫ * S') , 𝓃𝓇ℯ𝒸 l S' s₀' s₊' s'}
+    {(D , f * ⟪ s ⟫ * S) , f *₁ 𝓃𝓇ℯ𝒸 l S s₀ s₊ s}
+    ((rflᶜ D , λ _ _ e'' → hcng (f * ⟪ s ⟫ * S) _ _ e'') ,
+    ntrl𝓃𝓇ℯ𝒸 l S s₀ s₊ s f))
   where
   S' :  Fam l (D ⋉[ 0 ] 𝒩𝒶𝓉)
   S' = f ⋉′[ 0 ] 𝒩𝒶𝓉 * S
@@ -321,9 +322,9 @@ ok⟦▷⟧ (⟦▷⨟⟧ _ _ q₂ h) = ⟦⨟⟧ h q₂
   (▷⟦vrNew⟧ p
     (resp⟦ty⟧ q (symᶜ e₂ , λ c c' u →
       sym (𝒰 l) (e₃ c' c (hsymᶜ (symᶜ e₂) u)))) x# refl)
-  ((e₁ , (λ c c' u →
-     e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u)))) ,
-   (λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u)))
+  ((e₁ , λ c c' u →
+     e₃ (∣ 𝓅 S' ∣ (∣ f' ∣ c)) (∣ 𝓅 S ∣ (∣ f ∣ c')) (π₁ (e₄ c c' u))) ,
+   λ c c' u → e' (∣ f' ∣ c) (∣ f ∣ c') (e₄ c c' u))
   where
   S' : Fam l C'
   S' = mkSect X' q'

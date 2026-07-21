@@ -5,6 +5,8 @@ open import Setoid
 open import WSLN
 open import ETU
 
+open import Semantics.CwF
+
 ----------------------------------------------------------------------
 -- The graphs of the semantic functions for terms, variables, types
 -- and contexts
