@@ -135,27 +135,27 @@ open Fibres public
 -- Re-indexing displayed setoids and their sections
 ----------------------------------------------------------------------
 module ReIndex where
-  infixl 6 _*₀_
+  infixr 6 _*₀_
   _*₀_ :
     {A A' : Setd}
-    (_ : Setd[ A ])
     (_ : ∣ A' ⟶ A ∣)
-    → -------------
+    (_ : Setd[ A ])
+    → --------------
     Setd[ A' ]
 
-  ∥ B *₀ f ∥ = ∥ B ∥ ∘ ∣ f ∣
-  (B *₀ f ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
-  hrfl (B *₀ f) x = hrfl B (∣ f ∣ x)
-  hsym (B *₀ f) x e = hsym B (cng f _ _ x) e
-  htrs (B *₀ f) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
-  coe (B *₀ f) e = coe B (cng f _ _ e)
-  coh (B *₀ f) e = coh B (cng f _ _ e)
+  ∥ f *₀ B ∥ = ∥ B ∥ ∘ ∣ f ∣
+  (f *₀ B ∋ x , y ≈ x' , y') = B ∋ ∣ f ∣ x , y ≈ ∣ f ∣ x' , y'
+  hrfl (f *₀ B) x = hrfl B (∣ f ∣ x)
+  hsym (f *₀ B) x e = hsym B (cng f _ _ x) e
+  htrs (f *₀ B) x x' e e' = htrs B (cng f _ _ x) (cng f _ _ x') e e'
+  coe (f *₀ B) e = coe B (cng f _ _ e)
+  coh (f *₀ B) e = coh B (cng f _ _ e)
 
   instance
     *₀Apply :
       {B A : Setd}
       → ---------------------------------
-      Apply Setd[ A ] ∣ B ⟶ A ∣ Setd[ B ]
+      Apply ∣ B ⟶ A ∣ Setd[ A ] Setd[ B ]
     _*_ ⦃ *₀Apply ⦄ = _*₀_
 
   *assoc :
@@ -164,7 +164,7 @@ module ReIndex where
     (f : ∣ A' ⟶ A ∣)
     (g : ∣ A'' ⟶ A' ∣)
     → -----------------------
-    (B * f) * g ≡ B * (f ∘ g)
+    g * (f * B) ≡ (f ∘ g) * B
 
   *assoc _ _ _ = refl
 
@@ -172,41 +172,41 @@ module ReIndex where
     {A : Setd}
     (B : Setd[ A ])
     → -------------
-    B ≡ B * id
+    B ≡ id * B
 
   *unit _ = refl
 
-  infixl 6 [_,_]*_
-  [_,_]*_ :
+  infixr 6 _*[_]_
+  _*[_]_ :
     {A A' : Setd}
+    (f : ∣ A' ⟶ A ∣)
     (B : Setd[ A ])
     (_ : Setd[ A ⊩ B ])
-    (f : ∣ A' ⟶ A ∣)
     → -----------------
-    Setd[ A' ⊩ B * f ]
+    Setd[ A' ⊩ f * B ]
 
-  ∥ [ _ , g ]* f ∥ x = ∥ g ∥ (∣ f ∣ x)
-  hcng ([ _ , g ]* f) _ _ e = hcng g _ _ (cng f _ _ e)
+  ∥ f *[ _ ] g ∥ x = ∥ g ∥ (∣ f ∣ x)
+  hcng (f *[ _ ] g) _ _ e = hcng g _ _ (cng f _ _ e)
 
-  [,]*unit :
+  *[]unit :
     {A  : Setd}
     (B : Setd[ A ])
     (f : Setd[ A ⊩ B ])
     → -----------------
-    f ≡ [ B , f ]* id
+    f ≡ id *[ B ] f
 
-  [,]*unit _ _ = refl
+  *[]unit _ _ = refl
 
-  [,]*assoc :
+  *[]assoc :
     {A A' A'' : Setd}
+    (h : ∣ A'' ⟶ A' ∣)
+    (g : ∣ A' ⟶ A ∣)
     (B : Setd[ A ])
     (f : Setd[ A ⊩ B ])
-    (g : ∣ A' ⟶ A ∣)
-    (h : ∣ A'' ⟶ A' ∣)
-    → ----------------------------------------------
-    [ B * g , [ B , f ]* g ]* h ≡ [ B , f ]* (g ∘ h)
+    → -------------------------------------------
+    h *[ g * B ] (g *[ B ] f) ≡ (g ∘ h) *[ B ] f
 
-  [,]*assoc _ _ _ _ = refl
+  *[]assoc _ _ _ _ = refl
 
 open ReIndex public
 
@@ -230,7 +230,7 @@ module Comprehension (A : Setd)(B : Setd[ A ]) where
   ∣ 𝓅₁ ∣ = π₁
   cng 𝓅₁ _ _ = π₁
 
-  𝓅₂ : Setd[ _⋉_ ⊩ B * 𝓅₁ ]
+  𝓅₂ : Setd[ _⋉_ ⊩ 𝓅₁ * B ]
 
   ∥ 𝓅₂ ∥ = π₂
   hcng 𝓅₂ _ _ = π₂
@@ -238,7 +238,7 @@ module Comprehension (A : Setd)(B : Setd[ A ]) where
   𝓅𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
-    (g : Setd[ A' ⊩ B * f ])
+    (g : Setd[ A' ⊩ f * B ])
     → ----------------------
     ∣ A' ⟶ _⋉_ ∣
 
@@ -248,7 +248,7 @@ module Comprehension (A : Setd)(B : Setd[ A ]) where
   𝓅₁∘𝓅𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
-    (g : Setd[ A' ⊩ B * f ])
+    (g : Setd[ A' ⊩ f * B ])
     → ----------------------
     𝓅₁ ∘ 𝓅𝓇 f g ≡ f
 
@@ -257,19 +257,19 @@ module Comprehension (A : Setd)(B : Setd[ A ]) where
   𝓅₂∘𝓅𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
-    (g : Setd[ A' ⊩ B * f ])
-    → -------------------------
-    [ B * 𝓅₁ , 𝓅₂ ]* 𝓅𝓇 f g ≡ g
+    (g : Setd[ A' ⊩ f * B ])
+    → ------------------------
+    𝓅𝓇 f g *[ 𝓅₁ * B ] 𝓅₂  ≡ g
 
   𝓅₂∘𝓅𝓇 _ _ = refl
 
   𝓅𝓇∘ :
     {A' A'' : Setd}
     (f : ∣ A' ⟶ A ∣)
-    (g : Setd[ A' ⊩ B * f ])
+    (g : Setd[ A' ⊩ f * B ])
     (h : ∣ A'' ⟶ A' ∣)
-    → ------------------------------------------
-    (𝓅𝓇 f g) ∘ h ≡ 𝓅𝓇 (f ∘ h) ([ B * f , g ]* h)
+    → ----------------------------------------
+    (𝓅𝓇 f g) ∘ h ≡ 𝓅𝓇 (f ∘ h) (h *[ f * B ] g)
 
   𝓅𝓇∘ _ _ _ = refl
 

@@ -185,7 +185,7 @@ PI≤ :
   {n : ℕ}
   (f : ∣ A' ⟶ A ∣)
   → ------------------------------------
-  PI A B EA EB n → PI A' B (EA * f) EB n
+  PI A B EA EB n → PI A' B (f * EA) EB n
 
 PI.ty (PI≤ f p) A = PI.ty p (∣ f ∣ A)
 PI.tyCong (PI≤ f p) A A' B B' q q' e =
@@ -204,7 +204,7 @@ PI≥ :
   {m : ℕ}
   (g : ∣ B' ⟶ B ∣)
   → ------------------------------------
-  PI A B EA EB m → PI A B' EA (EB * g) m
+  PI A B EA EB m → PI A B' EA (g * EB) m
 
 PI.ty (PI≥ g p) A B q =
   PI.ty p A (∣ g ∣ ∘ B)

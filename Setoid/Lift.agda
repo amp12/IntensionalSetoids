@@ -23,8 +23,8 @@ cng (Lfts (≥step p)) = cng (Lfts p)
 Lftsℰ𝓁 :
   {m n : ℕ}
   (p : n ≥ m)
-  → -----------------
-  ℰ𝓁 m ≡ ℰ𝓁 n * Lfts p
+  → ------------------
+  ℰ𝓁 m ≡ Lfts p * ℰ𝓁 n
 
 Lftsℰ𝓁 ≥refl = refl
 Lftsℰ𝓁 (≥step p) = Lftsℰ𝓁 p
