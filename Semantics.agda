@@ -3,7 +3,7 @@ module Semantics where
 {- Semantics of ETU using intensional setoids -}
 
 -- The setoid-enriched category-with-familes given by the universes
-open import Setoid.CwF public
+open import Semantics.CwF public
 
 -- The graphs of the semantic functions for terms, variables, types
 -- and contexts

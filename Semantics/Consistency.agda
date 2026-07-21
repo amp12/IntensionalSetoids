@@ -1,27 +1,18 @@
-module ETU.Semantics.Consistency where
+module Semantics.Consistency where
 
 open import Prelude
 open import Setoid
 open import WSLN
+open import ETU
 
-open import ETU.Syntax
-open import ETU.Judgement
-open import ETU.Rules
-open import ETU.Ok
-open import ETU.WellScoped
-open import ETU.Weakening
-open import ETU.Substitution
-open import ETU.Admissible
-open import ETU.ExistsFresh
-open import ETU.Uniqueness
-
-open import ETU.Semantics.Relation
-open import ETU.Semantics.Ok
-open import ETU.Semantics.WellScoped
-open import ETU.Semantics.SingleValued
-open import ETU.Semantics.Weakening
-open import ETU.Semantics.Substitution
-open import ETU.Semantics.Total
+open import Semantics.CwF
+open import Semantics.Relation
+open import Semantics.Ok
+open import Semantics.WellScoped
+open import Semantics.SingleValued
+open import Semantics.Weakening
+open import Semantics.Substitution
+open import Semantics.Total
 
 {- Consistency of extensional type theory relative to intensional
 Martin-Löf Type Theory with inductive-recursive definitions (safe
