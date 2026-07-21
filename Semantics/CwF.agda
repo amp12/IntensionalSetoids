@@ -1,21 +1,10 @@
-module Setoid.CwF where
+module Semantics.CwF where
 
 open import Prelude
-
-open import Setoid.Definition
-open import Setoid.Display
-open import Setoid.Universes
-open import Setoid.Lift
-open import Setoid.PiType
-open import Setoid.EqualityType
-open import Setoid.NatType
+open import Setoid
 
 {- A setoid enriched category-with-families whose objects are semantic
 contexts (elements of the universe 𝒞). -}
-
-----------------------------------------------------------------------
--- Objects are given by universe 𝒞
-----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- Morphisms

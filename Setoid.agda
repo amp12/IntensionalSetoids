@@ -25,6 +25,3 @@ open import Setoid.EmptyType public
 
 -- Natural numbers
 open import Setoid.NatType public
-
--- The setoid-enriched category-with-familes given by the universes
-open import Setoid.CwF public
