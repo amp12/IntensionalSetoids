@@ -18,12 +18,12 @@ data Jg : Set where
   -- definitionally equal terms of given universe level and type
   _＝_∶[_]_ : (a a' : Tm)(l : ℕ)(A : Ty) → Jg
 
-infix 4 _⦂_ _＝_⦂_
-_⦂_ : Ty → ℕ → Jg
-(A ⦂ l) = A ∶[ 1+ l ] 𝐔 l
+infix 4 _∶𝐔_ _＝_∶𝐔_
+_∶𝐔_ : Ty → ℕ → Jg
+(A ∶𝐔 l) = A ∶[ 1+ l ] 𝐔 l
 
-_＝_⦂_ : Ty → Ty → ℕ → Jg
-(A ＝ A' ⦂ l) = A ＝ A' ∶[ 1+ l ] 𝐔 l
+_＝_∶𝐔_ : Ty → Ty → ℕ → Jg
+(A ＝ A' ∶𝐔 l) = A ＝ A' ∶[ 1+ l ] 𝐔 l
 
 ----------------------------------------------------------------------
 -- Support of judgements

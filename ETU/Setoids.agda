@@ -31,9 +31,9 @@ trs Cxt = CxTrans
 ----------------------------------------------------------------------
 Type : ℕ → Setd[ Cxt ]
 
-∥ Type l ∥ (Γ , _) = ∑[ A ∈ Ty ] (Γ ⊢ A ⦂ l)
+∥ Type l ∥ (Γ , _) = ∑[ A ∈ Ty ] (Γ ⊢ A ∶𝐔 l)
 Type l ∋ (Γ , _ ) , A , _ ≈ _ , A' , _ =
-  Γ ⊢ A ＝ A' ⦂ l
+  Γ ⊢ A ＝ A' ∶𝐔 l
 hrfl (Type _) _ (_ , q) = Refl q
 hsym (Type _) p q = ＝⊢ (Symm q) (CxSymm p)
 htrs (Type _) p _ q q' = Trans q (＝⊢ q' p)

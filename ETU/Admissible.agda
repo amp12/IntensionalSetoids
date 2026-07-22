@@ -62,10 +62,10 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
   {A A' : Ty}
   {l : ℕ}
   {J : Jg}
-  (_ : Γ ⊢ A' ＝ A ⦂ l)
+  (_ : Γ ⊢ A' ＝ A ∶𝐔 l)
   (_ : Γ ⨟ x ∶[ l ] A ⊢ J)
   -- helper hypothesis
-  (_ : Γ ⊢ A' ⦂ l)
+  (_ : Γ ⊢ A' ∶𝐔 l)
   → ---------------------
   Γ ⨟ x ∶[ l ] A' ⊢ J
 
@@ -124,27 +124,27 @@ conc＝Ty :
   {a a' : Tm}
   (B B' : Ty[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ∶𝐔 l')
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   (_ : x # (B , B'))
   -- helper hypotheses
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : Γ ⊢ a' ∶[ l ] A)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ∶𝐔 l')
   → ----------------------------------------------
-  Γ ⊢ B [ a ] ＝ B' [ a' ] ⦂ l'
+  Γ ⊢ B [ a ] ＝ B' [ a' ] ∶𝐔 l'
 
 conc＝Ty{l' = l'}{Γ}{A}{a}{a'} B B' x q₀ q₁ (q₂ ∉∪ q₂') h₀ h₁ h₂
   with ok⨟ p p' _ ← ⊢ok q₀ = Trans q q'
   where
-  q : Γ ⊢ B [ a ] ＝ B [ a' ] ⦂ l'
-  q = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ⦂ l')
+  q : Γ ⊢ B [ a ] ＝ B [ a' ] ∶𝐔 l'
+  q = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ∶𝐔 l')
     (ssb[] x a B q₂)
     (ssb[] x a' B q₂)
     (＝sbTm (ssb＝Update q₁ p' p) h₂ (ssbUpdate h₀ p' p ))
 
-  q' : Γ ⊢ B [ a' ] ＝ B' [ a' ] ⦂ l'
-  q' = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ⦂ l')
+  q' : Γ ⊢ B [ a' ] ＝ B' [ a' ] ∶𝐔 l'
+  q' = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ∶𝐔 l')
     (ssb[] x a' B q₂)
     (ssb[] x a' B' q₂')
     (sbJg (ssbUpdate h₁ p' p) q₀)
@@ -158,15 +158,15 @@ conc＝Ty∞ :
   (B B' : Ty[ 1 ])
   (S : Fset𝔸)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ∶𝐔 l')
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   -- helper hypotheses
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : Γ ⊢ a' ∶[ l ] A)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ∶𝐔 l')
   → -------------------------------------------
-  Γ ⊢ B [ a ] ＝ B' [ a' ] ⦂ l'
+  Γ ⊢ B [ a ] ＝ B' [ a' ] ∶𝐔 l'
 
 conc＝Ty∞ B B' S q₀ q₁ h₀ h₁ h₂
   with (x , x#S ∉∪ x#) ← fresh (S , (B , B')) =
@@ -181,9 +181,9 @@ conc＝Ty² :
   (C C' : Ty[ 2 ])
   (x y : 𝔸)
   (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
-    C [ x ][ y ] ＝ C' [ x ][ y ] ⦂ l'')
+    C [ x ][ y ] ＝ C' [ x ][ y ] ∶𝐔 l'')
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ∶𝐔 l')
   (_ : Γ ⊢ b ＝ b' ∶[ l' ] (x := a) * B)
   (_ : x # (C , C'))
   (_ : y # (C , C'))
@@ -192,24 +192,24 @@ conc＝Ty² :
   (_ : Γ ⊢ a' ∶[ l ] A)
   (_ : Γ ⊢ b ∶[ l' ] (x := a) * B)
   (_ : Γ ⊢ b' ∶[ l' ] (x := a') * B)
-  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C [ x ][ y ] ⦂ l'')
-  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C' [ x ][ y ] ⦂ l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C [ x ][ y ] ∶𝐔 l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C' [ x ][ y ] ∶𝐔 l'')
   → --------------------------------------------------------
-  Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ⦂ l''
+  Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ∶𝐔 l''
 
 conc＝Ty²{l'' = l''}{Γ}{A}{B}{a}{a'}{b}{b'}
   C C' x y q₀ q₁ q₂ q₃ (q₄ ∉∪ q₄') (q₅ ∉∪ q₅') h₀ h₁ h₂ h₃ h₄ h₅
   with  ok⨟ ⊢B y#Γx _ ← ⊢ok q₀ = Trans q q'
   where
-  q : Γ ⊢ C [ a ][ b ] ＝ C [ a' ][ b' ] ⦂ l''
-  q = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ⦂ l'')
+  q : Γ ⊢ C [ a ][ b ] ＝ C [ a' ][ b' ] ∶𝐔 l''
+  q = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ∶𝐔 l'')
     (ssb[]² x y a b C q₄ (q₅ ∉∪ (∉∪₂ y#Γx)))
     (ssb[]² x y a' b' C q₄ (q₅ ∉∪ (∉∪₂ y#Γx)))
     (＝sbTm (ssb＝Update² q₁ ⊢B q₃ y#Γx) h₄
       (ssbUpdate² h₀ ⊢B h₂ y#Γx))
 
-  q' : Γ ⊢ C [ a' ][ b' ] ＝ C' [ a' ][ b' ] ⦂ l''
-  q' = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ⦂ l'')
+  q' : Γ ⊢ C [ a' ][ b' ] ＝ C' [ a' ][ b' ] ∶𝐔 l''
+  q' = subst₂ (λ Z Z' → Γ ⊢ Z ＝ Z' ∶𝐔 l'')
     (ssb[]² x y a' b' C q₄ (q₅ ∉∪ (∉∪₂ y#Γx)))
     (ssb[]² x y a' b' C' q₄' (q₅' ∉∪ (∉∪₂ y#Γx)))
     (sbJg (ssbUpdate² h₁ ⊢B h₃ y#Γx) q₀)
@@ -225,7 +225,7 @@ conc＝Ty²∞ :
   (S : Fset𝔸)
   (_ : ∀ x y → x # y # S →
     (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢
-    C [ x ][ y ] ＝ C' [ x ][ y ] ⦂ l'')
+    C [ x ][ y ] ＝ C' [ x ][ y ] ∶𝐔 l'')
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   (_ : Γ ⊢ b ＝ b' ∶[ l' ]  B [ a ])
   -- helper hypotheses
@@ -234,13 +234,13 @@ conc＝Ty²∞ :
   (_ : Γ ⊢ b ∶[ l' ] B [ a ])
   (_ : Γ ⊢ b' ∶[ l' ] B [ a' ])
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ∶𝐔 l')
   (_ : ∀ x y → x # y # S →
-    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C [ x ][ y ] ⦂ l'')
+    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C [ x ][ y ] ∶𝐔 l'')
   (_ : ∀ x y → x # y # S →
-    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C' [ x ][ y ] ⦂ l'')
+    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C' [ x ][ y ] ∶𝐔 l'')
   → -----------------------------------------------------------
-  Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ⦂ l''
+  Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ∶𝐔 l''
 
 conc＝Ty²∞{l' = l'}{Γ = Γ}{a = a}{a'}{b}{b'}
   B C C' S q₀ q₁ q₂ h₀ h₁ h₂ h₃ h₄ h₅ h₆
@@ -391,7 +391,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
     (⊢ty₂ q₀)
     λ x x# → ⨟＝⊢ (Symm q₀) (h₁ x x#) (⊢ty₂ q₀)
 
-  q' :  Γ ⊢ 𝚷 l l' A' B ＝ 𝚷 l l' A B ⦂ max l l'
+  q' :  Γ ⊢ 𝚷 l l' A' B ＝ 𝚷 l l' A B ∶𝐔 max l l'
   q' = 𝚷Cong
     S
     (Symm q₀)
@@ -409,7 +409,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
     (λ x x# → ⨟＝⊢ (Symm q₀) (⊢ty₂ (q₁ x x#)) (⊢ty₂ q₀))
     (⊢ty₂ q₀)
 
-  q' : Γ ⊢ B' [ a' ] ＝ B [ a ] ⦂ l'
+  q' : Γ ⊢ B' [ a' ] ＝ B [ a ] ∶𝐔 l'
   q' = Symm (conc＝Ty∞ B B' S q₁ q₃ (⊢ty₁ q₃) (⊢ty₂ q₃) h₁)
 
 ⊢ty₂ (𝐄𝐪Cong q₀ q₁ q₂) = ⊢𝐄𝐪
@@ -430,10 +430,10 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 ⊢ty₂{Γ = Γ} (𝐧𝐫𝐞𝐜Cong{l}{C}{C'}{c₀}{c₀'}{a}{a'}{c₊}{c₊'}
   S q₀ q₁ q₂ q₃ h) = ⊢conv q (Symm q')
   where
-  q' : Γ ⊢ C [ a ] ＝ C' [ a' ] ⦂ l
+  q' : Γ ⊢ C [ a ] ＝ C' [ a' ] ∶𝐔 l
   q' = conc＝Ty∞ C C' S q₀ q₃ (⊢ty₁ q₃) (⊢ty₂ q₃) h
 
-  q'' : Γ ⊢ C [ 𝐳𝐞𝐫𝐨 ] ＝ C' [ 𝐳𝐞𝐫𝐨 ] ⦂ l
+  q'' : Γ ⊢ C [ 𝐳𝐞𝐫𝐨 ] ＝ C' [ 𝐳𝐞𝐫𝐨 ] ∶𝐔 l
   q'' = conc＝Ty∞ C C' S q₀ (Refl (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)))
     (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)) (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)) h
 
@@ -484,7 +484,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 
   y#Γx = π₁ ([]⁻¹ (⊢ok (q₁ x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇)))))
 
-  ⊢N : Γ ⊢ 𝐍𝐚𝐭 ⦂ 0
+  ⊢N : Γ ⊢ 𝐍𝐚𝐭 ∶𝐔 0
   ⊢N = ⊢𝐍𝐚𝐭 Γok
 
   r : Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶[ l ] (x := a) * C [ x ]
@@ -568,11 +568,11 @@ concTy :
   {a : Tm}
   (B : Ty[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ∶𝐔 l')
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : x # B)
   → -----------------------------------
-  Γ ⊢ B [ a ] ⦂ l'
+  Γ ⊢ B [ a ] ∶𝐔 l'
 
 concTy B x q₀ q₁ q₂ = concTm (𝐔 _) B x q₀ q₁ (∉∅ ∉∪ q₂)
 
@@ -584,10 +584,10 @@ concTy∞ :
   (B : Ty[ 1 ])
   (S : Fset𝔸)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ∶𝐔 l')
   (_ : Γ ⊢ a ∶[ l ] A)
   → -----------------------------------
-  Γ ⊢ B [ a ] ⦂ l'
+  Γ ⊢ B [ a ] ∶𝐔 l'
 
 concTy∞ = concTm∞ (𝐔 _)
 
@@ -599,17 +599,17 @@ concTy² :
   (C : Ty[ 2 ])
   (x y : 𝔸)
   (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
-    C [ x ][ y ] ⦂ l'')
+    C [ x ][ y ] ∶𝐔 l'')
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : Γ ⊢ b ∶[ l' ] (x := a) * B)
   (_ : x # C)
   (_ : y # C)
   → -----------------------------------
-  Γ ⊢ C [ a ][ b ] ⦂ l''
+  Γ ⊢ C [ a ][ b ] ∶𝐔 l''
 
 concTy²{l'' = l''}{Γ}{a = a}{b} C x y q₀ q₁ q₂ q₃ q₄
   with ok⨟ ⊢B y#Γx _ ← ⊢ok q₀ =
-  subst (λ Z → Γ ⊢ Z ⦂ l'')
+  subst (λ Z → Γ ⊢ Z ∶𝐔 l'')
     (ssb[]² x y a b C q₃ (q₄ ∉∪ (∉∪₂ y#Γx)))
     (sbJg (ssbUpdate² q₁ ⊢B q₂ y#Γx) q₀)
 
@@ -624,7 +624,7 @@ ok→ty :
   (_ : Ok Γ)
   (_ : (x , A , l) isIn Γ)
   → ----------------------
-  Γ ⊢ A ⦂ l
+  Γ ⊢ A ∶𝐔 l
 
 ok→ty (ok⨟ q₀ q₁ _)   isInNew     = ▷Jg (proj q₀ q₁) q₀
 ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty q₃ q₂)
@@ -638,8 +638,8 @@ ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty 
   {A : Ty}
   {a : Tm}
   (_ : Γ ⊢ a ∶[ l ] A)
-  → -----------------
-  Γ ⊢ A ⦂ l
+  → ------------------
+  Γ ⊢ A ∶𝐔 l
 
 ⊢∶ty (⊢conv _ q) = ⊢ty₂ q
 

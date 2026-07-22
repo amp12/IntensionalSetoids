@@ -19,7 +19,7 @@ open import ETU.Weakening
   {σ : Sb}
   {A : Ty}
   (x : 𝔸)
-  (_ : Γ' ⊢ A ⦂ l)
+  (_ : Γ' ⊢ A ∶𝐔 l)
   (_ : Γ' ⊢ˢ σ ∶ Γ)
   (_ : x # Γ')
   → -----------------------
@@ -35,7 +35,7 @@ open import ETU.Weakening
   {σ σ' : Sb}
   {A : Ty}
   (x : 𝔸)
-  (_ : Γ' ⊢ A ⦂ l)
+  (_ : Γ' ⊢ A ∶𝐔 l)
   (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
   (_ : x # Γ')
   → ----------------------------
@@ -108,11 +108,11 @@ liftSb :
   {A : Ty}
   {x x' : 𝔸}
   (_ : Γ' ⊢ˢ σ ∶ Γ)
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   (_ : x # Γ)
   (_ : x' # Γ')
   -- helper hypothesis
-  (_ : Γ' ⊢ σ * A ⦂ l)
+  (_ : Γ' ⊢ σ * A ∶𝐔 l)
   → --------------------------------------------------------
   (Γ' ⨟ x' ∶[ l ] σ * A)⊢ˢ (σ ∘/ x := 𝐯 x') ∶ (Γ ⨟ x ∶[ l ] A)
 
@@ -136,16 +136,16 @@ liftSb² :
   {A A' B B' : Ty}
   {x y x' y' : 𝔸}
   (_ : Γ' ⊢ˢ σ ∶ Γ)
-  (_ : Γ ⊢ A ⦂ l)
-  (_ : (Γ ⨟ x ∶[ l ] A)⊢ B ⦂ l')
+  (_ : Γ ⊢ A ∶𝐔 l)
+  (_ : (Γ ⨟ x ∶[ l ] A)⊢ B ∶𝐔 l')
   (_ : x' # Γ')
   (_ : y # (Γ , x))
   (_ : y' # (Γ' , x'))
   (_ : σ * A ≡ A')
   (_ : (σ ∘/ x := 𝐯 x') * B ≡ B')
   -- helper hypotheses
-  (_ : Γ' ⊢ A' ⦂ l)
-  (_ : (Γ' ⨟ x' ∶[ l ] A') ⊢ B' ⦂ l')
+  (_ : Γ' ⊢ A' ∶𝐔 l)
+  (_ : (Γ' ⨟ x' ∶[ l ] A') ⊢ B' ∶𝐔 l')
   → ---------------------------------------------------------------
   (Γ' ⨟ x' ∶[ l ] A' ⨟ y' ∶[ l' ] B') ⊢ˢ
     ((σ ∘/ x := 𝐯 x') ∘/ y := 𝐯 y')∶ (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B)
@@ -222,7 +222,7 @@ sbJg{σ}{Δ} p (⊢𝚷{l}{l'}{A = A}{B} S q₀ q₁) = ⊢𝚷
   (S ∪ supp (Δ , B))
   (sbJg p q₀)
   λ{x (x#S ∉∪ x#Δ ∉∪ x#B) →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p q₀ (π₁ ([]⁻¹(⊢ok (q₁ x x#S)))) x#Δ (sbJg p q₀))
@@ -239,7 +239,7 @@ sbJg{σ}{Δ} p (⊢𝛌{l}{l'}{A = A}{B}{b} S q₀ h₀ h₁) = ⊢𝛌
         (q₀ x x#S))})
   (sbJg p h₀)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#b) →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p h₀ (π₁ ([]⁻¹(⊢ok (h₁ x x#S)))) x#Δ (sbJg p h₀))
@@ -251,7 +251,7 @@ sbJg{σ}{Δ} p (⊢∙{l}{l'}{A = A}{B = B}{a}{b} S q₀ q₁ q₂ h)
   (sbJg p q₀)
   (sbJg p q₁)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B) →
-    subst (λ C → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ⦂ l')
+    subst (λ C → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p h (π₁ ([]⁻¹(⊢ok (q₂ x x#S)))) x#Δ (sbJg p h))
@@ -293,8 +293,8 @@ sbJg{σ}{Δ} p (⊢𝐧𝐫𝐞𝐜{l}{C}{c₀}{a}{c₊} S q₀ q₁ q₂ h)
   where
   module _ (x : 𝔸)(x#S : x # S)(x#Δ : x # Δ)(x#C : x # C)(x#c₊ : x # c₊)
     where
-    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ⦂ l
-    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
+    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ∶𝐔 l
+    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbJg (liftSb p (⊢𝐍𝐚𝐭 (⊢ok q₀)) (π₁ ([]⁻¹(⊢ok (h x x#S)))) x#Δ
         (⊢𝐍𝐚𝐭 (okSb p))) (h x x#S))
@@ -341,7 +341,7 @@ sbJg{σ}{Δ} p (𝚷Cong{l}{l'}{A}{A'}{B}{B'} S q₀ q₁ h) = 𝚷Cong
   (S ∪ supp (Δ , B , B'))
   (sbJg p q₀)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#B') →
-    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ⦂ l')
+    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbUpdate[] σ x (𝐯 x) B' x#B')
       (sbJg
@@ -362,7 +362,7 @@ sbJg{σ}{Δ} p (𝛌Cong{l}{l'}{A}{A'}{B}{b}{b'} S q₀ q₁ h₀ h₁) = 𝛌Co
         (q₁ x x#S))})
   (sbJg p h₀)
   λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#b ∉∪ x#b') →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
     (sbUpdate[] σ x (𝐯 x) B x#B)
     (sbJg
         (liftSb p h₀ (π₁([]⁻¹(⊢ok (h₁ x x#S)))) x#Δ (sbJg p h₀))
@@ -374,7 +374,7 @@ sbJg{σ}{Δ} p (∙Cong{l}{l'}{A}{A'}{B}{B'}{a}{a'}{b}{b'}
   (S ∪ supp (Δ , B , B'))
   (sbJg p q₀)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#B') →
-    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ⦂ l')
+    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbUpdate[] σ x (𝐯 x) B' x#B')
       (sbJg
@@ -384,7 +384,7 @@ sbJg{σ}{Δ} p (∙Cong{l}{l'}{A}{A'}{B}{B'}{a}{a'}{b}{b'}
   (sbJg p q₃)
   (sbJg p h₀)
   λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#B') →
-    subst (λ C → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ⦂ l')
+    subst (λ C → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p h₀ ((π₁([]⁻¹(⊢ok (h₁ x x#S))))) x#Δ (sbJg p h₀))
@@ -426,13 +426,13 @@ sbJg{σ}{Δ} p (𝐧𝐫𝐞𝐜Cong{l}{C}{C'}{c₀}{c₀'}{a}{a'}{c₊}{c₊'}
     (x#C : x # C)(x#C' : x # C')
     (x#c₊ : x # c₊)(x#c₊' : x # c₊')
     where
-    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ⦂ l
-    h' = subst (λ C' → (Δ  ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
+    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ∶𝐔 l
+    h' = subst (λ C' → (Δ  ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbJg (liftSb p (⊢𝐍𝐚𝐭 (⊢ok q₁)) (π₁ ([]⁻¹(⊢ok (h x x#S)))) x#Δ
         (⊢𝐍𝐚𝐭 (okSb p))) (h x x#S))
-    q₀' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ＝ (σ * C') [ x ] ⦂ l
-    q₀' = subst₂ (λ D D' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ D ＝ D' ⦂ l)
+    q₀' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ＝ (σ * C') [ x ] ∶𝐔 l
+    q₀' = subst₂ (λ D D' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ D ＝ D' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbUpdate[] σ x (𝐯 x) C' x#C')
       (sbJg (liftSb p (⊢𝐍𝐚𝐭 (⊢ok q₃)) (π₁ ([]⁻¹(⊢ok (h x x#S)))) x#Δ
@@ -481,7 +481,7 @@ sbJg{σ}{Δ} p (𝚷Beta{l}{l'}{A}{a}{B}{b} S q₀ q₁ h₀ h₁)
   (sbJg p q₁)
   (sbJg p h₀)
   λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#b) →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p h₀ (π₁([]⁻¹(⊢ok (h₁ x x#S)))) x#Δ (sbJg p h₀))
@@ -500,8 +500,8 @@ sbJg{σ}{Δ} p (𝐍𝐚𝐭Beta₀{l}{C}{c₀}{c₊} S q₀ q₁ h)
   where
   module _ (x : 𝔸)(x#S : x # S)(x#Δ : x # Δ)(x#C : x # C)(x#c₊ : x # c₊)
     where
-    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ⦂ l
-    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
+    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ∶𝐔 l
+    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbJg (liftSb p (⊢𝐍𝐚𝐭 (⊢ok q₀)) (π₁ ([]⁻¹(⊢ok (h x x#S)))) x#Δ
         (⊢𝐍𝐚𝐭 (okSb p))) (h x x#S))
@@ -551,8 +551,8 @@ sbJg{σ}{Δ} p (𝐍𝐚𝐭Beta₊{l}{C}{c₀}{a}{c₊} S q₀ q₁ q₂ h)
   where
   module _ (x : 𝔸)(x#S : x # S)(x#Δ : x # Δ)(x#C : x # C)(x#c₊ : x # c₊)
     where
-    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ⦂ l
-    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
+    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ∶𝐔 l
+    h' = subst (λ C' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbJg (liftSb p (⊢𝐍𝐚𝐭 (⊢ok q₀)) (π₁ ([]⁻¹(⊢ok (h x x#S)))) x#Δ
         (⊢𝐍𝐚𝐭 (okSb p))) (h x x#S))
@@ -602,8 +602,8 @@ sbJg{σ}{Δ} p (𝚷Eta{l}{l'}{A}{B}{b}{b'} S q₀ q₁ q₂ h₀ h₁) = 𝚷Et
     x#A = ∉∪₁ (∉∪₂ (⊢# q₀ x#Γ))
     x#B = ∉∪₁ (∉∪₂ (∉∪₂ (⊢# q₀ x#Γ)))
 
-    h₁' : (Δ ⨟ x ∶[ l ] σ * A) ⊢ (σ * B) [ x ] ⦂ l'
-    h₁' = subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    h₁' : (Δ ⨟ x ∶[ l ] σ * A) ⊢ (σ * B) [ x ] ∶𝐔 l'
+    h₁' = subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb p h₀ x#Γ x#Δ (sbJg p h₀))
@@ -668,7 +668,7 @@ sbUpdate :
   (_ : Γ' ⊢ a ∶[ l ] σ * A)
   (_ : x # Γ)
   -- helper hypothesis
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   → -----------------------------------
   Γ' ⊢ˢ (σ ∘/ x := a) ∶ (Γ ⨟ x ∶[ l ] A)
 
@@ -693,7 +693,7 @@ sb＝Update :
   (_ : Γ' ⊢ a ＝ a' ∶[ l ] σ * A)
   (_ : x # Γ)
   -- helper hypothesis
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   → ------------------------------------------------------
   Γ' ⊢ˢ (σ ∘/ x := a) ＝ (σ' ∘/ x := a') ∶ (Γ ⨟ x ∶[ l ] A)
 
@@ -720,7 +720,7 @@ ssbUpdate :
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : x # Γ)
   -- helper hypothesis
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   → -----------------------------
   Γ ⊢ˢ (x := a) ∶ (Γ ⨟ x ∶[ l ] A)
 
@@ -739,7 +739,7 @@ ssb＝Update :
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   (_ : x # Γ)
   -- helper hypothesis
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   → ------------------------------------------
   Γ ⊢ˢ (x := a) ＝ (x := a') ∶ (Γ ⨟ x ∶[ l ] A)
 
@@ -756,7 +756,7 @@ ssbUpdate² :
   {a b : Tm}
   {A B : Ty}
   (_ : Γ ⊢ a ∶[ l ] A)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ∶𝐔 l')
   (_ : Γ ⊢ b ∶[ l' ] (x := a) * B)
   (_ : y # (Γ , x))
   → ------------------------------------------------------
@@ -773,7 +773,7 @@ ssb＝Update² :
   {a a' b b' : Tm}
   {A  B : Ty}
   (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ∶𝐔 l')
   (_ : Γ ⊢ b ＝ b' ∶[ l' ] (x := a) * B)
   (_ : y # (Γ , x))
   → ---------------------------------------------
@@ -794,7 +794,7 @@ liftSb⁻ :
   {A : Ty}
   {x x' : 𝔸}
   (_ : Γ' ⊢ˢ σ ∶ Γ)
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   (_ : x # Γ)
   (_ : x' # Γ')
   → -----------------------------------------------------------
@@ -809,7 +809,7 @@ lift＝Sb :
   {A : Ty}
   {x x' : 𝔸}
   (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
-  (_ : Γ ⊢ A ⦂ l)
+  (_ : Γ ⊢ A ∶𝐔 l)
   (_ : x # Γ)
   (_ : x' # Γ')
   -- helper hypothesis
@@ -840,8 +840,8 @@ lift＝Sb² :
   {Γ Γ' : Cx}
   {A A' B B' : Ty}
   (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
-  (_ : Γ ⊢ A ⦂ l)
-  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ⦂ l')
+  (_ : Γ ⊢ A ∶𝐔 l)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ∶𝐔 l')
   (_ : x' # Γ')
   (_ : y # (Γ , x))
   (_ : y' # (Γ' , x'))
@@ -888,7 +888,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
   (S ∪ supp (Δ , B))
   (＝sbTm p q₀ h)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B) →
-    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ⦂ l')
+    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbUpdate[] σ' x (𝐯 x) B x#B)
       (＝sbTm
@@ -911,7 +911,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
         (liftSb⁻ h h₀ (π₁([]⁻¹(⊢ok (h₁ x x#S)))) x#Δ))})
   (sbJg h h₀)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B ∉∪ x#b) →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb h h₀ (π₁([]⁻¹(⊢ok (h₁ x x#S)))) x#Δ (sbJg h h₀))
@@ -922,7 +922,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
   (S ∪ supp (Δ , B))
   (＝sbTm p h₀ h)
   (λ{x (x#S ∉∪ x#Δ ∉∪ x#B) →
-    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ⦂ l')
+    subst₂ (λ C C' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ C ＝ C' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbUpdate[] σ' x (𝐯 x) B x#B)
       (＝sbTm
@@ -933,7 +933,7 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
   (＝sbTm p q₁ h)
   (sbJg h h₀)
   λ{x (x#S ∉∪ x#Δ ∉∪ x#B) →
-    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ⦂ l')
+    subst (λ B' → (Δ ⨟ x ∶[ l ] σ * A) ⊢ B' ∶𝐔 l')
       (sbUpdate[] σ x (𝐯 x) B x#B)
       (sbJg
         (liftSb⁻ h h₀ (π₁([]⁻¹(⊢ok (q₂ x x#S)))) x#Δ)
@@ -977,14 +977,14 @@ lift＝Sb² q₀ q₁ q₂ q₃ q₄ q₅ refl refl h
   module _ (x : 𝔸)(x#S : x # S)(x#Δ : x # Δ)
     (x#C : x # C)(x#c₊ : x # c₊)
     where
-    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ⦂ l
-    h' = subst (λ C' → (Δ  ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
+    h' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ∶𝐔 l
+    h' = subst (λ C' → (Δ  ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbJg (liftSb h (⊢𝐍𝐚𝐭 (⊢ok q₀)) (π₁ ([]⁻¹(⊢ok (h₀ x x#S)))) x#Δ
         (⊢𝐍𝐚𝐭 (okSb h))) (h₀ x x#S))
 
-    q₀' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ＝ (σ' * C) [ x ] ⦂ l
-    q₀' = subst₂ (λ D D' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ D ＝ D' ⦂ l)
+    q₀' : (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ (σ * C) [ x ] ＝ (σ' * C) [ x ] ∶𝐔 l
+    q₀' = subst₂ (λ D D' → (Δ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ D ＝ D' ∶𝐔 l)
       (sbUpdate[] σ x (𝐯 x) C x#C)
       (sbUpdate[] σ' x (𝐯 x) C x#C)
       (＝sbTm

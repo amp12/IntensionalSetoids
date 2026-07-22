@@ -43,8 +43,8 @@ svTy :
   {a : Tm}
   (_ : Γ ⊢ a ∶[ l ] A)
   (_ : Γ ⊢ a ∶[ l' ] A')
-  → --------------------------
-  (l ≡ l') ∧ (Γ ⊢ A ＝ A' ⦂ l)
+  → ---------------------------
+  (l ≡ l') ∧ (Γ ⊢ A ＝ A' ∶𝐔 l)
 
 svTy (⊢conv q₀ q₁) q' with (refl , q) ← svTy q₀ q' =
   (refl , Trans (Symm q₁) q)
