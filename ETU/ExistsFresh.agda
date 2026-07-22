@@ -22,7 +22,7 @@ open import ETU.Admissible
   {B : Tm[ 1 ]}
   {x : 𝔸}
   (_ : Γ ⊢ A ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
   (_ : x # B)
   → ----------------------------------
   Γ ⊢ 𝚷 l l' A B ⦂ (max l l')
@@ -30,7 +30,7 @@ open import ETU.Admissible
 ⊢𝚷⁻{Γ}{l}{l'}{A}{B}{x} q₀ q₁ q₂ = ⊢𝚷
   (supp Γ)
   q₀
-  λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶ A ⦂ l) ⊢ B' ⦂ l')
+  λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶[ l ] A) ⊢ B' ⦂ l')
     (ssb[] x (𝐯 y) B q₂)
     (rn⨟ q₁ y#Γ)
 
@@ -41,20 +41,20 @@ open import ETU.Admissible
   {B : Ty[ 1 ]}
   {b : Tm[ 1 ]}
   {x : 𝔸}
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ b [ x ] ∶ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ b [ x ] ∶[ l' ] B [ x ])
   (_ : x # (B , b))
-  → --------------------------------------------
-  Γ ⊢ 𝛌 A b ∶ 𝚷 l l' A B ⦂ max l l'
+  → ----------------------------------------------
+  Γ ⊢ 𝛌 A b ∶[ max l l' ] 𝚷 l l' A B
 
 ⊢𝛌⁻{l}{l'}{Γ}{A}{B}{b}{x} q (x#B ∉∪ x#b)
   with ok⨟ q' x#Γ okΓ ← ⊢ok q = ⊢𝛌
   (supp Γ)
-  (λ y y#Γ → subst₂ (λ b' B' → (Γ ⨟ y ∶ A ⦂ l) ⊢ b' ∶ B' ⦂ l')
+  (λ y y#Γ → subst₂ (λ b' B' → (Γ ⨟ y ∶[ l ] A) ⊢ b' ∶[ l' ] B')
     (ssb[] x (𝐯 y) b x#b)
     (ssb[] x (𝐯 y) B x#B)
     (rn⨟ q y#Γ))
   q'
-  λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶ A ⦂ l) ⊢ B' ⦂ l')
+  λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶[ l ] A) ⊢ B' ⦂ l')
     (ssb[] x (𝐯 y) B x#B)
     (rn⨟ (⊢∶ty q) y#Γ)
 
@@ -65,18 +65,18 @@ open import ETU.Admissible
   {B : Ty[ 1 ]}
   {a b : Tm}
   {x : 𝔸}
-  (_ : Γ ⊢ b ∶ 𝚷 l l' A B ⦂ max l l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
+  (_ : Γ ⊢ b ∶[ max l l' ] 𝚷 l l' A B)
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
   (_ : x # B)
-  → ----------------------------------
-  Γ ⊢ b ∙[ A , B ] a ∶ B [ a ] ⦂ l'
+  → -----------------------------------
+  Γ ⊢ b ∙[ A , B ] a ∶[ l' ] B [ a ]
 
 ⊢∙⁻{l}{l'}{Γ}{A}{B}{x = x} q₀ q₁ q₂ x#B = ⊢∙
   (supp Γ)
   q₀
   q₁
-  (λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶ A ⦂ l) ⊢ B' ⦂ l')
+  (λ y y#Γ → subst (λ B' → (Γ ⨟ y ∶[ l ] A) ⊢ B' ⦂ l')
     (ssb[] x (𝐯 y) B x#B)
     (rn⨟ q₂ y#Γ))
   (⊢∶ty q₁)
@@ -85,8 +85,8 @@ open import ETU.Admissible
   {l : ℕ}
   {Γ : Cx}
   {A a b : Tm}
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ A ⦂ l)
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l ] A)
   → ------------------
   Γ ⊢ 𝐄𝐪 A a b ⦂ l
 
@@ -97,9 +97,9 @@ open import ETU.Admissible
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  → -------------------------
-  Γ ⊢ 𝐫𝐞𝐟𝐥 A a ∶ 𝐄𝐪 A a a ⦂ l
+  (_ : Γ ⊢ a ∶[ l ] A)
+  → ---------------------------
+  Γ ⊢ 𝐫𝐞𝐟𝐥 A a ∶[ l ] 𝐄𝐪 A a a
 
 ⊢𝐫𝐞𝐟𝐥⁻ q = ⊢𝐫𝐞𝐟𝐥 q (⊢∶ty q)
 
@@ -110,14 +110,14 @@ open import ETU.Admissible
   {c₀ a : Tm}
   {c₊ : Tm[ 2 ]}
   {x y : 𝔸}
-  (_ : Γ ⊢ c₀ ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l)
-  (_ : (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ C [ x ] ⦂ l) ⊢
-    c₊ [ x ][ y ] ∶ C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ] ⦂ l)
-  (_ : Γ ⊢ a ∶ 𝐍𝐚𝐭 ⦂ 0)
+  (_ : Γ ⊢ c₀ ∶[ l ] C [ 𝐳𝐞𝐫𝐨 ])
+  (_ : (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] C [ x ]) ⊢
+    c₊ [ x ][ y ] ∶[ l ] C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ])
+  (_ : Γ ⊢ a ∶[ 0 ] 𝐍𝐚𝐭)
   (_ : x # (C , c₊))
   (_ : y # c₊)
-  → ----------------------------------------
-  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶ C [ a ] ⦂ l
+  → -------------------------------------------
+  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶[ l ] C [ a ]
 
 ⊢𝐧𝐫𝐞𝐜⁻{l}{Γ}{C}{c₀}{a}{c₊}{x}{y} q₀ q₁ q₂ (x#C ∉∪ x#c₊) y#c₊
   with ok⨟ q (y#Γ ∉∪ y#x) (ok⨟ q' x#Γ okΓ) ← ⊢ok q₁ = ⊢𝐧𝐫𝐞𝐜
@@ -125,13 +125,13 @@ open import ETU.Admissible
   q₀
   (λ{x' y' (##:: y'#Γ (##:: (x'#y' ∉∪ x'#Γ) ##◇)) →
     subst₃ (λ C' c' C'' →
-      (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y' ∶ C' ⦂ l) ⊢ c' ∶ C'' ⦂ l)
+      (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y' ∶[ l ] C') ⊢ c' ∶[ l ] C'')
       (ssb[] x (𝐯 x') C x#C)
       (ssb[]² x y (𝐯 x') (𝐯 y') c₊ x#c₊ (y#c₊ ∉∪ y#x))
       (eq (𝐯 x') (𝐯 y'))
       (rn⨟² q₁ x'#Γ (#symm x'#y' ∉∪ y'#Γ))})
   q₂
-  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ C' ⦂ l)
+  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
     (ssb[] x (𝐯 x') C x#C)
     (rn⨟ q x'#Γ)
   where
@@ -164,7 +164,7 @@ open import ETU.Admissible
   {B B' : Ty[ 1 ]}
   {x : 𝔸}
   (_ : Γ ⊢ A ＝ A' ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢
     B [ x ] ＝ B' [ x ] ⦂ l')
   (_ : x # (B , B'))
   → -----------------------------------------
@@ -173,7 +173,7 @@ open import ETU.Admissible
 𝚷Cong⁻{l}{l'}{Γ}{A}{A'}{B}{B'}{x}  q₀ q₁ (x#B ∉∪ x#B') = 𝚷Cong
   (supp Γ)
   q₀
-  (λ x' x'#Γ → subst₂ (λ C C' → (Γ ⨟ x' ∶ A ⦂ l) ⊢ C ＝ C' ⦂ l')
+  (λ x' x'#Γ → subst₂ (λ C C' → (Γ ⨟ x' ∶[ l ] A) ⊢ C ＝ C' ⦂ l')
     (ssb[] x (𝐯 x') B x#B)
     (ssb[] x (𝐯 x') B' x#B')
     (rn⨟ q₁ x'#Γ))
@@ -187,24 +187,24 @@ open import ETU.Admissible
   {b b' : Tm[ 1 ]}
   {x : 𝔸}
   (_ : Γ ⊢ A ＝ A' ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
-    b [ x ] ＝ b' [ x ] ∶ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢
+    b [ x ] ＝ b' [ x ] ∶[ l' ] B [ x ])
   (_ : x # (B , b , b'))
-  → ------------------------------------------
-  Γ ⊢ 𝛌 A b ＝ 𝛌 A' b' ∶ 𝚷 l l' A B ⦂ max l l'
+  → --------------------------------------------
+  Γ ⊢ 𝛌 A b ＝ 𝛌 A' b' ∶[ max l l' ] 𝚷 l l' A B
 
 𝛌Cong⁻{l}{l'}{Γ}{A}{A'}{B}{b}{b'}{x} q₀ q₁ (x#B ∉∪ x#b ∉∪ x#b') = 𝛌Cong
   (supp Γ)
   q₀
   (λ x' x'#Γ → subst₃ (λ c c' C →
-    (Γ ⨟ x' ∶ A ⦂ l) ⊢ c ＝ c' ∶ C ⦂ l')
+    (Γ ⨟ x' ∶[ l ] A) ⊢ c ＝ c' ∶[ l' ] C)
     (ssb[] x (𝐯 x') b x#b)
     (ssb[] x (𝐯 x') b' x#b')
     (ssb[] x (𝐯 x') B x#B)
     (rn⨟ q₁ x'#Γ))
   (⊢ty₁ q₀)
   λ x' x'#Γ →
-    subst (λ C → (Γ ⨟ x' ∶ A ⦂ l) ⊢ C ⦂ l')
+    subst (λ C → (Γ ⨟ x' ∶[ l ] A) ⊢ C ⦂ l')
     (ssb[] x (𝐯 x') B x#B)
     (rn⨟ (⊢∶ty (⊢ty₁ q₁)) x'#Γ)
 
@@ -216,19 +216,19 @@ open import ETU.Admissible
   {a a' b b' : Tm}
   {x : 𝔸}
   (_ : Γ ⊢ A ＝ A' ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
-  (_ : Γ ⊢ b ＝ b' ∶ 𝚷 l l' A B ⦂ max l l')
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
+  (_ : Γ ⊢ b ＝ b' ∶[  max l l' ] 𝚷 l l' A B)
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   (_ : x # (B , B'))
-  → -----------------------------------------------------
-  Γ ⊢ b ∙[ A , B ] a ＝ b' ∙[ A' , B' ] a' ∶ B [ a ] ⦂ l'
+  → ------------------------------------------------------
+  Γ ⊢ b ∙[ A , B ] a ＝ b' ∙[ A' , B' ] a' ∶[ l' ] B [ a ]
 
 ∙Cong⁻{l}{l'}{Γ}{A}{A'}{B}{B'}{a}{a'}{b}{b'}{x}
   q₀ q₁ q₂ q₃ (x#B ∉∪ x#B') = ∙Cong
   (supp Γ)
   q₀
   (λ x' x'#Γ → subst₂ (λ C C' →
-    (Γ ⨟ x' ∶ A ⦂ l) ⊢ C ＝ C' ⦂ l')
+    (Γ ⨟ x' ∶[ l ] A) ⊢ C ＝ C' ⦂ l')
     (ssb[] x (𝐯 x') B x#B)
     (ssb[] x (𝐯 x') B' x#B')
     (rn⨟ q₁ x'#Γ))
@@ -236,7 +236,7 @@ open import ETU.Admissible
   q₃
   (⊢ty₁ q₀)
   λ x' x'#Γ → subst (λ C →
-    (Γ ⨟ x' ∶ A ⦂ l) ⊢ C ⦂ l')
+    (Γ ⨟ x' ∶[ l ] A) ⊢ C ⦂ l')
     (ssb[] x (𝐯 x') B x#B)
     (rn⨟ (⊢ty₁ q₁) x'#Γ)
 
@@ -247,36 +247,36 @@ open import ETU.Admissible
   {c₀ c₀' a a'  : Tm}
   {c₊ c₊' : Tm[ 2 ]}
   {x y : 𝔸}
-  (_ : (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ C [ x ] ＝ C' [ x ] ⦂ l)
-  (_ : Γ ⊢ c₀ ＝ c₀' ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l)
-  (_ : (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ C [ x ] ⦂ l) ⊢
-    c₊ [ x ][ y ] ＝ c₊' [ x ][ y ] ∶ C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ] ⦂ l)
-  (_ : Γ ⊢ a ＝ a' ∶ 𝐍𝐚𝐭 ⦂ 0)
+  (_ : (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C [ x ] ＝ C' [ x ] ⦂ l)
+  (_ : Γ ⊢ c₀ ＝ c₀' ∶[ l ] C [ 𝐳𝐞𝐫𝐨 ])
+  (_ : (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] C [ x ]) ⊢
+    c₊ [ x ][ y ] ＝ c₊' [ x ][ y ] ∶[ l ] C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ])
+  (_ : Γ ⊢ a ＝ a' ∶[ 0 ] 𝐍𝐚𝐭)
   (_ : x # (C , C' , c₊ , c₊'))
   (_ : y # (c₊ , c₊'))
-  → -------------------------------------------------------
-  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ＝ 𝐧𝐫𝐞𝐜 C' c₀' c₊' a' ∶ C [ a ] ⦂ l
+  → --------------------------------------------------------
+  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ＝ 𝐧𝐫𝐞𝐜 C' c₀' c₊' a' ∶[ l ] C [ a ]
 
 𝐧𝐫𝐞𝐜Cong⁻{l}{Γ}{C}{C'}{c₀}{c₀'}{a}{a'}{c₊}{c₊'}{x}{y}
   q₀ q₁ q₂ q₃ (x#C ∉∪ x#C' ∉∪ x#c₊ ∉∪ x#c₊') (y#c₊ ∉∪ y#c₊')
   with ok⨟ q (y#Γ ∉∪ y#x) (ok⨟ q' x#Γ okΓ) ← ⊢ok q₂ = 𝐧𝐫𝐞𝐜Cong
   (supp Γ)
   (λ x' x'#Γ → subst₂ (λ D D' →
-    (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ D ＝ D' ⦂ l)
+    (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭) ⊢ D ＝ D' ⦂ l)
     (ssb[] x (𝐯 x') C x#C)
     (ssb[] x (𝐯 x') C' x#C')
     (rn⨟ q₀ x'#Γ))
   q₁
   (λ{x' y' (##:: y'#Γ (##:: (x'#y' ∉∪ x'#Γ) ##◇)) →
     subst₄ (λ D d d' D' →
-      (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y' ∶ D ⦂ l) ⊢ d ＝ d' ∶ D' ⦂ l)
+      (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y' ∶[ l ] D) ⊢ d ＝ d' ∶[ l ] D')
       (ssb[] x (𝐯 x') C x#C)
       (ssb[]² x y (𝐯 x') (𝐯 y') c₊ x#c₊ (y#c₊ ∉∪ y#x))
       (ssb[]² x y (𝐯 x') (𝐯 y') c₊' x#c₊' (y#c₊' ∉∪ y#x))
       (eq (𝐯 x') (𝐯 y'))
       (rn⨟² q₂ x'#Γ (#symm x'#y' ∉∪ y'#Γ))})
   q₃
-  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ C' ⦂ l)
+  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
     (ssb[] x (𝐯 x') C x#C)
     (rn⨟ q x'#Γ)
   where
@@ -310,23 +310,23 @@ open import ETU.Admissible
   {B : Ty[ 1 ]}
   {b : Tm[ 1 ]}
   {x : 𝔸}
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ b [ x ] ∶ B [ x ] ⦂ l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ b [ x ] ∶[ l' ] B [ x ])
+  (_ : Γ ⊢ a ∶[ l ] A)
   (_ : x # (B , b))
-  → ----------------------------------------------
-  Γ ⊢ 𝛌 A b ∙[ A , B ] a ＝ b [ a ] ∶ B [ a ] ⦂ l'
+  → -----------------------------------------------
+  Γ ⊢ 𝛌 A b ∙[ A , B ] a ＝ b [ a ] ∶[ l' ] B [ a ]
 
 𝚷Beta⁻{l}{l'}{Γ}{A}{a}{B}{b}{x} q₀ q₁ (x#B ∉∪ x#b) = 𝚷Beta
   (supp Γ)
   (λ x' x'#Γ → subst₂ (λ c C →
-    (Γ ⨟ x' ∶ A ⦂ l) ⊢ c ∶ C ⦂ l')
+    (Γ ⨟ x' ∶[ l ] A) ⊢ c ∶[ l' ] C)
     (ssb[] x (𝐯 x') b x#b)
     (ssb[] x (𝐯 x') B x#B)
     (rn⨟ q₀ x'#Γ))
   q₁
   (⊢∶ty q₁)
   λ x' x'#Γ → subst (λ C →
-    (Γ ⨟ x' ∶ A ⦂ l) ⊢ C ⦂ l')
+    (Γ ⨟ x' ∶[ l ] A) ⊢ C ⦂ l')
     (ssb[] x (𝐯 x') B x#B)
     (rn⨟ (⊢∶ty q₀) x'#Γ)
 
@@ -337,13 +337,13 @@ open import ETU.Admissible
   {c₀ : Tm}
   {c₊ : Tm[ 2 ]}
   {x y : 𝔸}
-  (_ : Γ ⊢ c₀ ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l)
-  (_ : (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ C [ x ] ⦂ l) ⊢
-    c₊ [ x ][ y ] ∶ C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ] ⦂ l)
+  (_ : Γ ⊢ c₀ ∶[ l ] C [ 𝐳𝐞𝐫𝐨 ])
+  (_ : (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] C [ x ]) ⊢
+    c₊ [ x ][ y ] ∶[ l ] C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ])
   (_ : x # (C , c₊))
   (_ : y # c₊)
-  → ------------------------------------------
-  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ 𝐳𝐞𝐫𝐨 ＝ c₀ ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l
+  → -------------------------------------------
+  Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ 𝐳𝐞𝐫𝐨 ＝ c₀ ∶[ l ] C [ 𝐳𝐞𝐫𝐨 ]
 
 𝐍𝐚𝐭Beta₀⁻{l}{Γ}{C}{c₀}{c₊}{x}{y} q₀ q₁ (x#C ∉∪ x#c₊) y#c₊
   with ok⨟ q (y#Γ ∉∪ y#x) (ok⨟ q' x#Γ okΓ) ← ⊢ok q₁ = 𝐍𝐚𝐭Beta₀
@@ -351,12 +351,12 @@ open import ETU.Admissible
   q₀
   (λ{x' y' (##:: y'#Γ (##:: (x'#y' ∉∪ x'#Γ) ##◇)) →
     subst₃ (λ C' c' C'' →
-      (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y' ∶ C' ⦂ l) ⊢ c' ∶ C'' ⦂ l)
+      (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y' ∶[ l ] C') ⊢ c' ∶[ l ] C'')
       (ssb[] x (𝐯 x') C x#C)
       (ssb[]² x y (𝐯 x') (𝐯 y') c₊ x#c₊ (y#c₊ ∉∪ y#x))
       (eq (𝐯 x') (𝐯 y'))
       (rn⨟² q₁ x'#Γ (#symm x'#y' ∉∪ y'#Γ))})
-  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ C' ⦂ l)
+  λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
     (ssb[] x (𝐯 x') C x#C)
     (rn⨟ q x'#Γ)
   where
@@ -389,15 +389,15 @@ open import ETU.Admissible
   {c₀ a : Tm}
   {c₊ : Tm[ 2 ]}
   {x y : 𝔸}
-  (_ : Γ ⊢ c₀ ∶ C [ 𝐳𝐞𝐫𝐨 ] ⦂ l)
-  (_ : (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ C [ x ] ⦂ l) ⊢
-    c₊ [ x ][ y ] ∶ C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ] ⦂ l)
-  (_ : Γ ⊢ a ∶ 𝐍𝐚𝐭 ⦂ 0)
+  (_ : Γ ⊢ c₀ ∶[ l ] C [ 𝐳𝐞𝐫𝐨 ])
+  (_ : (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] C [ x ]) ⊢
+    c₊ [ x ][ y ] ∶[ l ] C [ 𝐬𝐮𝐜𝐜 (𝐯 x) ])
+  (_ : Γ ⊢ a ∶[ 0 ] 𝐍𝐚𝐭)
   (_ : x # (C , c₊))
   (_ : y # c₊)
-  → ------------------------------------------
+  → --------------------------------------------
   Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ (𝐬𝐮𝐜𝐜 a) ＝
-  c₊ [ a ][ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ] ∶ C [ 𝐬𝐮𝐜𝐜 a ] ⦂ l
+  c₊ [ a ][ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ] ∶[ l ] C [ 𝐬𝐮𝐜𝐜 a ]
 
 𝐍𝐚𝐭Beta₊⁻{l}{Γ}{C}{c₀}{a}{c₊}{x}{y} q₀ q₁ q₂ (x#C ∉∪ x#c₊) y#c₊
   with ok⨟ q (y#Γ ∉∪ y#x) (ok⨟ q' x#Γ okΓ) ← ⊢ok q₁ = 𝐍𝐚𝐭Beta₊
@@ -405,13 +405,13 @@ open import ETU.Admissible
   q₀
   (λ{x' y' (##:: y'#Γ (##:: (x'#y' ∉∪ x'#Γ) ##◇)) →
     subst₃ (λ C' c' C'' →
-      (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y' ∶ C' ⦂ l) ⊢ c' ∶ C'' ⦂ l)
+      (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y' ∶[ l ] C') ⊢ c' ∶[ l ] C'')
       (ssb[] x (𝐯 x') C x#C)
       (ssb[]² x y (𝐯 x') (𝐯 y') c₊ x#c₊ (y#c₊ ∉∪ y#x))
       (eq (𝐯 x') (𝐯 y'))
       (rn⨟² q₁ x'#Γ (#symm x'#y' ∉∪ y'#Γ))})
   q₂
-  (λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶ 𝐍𝐚𝐭 ⦂ 0) ⊢ C' ⦂ l)
+  (λ x' x'#Γ → subst (λ C' → (Γ ⨟ x' ∶[ 0 ] 𝐍𝐚𝐭) ⊢ C' ⦂ l)
     (ssb[] x (𝐯 x') C x#C)
     (rn⨟ q x'#Γ))
   where
@@ -443,15 +443,15 @@ open import ETU.Admissible
   {A C : Ty}
   {B : Ty[ 1 ]}
   {x : 𝔸}
-  (_ : Γ ⊢ 𝚷 l l' A B ∶ C ⦂ l'')
+  (_ : Γ ⊢ 𝚷 l l' A B ∶[ l'' ] C)
   (_ : x # Γ)
-  → ----------------------------
-  (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l'
+  → -----------------------------
+  (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l'
 
 𝚷⁻¹ (⊢conv q _) x# = 𝚷⁻¹ q x#
 𝚷⁻¹{l}{l'}{Γ = Γ}{A}{B = B}{x} (⊢𝚷 S q₀ q₁) x#Γ
   with (x' , x'#S ∉∪ x'#B) ← fresh (S , B) =
-  subst (λ B' → (Γ ⨟ x ∶ A ⦂ l) ⊢ B' ⦂ l')
+  subst (λ B' → (Γ ⨟ x ∶[ l ] A) ⊢ B' ⦂ l')
     ((ssb[] x' (𝐯 x) B x'#B))
     (rn⨟ (q₁ x' x'#S) x#Γ)
 
@@ -462,10 +462,10 @@ open import ETU.Admissible
   {B : Ty[ 1 ]}
   {b : Tm}
   {x : 𝔸}
-  (_ : Γ ⊢ b ∶ 𝚷 l l' A B ⦂ max l l')
+  (_ : Γ ⊢ b ∶[ max l l' ] 𝚷 l l' A B)
   (_ : x # Γ)
-  → -------------------------------------------------------------
-  Γ ⊢ b ＝ 𝛌 A (x ． (b ∙[ A , B ] 𝐯 x)) ∶ 𝚷 l  l' A B ⦂ max l l'
+  → --------------------------------------------------------------
+  Γ ⊢ b ＝ 𝛌 A (x ． (b ∙[ A , B ] 𝐯 x)) ∶[ max l l' ] 𝚷 l  l' A B
 
 𝚷Eta⁻{l}{l'}{Γ}{A}{B}{b}{x} q x#Γ
   with (x' , x'#Γ ∉∪ x'#x) ← fresh (Γ , x) =
@@ -485,13 +485,13 @@ open import ETU.Admissible
   x'#B : x' # B
   x'#B = ⊆∉ (⊢supp q ∘ ∈∪₂ ∘ ∈∪₂ ∘ ∈∪₁) x'#Γ
 
-  ⊢Bx' : (Γ ⨟ x' ∶ A ⦂ l) ⊢ B [ x' ] ⦂ l'
+  ⊢Bx' : (Γ ⨟ x' ∶[ l ] A) ⊢ B [ x' ] ⦂ l'
   ⊢Bx'  = 𝚷⁻¹ (⊢∶ty q) x'#Γ
 
   ⊢A : Γ ⊢ A ⦂ l
   ⊢A = π₁ (π₂ ([]⁻¹ (⊢ok ⊢Bx')))
 
-  r : (Γ ⨟ x ∶ A ⦂ l) ⊢ b ∙[ A , B ] 𝐯 x ∶ B [ x ] ⦂ l'
+  r : (Γ ⨟ x ∶[ l ] A) ⊢ b ∙[ A , B ] 𝐯 x ∶[ l' ] B [ x ]
   r = ⊢∙⁻ {x = x'}
     (▷Jg (proj ⊢A x#Γ) q)
     (⊢𝐯 (ok⨟ ⊢A x#Γ (⊢ok q)) isInNew)
@@ -500,23 +500,23 @@ open import ETU.Admissible
           ⊢Bx')
     x'#B
 
-  q' : Γ ⊢ 𝛌 A (x ． b ∙[ A , B ] 𝐯 x) ∶ 𝚷 l l' A B ⦂ max l l'
+  q' : Γ ⊢ 𝛌 A (x ． b ∙[ A , B ] 𝐯 x) ∶[ max l l' ] 𝚷 l l' A B
   q' = ⊢𝛌⁻{x = x}
-    (subst (λ c → (Γ ⨟ x ∶ A ⦂ l) ⊢ c ∶ B [ x ] ⦂ l')
+    (subst (λ c → (Γ ⨟ x ∶[ l ] A) ⊢ c ∶[ l' ] B [ x ])
       (symm (concAbs' x (b ∙[ A , B ] 𝐯 x)))
       r)
     (x#B ∉∪ #abs x (b ∙[ A , B ] 𝐯 x))
 
-  q'' : ∀ y → y # (Γ , x) → (Γ ⨟ y ∶ A ⦂ l) ⊢
+  q'' : ∀ y → y # (Γ , x) → (Γ ⨟ y ∶[ l ] A) ⊢
     (𝛌 A (x ． (b ∙[ A , B ] 𝐯 x))) ∙[ A , B ] 𝐯 y ＝
-    b ∙[ A , B ] 𝐯 y ∶ B [ y ] ⦂ l'
+    b ∙[ A , B ] 𝐯 y ∶[ l' ] B [ y ]
   q'' y (y#Γ ∉∪ y#x) = subst (λ b' →
-    (Γ ⨟ y ∶ A ⦂ l) ⊢
+    (Γ ⨟ y ∶[ l ] A) ⊢
       (𝛌 A (x ． (b ∙[ A , B ] 𝐯 x))) ∙[ A , B ] 𝐯 y ＝
-      b'  ∶ B [ y ] ⦂ l')
+      b'  ∶[ l' ] B [ y ])
     eq
     (𝚷Beta⁻{x = x}
-      (subst (λ c → (Γ ⨟ y ∶ A ⦂ l ⨟ x ∶ A ⦂ l) ⊢ c ∶ B [ x ] ⦂ l')
+      (subst (λ c → (Γ ⨟ y ∶[ l ] A ⨟ x ∶[ l ] A) ⊢ c ∶[ l' ] B [ x ])
         (symm (concAbs' x (b ∙[ A , B ] 𝐯 x)))
         (▷Jg
           (▷⨟ (proj ⊢A y#Γ) ⊢A (x#Γ ∉∪ #symm y#x) (▷Jg (proj ⊢A y#Γ) ⊢A))
@@ -536,11 +536,11 @@ Reflect⁻ :
   {Γ : Cx}
   {A : Ty}
   {a b e : Tm}
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ A ⦂ l)
-  (_ : Γ ⊢ e ∶ 𝐄𝐪 A a b ⦂ l)
-  → ------------------------
-  Γ ⊢ a ＝ b ∶ A ⦂ l
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l ] A )
+  (_ : Γ ⊢ e ∶[ l ] 𝐄𝐪 A a b)
+  → --------------------------
+  Γ ⊢ a ＝ b ∶[ l ] A
 
 Reflect⁻ q₀ q₁ q₂ = Reflect q₀ q₁ q₂ (⊢∶ty q₀)
 
@@ -549,12 +549,12 @@ UIP⁻ :
   {Γ : Cx}
   {A : Ty}
   {a b e e' : Tm}
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ A ⦂ l)
-  (_ : Γ ⊢ e ∶ 𝐄𝐪 A a b ⦂ l)
-  (_ : Γ ⊢ e' ∶ 𝐄𝐪 A a b ⦂ l)
-  → -------------------------
-  Γ ⊢ e ＝ e' ∶ 𝐄𝐪 A a b ⦂ l
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l ] A)
+  (_ : Γ ⊢ e ∶[ l ] 𝐄𝐪 A a b)
+  (_ : Γ ⊢ e' ∶[ l ] 𝐄𝐪 A a b)
+  → --------------------------
+  Γ ⊢ e ＝ e' ∶[ l ] 𝐄𝐪 A a b
 
 UIP⁻ q₀ q₁ q₂ q₃ = UIP q₀ q₁ q₂ q₃ (⊢∶ty q₀)
 
@@ -566,7 +566,7 @@ Cx[]⁻ :
   (_ : ⊢ Γ ＝ Γ')
   (_ : Γ ⊢ A ＝ A' ⦂ l)
   (_ : x # (Γ , Γ'))
-  → ------------------------------------
-  ⊢ (Γ ⨟ x ∶ A ⦂ l) ＝ (Γ' ⨟ x ∶ A' ⦂ l)
+  → --------------------------------------
+  ⊢ (Γ ⨟ x ∶[ l ] A) ＝ (Γ' ⨟ x ∶[ l ] A')
 
 Cx[]⁻ q₀ q₁ q₂ = ＝⨟ q₀ q₁ q₂ (⊢ty₁ q₁) (＝⊢ (⊢ty₂ q₁) (CxSymm q₀))

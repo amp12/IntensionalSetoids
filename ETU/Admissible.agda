@@ -40,7 +40,7 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
 ＝⊢idˢ (＝⨟{l}{Γ}{A = A}{A'}{x} q₀ q₁ (q₂ ∉∪ q₂') h₀ h₁) = ⨟ˢ
   (▷Sb x h₀ (＝⊢idˢ q₀) q₂)
   h₁
-  (subst (λ B → (Γ ⨟ x ∶ A ⦂ l) ⊢ 𝐯 x ∶ B ⦂ l)
+  (subst (λ B → (Γ ⨟ x ∶[ l ] A) ⊢ 𝐯 x ∶[ l ] B)
     (symm (sbUnit A'))
     (⊢conv (⊢𝐯 ([]⁻ h₀ q₂) isInNew) (▷Jg (proj h₀ q₂) q₁)))
   q₂'
@@ -63,11 +63,11 @@ CxRefl (ok⨟ q q' q'') = ＝⨟ (CxRefl q'') (Refl q) (q' ∉∪ q') q q
   {l : ℕ}
   {J : Jg}
   (_ : Γ ⊢ A' ＝ A ⦂ l)
-  (_ : Γ ⨟ x ∶ A ⦂ l ⊢ J)
+  (_ : Γ ⨟ x ∶[ l ] A ⊢ J)
   -- helper hypothesis
   (_ : Γ ⊢ A' ⦂ l)
   → ---------------------
-  Γ ⨟ x ∶ A' ⦂ l ⊢ J
+  Γ ⨟ x ∶[ l ] A' ⊢ J
 
 ⨟＝⊢ q q' h with ok⨟ ⊢A x#Γ okΓ ← ⊢ok q' =
   ＝⊢ q' (＝⨟ (CxRefl okΓ) q (x#Γ ∉∪ x#Γ) h ⊢A)
@@ -84,15 +84,15 @@ concTm :
   (B : Ty[ 1 ])
   (b : Tm[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟  x ∶ A ⦂ l) ⊢ b [ x ] ∶ B [ x ] ⦂ l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
+  (_ : (Γ ⨟  x ∶[ l ] A) ⊢ b [ x ] ∶[ l' ] B [ x ])
+  (_ : Γ ⊢ a ∶[ l ] A)
   (_ : x # (B , b))
-  → ---------------------------------------------
-  Γ ⊢ b [ a ] ∶ B [ a ] ⦂ l'
+  → -----------------------------------------------
+  Γ ⊢ b [ a ] ∶[ l' ] B [ a ]
 
 concTm{l' = l'}{Γ}{a = a} B b x p q (x#B ∉∪ x#b)
   with ok⨟ q' q'' _ ← ⊢ok p =
-  subst₂ (λ z Z → Γ ⊢ z ∶ Z ⦂ l')
+  subst₂ (λ z Z → Γ ⊢ z ∶[ l' ] Z)
     (ssb[] x a b x#b)
     (ssb[] x a B x#B)
     (sbJg (ssbUpdate q q'' q') p)
@@ -107,10 +107,10 @@ concTm∞ :
   (b : Tm[ 1 ])
   (S : Fset𝔸)
   (_ : ∀ x → x # S →
-    (Γ ⨟  x ∶ A ⦂ l) ⊢ b [ x ] ∶ B [ x ] ⦂ l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  → ------------------------------------------
-  Γ ⊢ b [ a ] ∶ B [ a ] ⦂ l'
+    (Γ ⨟  x ∶[ l ] A) ⊢ b [ x ] ∶[ l' ] B [ x ])
+  (_ : Γ ⊢ a ∶[ l ] A)
+  → --------------------------------------------
+  Γ ⊢ b [ a ] ∶[ l' ] B [ a ]
 
 concTm∞ B b S q₀ q₁
   with (x , x#S ∉∪ x#) ← fresh (S , (B , b)) =
@@ -124,13 +124,13 @@ conc＝Ty :
   {a a' : Tm}
   (B B' : Ty[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   (_ : x # (B , B'))
   -- helper hypotheses
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ a' ∶ A ⦂ l)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ a' ∶[ l ] A)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
   → ----------------------------------------------
   Γ ⊢ B [ a ] ＝ B' [ a' ] ⦂ l'
 
@@ -158,13 +158,13 @@ conc＝Ty∞ :
   (B B' : Ty[ 1 ])
   (S : Fset𝔸)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ＝ B' [ x ] ⦂ l')
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   -- helper hypotheses
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ a' ∶ A ⦂ l)
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ a' ∶[ l ] A)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
   → -------------------------------------------
   Γ ⊢ B [ a ] ＝ B' [ a' ] ⦂ l'
 
@@ -180,21 +180,21 @@ conc＝Ty² :
   {a a' b b' : Tm}
   (C C' : Ty[ 2 ])
   (x y : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
     C [ x ][ y ] ＝ C' [ x ][ y ] ⦂ l'')
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
-  (_ : (Γ  ⨟  x ∶ A ⦂ l) ⊢ B ⦂ l')
-  (_ : Γ ⊢ b ＝ b' ∶ (x := a) * B ⦂ l')
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B ⦂ l')
+  (_ : Γ ⊢ b ＝ b' ∶[ l' ] (x := a) * B)
   (_ : x # (C , C'))
   (_ : y # (C , C'))
   -- helper hypotheses
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ a' ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ (x := a) * B ⦂ l')
-  (_ : Γ ⊢ b' ∶ (x := a') * B ⦂ l')
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢ C [ x ][ y ] ⦂ l'')
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l' ) ⊢ C' [ x ][ y ] ⦂ l'')
-  → -------------------------------------------------------
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ a' ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l' ] (x := a) * B)
+  (_ : Γ ⊢ b' ∶[ l' ] (x := a') * B)
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C [ x ][ y ] ⦂ l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢ C' [ x ][ y ] ⦂ l'')
+  → --------------------------------------------------------
   Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ⦂ l''
 
 conc＝Ty²{l'' = l''}{Γ}{A}{B}{a}{a'}{b}{b'}
@@ -224,22 +224,22 @@ conc＝Ty²∞ :
   (C C' : Ty[ 2 ])
   (S : Fset𝔸)
   (_ : ∀ x y → x # y # S →
-    (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B [ x ] ⦂ l') ⊢
+    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢
     C [ x ][ y ] ＝ C' [ x ][ y ] ⦂ l'')
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
-  (_ : Γ ⊢ b ＝ b' ∶  B [ a ] ⦂ l')
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
+  (_ : Γ ⊢ b ＝ b' ∶[ l' ]  B [ a ])
   -- helper hypotheses
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ a' ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ B [ a ] ⦂ l')
-  (_ : Γ ⊢ b' ∶ B [ a' ] ⦂ l')
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ a' ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l' ] B [ a ])
+  (_ : Γ ⊢ b' ∶[ l' ] B [ a' ])
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
   (_ : ∀ x y → x # y # S →
-    (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B [ x ] ⦂ l') ⊢ C [ x ][ y ] ⦂ l'')
+    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C [ x ][ y ] ⦂ l'')
   (_ : ∀ x y → x # y # S →
-    (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B [ x ] ⦂ l' ) ⊢ C' [ x ][ y ] ⦂ l'')
-  → ----------------------------------------------------------
+    (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ]) ⊢ C' [ x ][ y ] ⦂ l'')
+  → -----------------------------------------------------------
   Γ ⊢ C [ a ][ b ] ＝ C' [ a' ][ b' ] ⦂ l''
 
 conc＝Ty²∞{l' = l'}{Γ = Γ}{a = a}{a'}{b}{b'}
@@ -251,17 +251,17 @@ conc＝Ty²∞{l' = l'}{Γ = Γ}{a = a}{a'}{b}{b'}
     (q₀ x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇)))
     q₁
     (h₄ x x#S)
-    (subst (λ B' → Γ ⊢ b ＝ b' ∶ B' ⦂ l')
+    (subst (λ B' → Γ ⊢ b ＝ b' ∶[ l' ] B')
       (symm (ssb[] x a B x#B))
       q₂)
     x#
     y#
     h₀
     h₁
-    (subst (λ B' → Γ ⊢ b ∶ B' ⦂ l')
+    (subst (λ B' → Γ ⊢ b ∶[ l' ] B')
       (symm (ssb[] x a B x#B))
       h₂)
-    (subst (λ B' → Γ ⊢ b' ∶ B' ⦂ l')
+    (subst (λ B' → Γ ⊢ b' ∶[ l' ] B')
       (symm (ssb[] x a' B x#B))
       h₃)
     (h₅ x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇)))
@@ -281,18 +281,18 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   → -----------------------
-  Γ ⊢ a ∶ A ⦂ l
+  Γ ⊢ a ∶[ l ] A
 
 ⊢ty₂ :
   {l : ℕ}
   {Γ : Cx}
   {A : Ty}
   {a a' : Tm}
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
   → -----------------------
-  Γ ⊢ a' ∶ A ⦂ l
+  Γ ⊢ a' ∶[ l ] A
 
 ⊢ty₁ (Refl q) = q
 
@@ -384,7 +384,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 ⊢ty₂{Γ = Γ} (𝛌Cong{l}{l'}{A}{A'}{B}{b}{b'} S q₀ q₁ h₀ h₁) =
   ⊢conv q q'
   where
-  q : Γ ⊢ 𝛌 A' b' ∶ 𝚷 l l' A' B ⦂ max l l'
+  q : Γ ⊢ 𝛌 A' b' ∶[ max l l' ] 𝚷 l l' A' B
   q = ⊢𝛌
     S
     (λ x x# → ⨟＝⊢ (Symm q₀) (⊢ty₂ (q₁ x x#)) (⊢ty₂ q₀))
@@ -401,7 +401,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
 ⊢ty₂{Γ = Γ} (∙Cong{l}{l'}{A}{A'}{B}{B'}{a}{a'}{b}{b'}
   S q₀ q₁ q₂ q₃ h₀ h₁) = ⊢conv q q'
   where
-  q : Γ ⊢ b' ∙[ A' , B' ] a' ∶ B' [ a' ] ⦂ l'
+  q : Γ ⊢ b' ∙[ A' , B' ] a' ∶[ l' ] B' [ a' ]
   q = ⊢∙
     S
     (⊢conv (⊢ty₂ q₂) (𝚷Cong S q₀ q₁ h₀))
@@ -437,7 +437,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   q'' = conc＝Ty∞ C C' S q₀ (Refl (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)))
     (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)) (⊢𝐳𝐞𝐫𝐨 (⊢ok q₃)) h
 
-  q :  Γ ⊢ 𝐧𝐫𝐞𝐜 C' c₀' c₊' a' ∶ C' [ a' ] ⦂ l
+  q :  Γ ⊢ 𝐧𝐫𝐞𝐜 C' c₀' c₊' a' ∶[ l ] C' [ a' ]
   q = ⊢𝐧𝐫𝐞𝐜 S
     (⊢conv (⊢ty₂ q₁) q'')
     (λ{x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇)) →
@@ -447,7 +447,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
           (⊢ty₂ (q₂ x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇))))
           (▷Jg
             (proj (h x x#S) ((π₁([]⁻¹(⊢ok (q₀ y y#S)))) ∉∪ (#symm x#y)))
-            (conc＝Ty{0}{l} {Γ = Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0}{𝐍𝐚𝐭} C C' y
+            (conc＝Ty{0}{l} {Γ = Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭}{𝐍𝐚𝐭} C C' y
               (▷⨟Jg (q₀ y y#S) (proj (⊢𝐍𝐚𝐭 (⊢ok q₁)) (π₁([]⁻¹(⊢ok (h x x#S)))))
                 ((π₁([]⁻¹(⊢ok (q₀ y y#S)))) ∉∪ (#symm x#y)))
               (Refl (⊢𝐬𝐮𝐜𝐜 (⊢𝐯 (⊢ok (q₀ x x#S)) isInNew)))
@@ -472,7 +472,7 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   with (y , y#S ∉∪ y#c₊) ← fresh (S , c₊)
   with (x , x#y ∉∪ x#S ∉∪ x#C ∉∪ x#c₊) ←
     fresh (y , S , C , c₊) =
- subst₂ (λ d D → Γ ⊢ d ∶ D ⦂ l)
+ subst₂ (λ d D → Γ ⊢ d ∶[ l ] D)
    (ssb[]² x y a (𝐧𝐫𝐞𝐜 C c₀ c₊ a) c₊ x#c₊ (y#c₊ ∉∪ (#symm x#y)))
    e
    (sbJg s (q₁ x y (##:: y#S (##:: (x#y ∉∪ x#S) ##◇))))
@@ -487,11 +487,11 @@ implies Γ ⊢ a ∶ A. We do this by simultaneously proving that
   ⊢N : Γ ⊢ 𝐍𝐚𝐭 ⦂ 0
   ⊢N = ⊢𝐍𝐚𝐭 Γok
 
-  r : Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶ (x := a) * C [ x ] ⦂ l
+  r : Γ ⊢ 𝐧𝐫𝐞𝐜 C c₀ c₊ a ∶[ l ] (x := a) * C [ x ]
   r rewrite ssb[] x a C x#C = ⊢𝐧𝐫𝐞𝐜 S q₀ q₁ q₂ h
 
   s : Γ ⊢ˢ (x := a ∘/ y := 𝐧𝐫𝐞𝐜 C c₀ c₊ a) ∶
-    (Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ C [ x ] ⦂ l)
+    (Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] C [ x ])
   s = sbUpdate (ssbUpdate q₂ x#Γ ⊢N) r y#Γx (h x x#S)
 
   y#C : y # C
@@ -550,9 +550,9 @@ congSbTm :
   {A : Ty}
   {a a' : Tm}
   (_ : Γ' ⊢ˢ σ ＝ σ' ∶ Γ)
-  (_ : Γ ⊢ a ＝ a' ∶ A ⦂ l)
-  → -------------------------------
-  Γ' ⊢ σ * a ＝ σ' * a' ∶ σ * A ⦂ l
+  (_ : Γ ⊢ a ＝ a' ∶[ l ] A)
+  → --------------------------------
+  Γ' ⊢ σ * a ＝ σ' * a' ∶[ l ] σ * A
 
 congSbTm q q' = Trans
   (sbJg (⊢sb₁ q) q')
@@ -568,8 +568,8 @@ concTy :
   {a : Tm}
   (B : Ty[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+  (_ : Γ ⊢ a ∶[ l ] A)
   (_ : x # B)
   → -----------------------------------
   Γ ⊢ B [ a ] ⦂ l'
@@ -584,8 +584,8 @@ concTy∞ :
   (B : Ty[ 1 ])
   (S : Fset𝔸)
   (_ : ∀ x → x # S →
-    (Γ ⨟ x ∶ A ⦂ l) ⊢ B [ x ] ⦂ l')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
+    (Γ ⨟ x ∶[ l ] A) ⊢ B [ x ] ⦂ l')
+  (_ : Γ ⊢ a ∶[ l ] A)
   → -----------------------------------
   Γ ⊢ B [ a ] ⦂ l'
 
@@ -598,13 +598,13 @@ concTy² :
   {a b : Tm}
   (C : Ty[ 2 ])
   (x y : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
     C [ x ][ y ] ⦂ l'')
-  (_ : Γ ⊢ a ∶ A ⦂ l)
-  (_ : Γ ⊢ b ∶ (x := a) * B ⦂ l')
+  (_ : Γ ⊢ a ∶[ l ] A)
+  (_ : Γ ⊢ b ∶[ l' ] (x := a) * B)
   (_ : x # C)
   (_ : y # C)
-  → ----------------------------------
+  → -----------------------------------
   Γ ⊢ C [ a ][ b ] ⦂ l''
 
 concTy²{l'' = l''}{Γ}{a = a}{b} C x y q₀ q₁ q₂ q₃ q₄
@@ -637,7 +637,7 @@ ok→ty (ok⨟ q₀ q₁ q₃) (isInOld q₂) = ▷Jg (proj q₀ q₁) (ok→ty 
   {Γ : Cx}
   {A : Ty}
   {a : Tm}
-  (_ : Γ ⊢ a ∶ A ⦂ l)
+  (_ : Γ ⊢ a ∶[ l ] A)
   → -----------------
   Γ ⊢ A ⦂ l
 

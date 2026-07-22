@@ -45,9 +45,9 @@ coh (Type _) _ (_ , q) = Refl q
 ----------------------------------------------------------------------
 Term : (l : ℕ) → Setd[ Cxt ⋉ Type l ]
 
-∥ Term l ∥ ((Γ , _) , A , _) = ∑[ a ∈ Tm ] (Γ ⊢ a ∶ A ⦂ l)
+∥ Term l ∥ ((Γ , _) , A , _) = ∑[ a ∈ Tm ] (Γ ⊢ a ∶[ l ] A)
 Term l ∋ ((Γ , _) , A , _) , a , _ ≈ _ , a' , _ =
-  Γ ⊢ a ＝ a' ∶ A ⦂ l
+  Γ ⊢ a ＝ a' ∶[ l ] A
 hrfl (Term _) _ (_ , q) = Refl q
 hsym (Term _) (p , p') q =
   ＝⊢ (＝conv (Symm q) p') (CxSymm p)
