@@ -124,7 +124,9 @@ open 𝒰sect public
 -- Families
 Fam : ℕ → ∣ 𝒞 ∣ → Set
 Fam n C =
-  -- we rely on the fact that El (1+ n) Univ ≡ U l
+  -- Because El (1+ n) Univ ≡ U l, the following definition makes
+  -- Fam n C equal to the type | ℰ ′ C ⟶ 𝒰 l | of setoid mprphisms
+  -- from ℰ ′ C to 𝒰 l
   𝒰sect (1+ n) C (λ _ → Univ) (λ _ _ _ → rfl (𝒰 (1+ n)) Univ)
 
 ℱ𝒶𝓂 : ℕ → Setd[ 𝒞 ]
@@ -148,7 +150,7 @@ coh (ℱ𝒶𝓂 n) e T c c' e' =
 
 -- Elements of families
 Elem : (n : ℕ)(C : ∣ 𝒞 ∣) → Fam n C → Set
-Elem n C T = 𝒰sect n C (∥_∥ T) (hcng T)
+Elem n C T = 𝒰sect n C ∥ T ∥ (hcng T)
 
 ℰ𝓁ℯ𝓂 : (n : ℕ) → Setd[ 𝒞 ⋉ ℱ𝒶𝓂 n ]
 ∥ ℰ𝓁ℯ𝓂 n ∥ (C , T) = Elem n C T
