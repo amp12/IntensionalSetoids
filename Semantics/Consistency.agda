@@ -18,7 +18,7 @@ open import Semantics.Total
 Martin-Löf Type Theory with inductive-recursive definitions (safe
 Agda) -}
 
-consistent : ¬(∃[ a ] (◇ ⊢ a ∶ 𝐄𝐦𝐩 ⦂ 0))
+consistent : ¬(∃[ a ] (◇ ⊢ a ∶[ 0 ] 𝐄𝐦𝐩))
 
 consistent (_ , q) =
   let (t , _) = tot⟦tm⟧' q (⟦𝐄𝐦𝐩⟧ ⟦◇⟧)

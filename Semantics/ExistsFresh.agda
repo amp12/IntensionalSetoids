@@ -28,15 +28,15 @@ open import Semantics.Substitution
   (b : Tm[ 1 ])
   (x x' : 𝔸)
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] b [ x ] tm⟧↘((C ⋉[ l ] S , T) , t))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] b [ x ] tm⟧↘((C ⋉[ l ] S , T) , t))
   (_ : x # b)
   (_ : x' # Γ)
   → --------------------------------------------------------------
-  ⟦ Γ ⨟ x' ∶ A ⦂ l ⊢[ l' ] b [ x' ] tm⟧↘ ((C ⋉[ l ] S , T) , t)
+  ⟦ Γ ⨟ x' ∶[ l ] A ⊢[ l' ] b [ x' ] tm⟧↘ ((C ⋉[ l ] S , T) , t)
 
 ⟦α⟧{l}{l'}{Γ}{A}{C}{S}{T}{t} b x x' q₀ q₁ x#b x'#Γ
   with  (q , x#Γ) ← ⟦⨟⟧⁻¹ (ok⟦tm⟧ q₁) refl = subst₂ (λ A' b' →
-    ⟦ Γ ⨟ x' ∶ A' ⦂ l ⊢[ l' ] b' tm⟧↘ ((C ⋉[ l ] S , T) , t))
+    ⟦ Γ ⨟ x' ∶[ l ] A' ⊢[ l' ] b' tm⟧↘ ((C ⋉[ l ] S , T) , t))
     (sbUnit A)
     (ssb[] x (𝐯 x') b x#b)
     (sb⟦tm⟧ p q₁)
@@ -45,7 +45,7 @@ open import Semantics.Substitution
     (C ⋉[ l ] S , C ⋉[ l ] S) , id
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
-  p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶ A ⦂ l sb⟧↘
+  p : ⟦ Γ ⨟ x' ∶[ l ] idˢ * A ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶[ l ] A sb⟧↘
     ((C ⋉[ l ] S , C ⋉[ l ] S) , id)
   p = resp⟦sb⟧
     (lift⟦sb⟧⁻{l}{id}{A = A} (⟦id⟧ (ok⟦ty⟧ q₀)) q₀ x#Γ x'#Γ)
@@ -63,15 +63,15 @@ open import Semantics.Substitution
   (b : Tm[ 2 ])
   (x y x' y' : 𝔸)
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] B ty⟧↘(C ⋉[ l ] S , T))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l' ⊢[ l'' ] b [ x ][ y ] tm⟧↘
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] B ty⟧↘(C ⋉[ l ] S , T))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B ⊢[ l'' ] b [ x ][ y ] tm⟧↘
     ((C ⋉[ l ] S ⋉[ l' ] T , T') , t))
   (_ : x # b)
   (_ : y # b)
   (_ : x' # Γ)
   (_ : y' # (Γ , x'))
   → ----------------------------------------------------------
-  ⟦ Γ ⨟ x' ∶ A ⦂ l ⨟ y' ∶ (x := 𝐯 x') * B ⦂ l' ⊢[ l'' ]
+  ⟦ Γ ⨟ x' ∶[ l ] A ⨟ y' ∶[ l' ] (x := 𝐯 x') * B ⊢[ l'' ]
     b [ x' ][ y' ] tm⟧↘((C ⋉[ l ] S ⋉[ l' ] T , T') , t)
 
 ⟦α⟧²{l}{l'}{l''}{Γ}{A}{B}{C}{S}{T}{T'}{t}
@@ -79,7 +79,7 @@ open import Semantics.Substitution
   with  (q , x#Γ) ← ⟦⨟⟧⁻¹ (ok⟦ty⟧ q₁) refl
   | (q' , y#Γ ∉∪ y#x) ← ⟦⨟⟧⁻¹ (ok⟦tm⟧ q₂) refl =
   subst₂ (λ A' b' →
-    ⟦ Γ ⨟ x' ∶ A' ⦂ l ⨟ y' ∶ (x := 𝐯 x') * B ⦂ l' ⊢[ l'' ] b' tm⟧↘
+    ⟦ Γ ⨟ x' ∶[ l ] A' ⨟ y' ∶[ l' ] (x := 𝐯 x') * B ⊢[ l'' ] b' tm⟧↘
     ((C ⋉[ l ] S ⋉[ l' ] T , T') , t))
     (sbUnit A)
     (ssb[]² x y (𝐯 x') (𝐯 y') b x#b (y#b ∉∪ y#x))
@@ -93,8 +93,8 @@ open import Semantics.Substitution
      C ⋉[ l ] S ⋉[ l' ] T) , id
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
-  p : ⟦ Γ ⨟ x' ∶ idˢ * A ⦂ l ⨟ y' ∶ (x := 𝐯 x') * B ⦂ l' ⊢
-    (x := 𝐯 x' ∘/ y := 𝐯 y') ∶ (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') sb⟧↘
+  p : ⟦ Γ ⨟ x' ∶[ l ] idˢ * A ⨟ y' ∶[ l' ] (x := 𝐯 x') * B ⊢
+    (x := 𝐯 x' ∘/ y := 𝐯 y') ∶ (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) sb⟧↘
     ((C ⋉[ l ] S ⋉[ l' ] T , C ⋉[ l ] S ⋉[ l' ] T) , id)
   p = resp⟦sb⟧
     (lift⟦sb⟧²⁻{l}{l'}{id}{A = A}{B = B}
@@ -122,15 +122,15 @@ open import Semantics.Substitution
   (b : Tm[ 2 ])
   (x y x' y' : 𝔸)
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B [ x ] ⦂ l' ⊢[ l'' ] b [ x ][ y ] tm⟧↘
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B [ x ] ⊢[ l'' ] b [ x ][ y ] tm⟧↘
     ((C ⋉[ l ] S ⋉[ l' ] T , T') , t))
   (_ : x # (B , b))
   (_ : y # b)
   (_ : x' # Γ)
   (_ : y' # (Γ , x'))
   → ----------------------------------------------------------------
-  ⟦ Γ ⨟ x' ∶ A ⦂ l ⨟ y' ∶ B [ x' ] ⦂ l' ⊢[ l'' ]
+  ⟦ Γ ⨟ x' ∶[ l ] A ⨟ y' ∶[ l' ] B [ x' ] ⊢[ l'' ]
     b [ x' ][ y' ] tm⟧↘ ((C ⋉[ l ] S ⋉[ l' ] T , T') , t)
 
 ⟦α⟧²' B b x y x' y' q₀ q₁ q₂ (x#B ∉∪ x#b) y#b
@@ -150,7 +150,7 @@ open import Semantics.Substitution
   {T : Fam l' (C ⋉[ l ] S)}
   {x : 𝔸}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
   (_ : x # B)
   → --------------------------------------------------------
   ⟦ Γ ⊢[ max l l' ] (𝚷 l l' A B) ty⟧↘(C , 𝒫𝒾 l l' S T)
@@ -169,7 +169,7 @@ open import Semantics.Substitution
   {t : Elem l' (C ⋉[ l ] S) T}
   {x : 𝔸}
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] b [ x ] tm⟧↘((C ⋉[ l ] S , T) , t))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] b [ x ] tm⟧↘((C ⋉[ l ] S , T) , t))
   (_ : x # b)
   → ---------------------------------------------------------------
   ⟦ Γ ⊢[ max l l' ] (𝛌 A b)  tm⟧↘((C , 𝒫𝒾 l l' S T) , 𝓁𝒶𝓂 l l' S t)
@@ -191,7 +191,7 @@ open import Semantics.Substitution
   {x : 𝔸}
   (_ : ⟦ Γ ⊢[ max l l' ] b tm⟧↘((C , 𝒫𝒾 l l' S T) , t))
   (_ : ⟦ Γ ⊢[ l ] A ty⟧↘(C , S))
-  (_ : ⟦ Γ ⨟ x ∶ A ⦂ l ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
+  (_ : ⟦ Γ ⨟ x ∶[ l ] A ⊢[ l' ] B [ x ] ty⟧↘(C ⋉[ l ] S , T))
   (_ : ⟦ Γ ⊢[ l ] a tm⟧↘((C , S) , s))
   (_ : x # B)
   → -------------------------------------------------------------------
@@ -213,9 +213,9 @@ open import Semantics.Substitution
     (𝓅 S * 𝒸ℴ𝓃𝓈 (𝓅 𝒩𝒶𝓉) (𝓈𝓊𝒸𝒸 (𝓆 𝒩𝒶𝓉)) * S)}
   {s : Elem 0 C 𝒩𝒶𝓉}
   {x y : 𝔸}
-  (_ : ⟦ Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⊢[ l ] B [ x ] ty⟧↘(C ⋉[ 0 ] 𝒩𝒶𝓉 , S))
+  (_ : ⟦ Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⊢[ l ] B [ x ] ty⟧↘(C ⋉[ 0 ] 𝒩𝒶𝓉 , S))
   (_ : ⟦ Γ ⊢[ l ] b₀ tm⟧↘ ((C , ⟪ 𝓏ℯ𝓇ℴ ⟫ * S) , s₀))
-  (_ : ⟦ Γ ⨟ x ∶ 𝐍𝐚𝐭 ⦂ 0 ⨟ y ∶ B [ x ] ⦂ l ⊢[ l ] b₊ [ x ][ y ] tm⟧↘
+  (_ : ⟦ Γ ⨟ x ∶[ 0 ] 𝐍𝐚𝐭 ⨟ y ∶[ l ] B [ x ] ⊢[ l ] b₊ [ x ][ y ] tm⟧↘
       ((C ⋉[ 0 ] 𝒩𝒶𝓉 ⋉[ l ] S ,
        𝓅 S * 𝒸ℴ𝓃𝓈 (𝓅 𝒩𝒶𝓉) (𝓈𝓊𝒸𝒸 (𝓆 𝒩𝒶𝓉)) * S) , s₊))
   (_ : ⟦ Γ ⊢[ 0 ] a tm⟧↘((C , 𝒩𝒶𝓉) , s))
