@@ -37,9 +37,9 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢ b [ x ] ∶ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢ b [ x ] ∶[ l' ] B)
   (_ : x # b)
-  → --------------------------------------
+  → ----------------------------------------
   supp b ⊆ dom Γ
 
 ⊢supp¹ b x p x#b q
@@ -53,11 +53,11 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
-    c [ x ][ y ] ∶ C ⦂ l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
+    c [ x ][ y ] ∶[ l'' ] C)
   (_ : x # c)
   (_ : y # c)
-  → ----------------------------------
+  → -----------------------------------
   supp c ⊆ dom Γ
 
 ⊢supp² c x y p x#c y#c q
@@ -73,10 +73,10 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
-    b [ x ] ＝ b' ∶ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢
+    b [ x ] ＝ b' ∶[ l' ] B)
   (_ : x # b)
-  → -----------------------
+  → ------------------------
   supp b ⊆ dom Γ
 
 ⊢supp＝¹₁ b x p x#b q
@@ -91,10 +91,10 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' : ℕ}
   (b : Tm[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
-    b' ＝ b [ x ] ∶ B ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢
+    b' ＝ b [ x ] ∶[ l' ] B)
   (_ : x # b)
-  → ----------------------
+  → -----------------------
   supp b ⊆ dom Γ
 
 ⊢supp＝¹₂ b x p x#b q
@@ -109,10 +109,10 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' : ℕ}
   (B : Tm[ 1 ])
   (x : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l) ⊢
-    b ＝ b' ∶ B [ x ] ⦂ l')
+  (_ : (Γ ⨟ x ∶[ l ] A) ⊢
+    b ＝ b' ∶[ l' ] B [ x ])
   (_ : x # B)
-  → ----------------------
+  → -----------------------
   supp B ⊆ dom Γ
 
 ⊢supp＝¹₃ B x p x#B q
@@ -127,11 +127,11 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
-    c [ x ][ y ] ＝ c' ∶ C ⦂ l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
+    c [ x ][ y ] ＝ c' ∶[ l'' ] C)
   (_ : x # c)
   (_ : y # c)
-  → ----------------------------------
+  → -----------------------------------
   supp c ⊆ dom Γ
 
 ⊢supp＝²₁ c x y p x#c y#c q
@@ -147,11 +147,11 @@ Oksupp (ok⨟ ⊢A _ p) (isInOld q) = ∈∪₁ ∘ Oksupp p q
   {l l' l'' : ℕ}
   (c : Tm[ 2 ])
   (x y : 𝔸)
-  (_ : (Γ ⨟ x ∶ A ⦂ l ⨟ y ∶ B ⦂ l') ⊢
-    c' ＝ c [ x ][ y ] ∶ C ⦂ l'')
+  (_ : (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⊢
+    c' ＝ c [ x ][ y ] ∶[ l'' ] C)
   (_ : x # c)
   (_ : y # c)
-  → ----------------------------------
+  → -----------------------------------
   supp c ⊆ dom Γ
 
 ⊢supp＝²₂ c x y p x#c y#c q
