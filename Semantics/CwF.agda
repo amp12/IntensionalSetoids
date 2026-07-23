@@ -9,6 +9,12 @@ contexts (elements of the universe 𝒞). -}
 ----------------------------------------------------------------------
 -- Morphisms
 ----------------------------------------------------------------------
+{-  We could define morphisms between context codes by
+  Hom : ∣ 𝒞 ∣ → ∣ 𝒞 ∣ → Set
+  Hom C D = ∣ ℰ ′ C ⟶ ℰ ′ D ∣
+  but to aid instance resolution it is better to use a record type
+isomorphic to that, as follows. -}
+
 record Hom (C D : ∣ 𝒞 ∣) : Set where
   constructor mkHom
   infix 8 ∣_∣
@@ -16,9 +22,9 @@ record Hom (C D : ∣ 𝒞 ∣) : Set where
     ∣_∣ : ∥ ℰ ∥ C → ∥ ℰ ∥ D
     cng :
       (c c' : ∥ ℰ ∥ C)
-      (_ : C , c ≈ᶜ C , c')
-      → ---------------------
-      D , ∣_∣ c ≈ᶜ D , ∣_∣ c'
+      (_ : ℰ ′ C ∋ c ~ c')
+      → --------------------
+      ℰ ′ D ∋ ∣ c ∣ ~ ∣ c' ∣
 
 open Hom public
 
@@ -28,9 +34,9 @@ open Hom public
 ℋℴ𝓂 ∋ (C , D) , f ≈ (C' , D') , f' =
   (c : ∥ ℰ ∥ C)
   (c' : ∥ ℰ ∥ C')
-  (_ : C , c ≈ᶜ C' , c')
-  → ---------------------------
-  D , ∣ f ∣ c ≈ᶜ D' , ∣ f' ∣ c'
+  (_ : ℰ ∋ C , c ≈ C' , c')
+  → ------------------------------
+  ℰ ∋ D , ∣ f ∣ c ≈ D' , ∣ f' ∣ c'
 hrfl ℋℴ𝓂 (C , D) f _ _ e = cng f _ _ e
 hsym ℋℴ𝓂 (e , e') f c c' e'' =
   hsymᶜ e' (f c' c (hsymᶜ (symᶜ e) e''))
