@@ -753,25 +753,13 @@ hcng ℰ𝓂𝓅 _ _ _ = tt
 ℯ𝓂𝓅 :
   {C : ∣ 𝒞 ∣}
   (n : ℕ)
-  (S : Fam n C)
-  (e : Elem 0 C ℰ𝓂𝓅)
+  (T : Fam n C)
+  (t : Elem 0 C ℰ𝓂𝓅)
   → ---------------
-  Elem n C S
+  Elem n C T
 
-∥ ℯ𝓂𝓅 _ _ e ∥ c = Øelim (∥ e ∥ c)
-hcng (ℯ𝓂𝓅 _ _ e) c _ _ = Øelim (∥ e ∥ c)
-
--- ntrlℯ𝓂𝓅 :
---   {D C : ∣ 𝒞 ∣}
---   (n : ℕ)
---   (S : Fam n C)
---   (e : Elem 0 C ℰ𝓂𝓅)
---   (f : Hom D C)
---   → --------------------------------------
---   ℰ𝓁ℯ𝓂 n ∋ (D , f * S) , f *₁ (ℯ𝓂𝓅 n S e) ≈
---   (D , f * S) , ℯ𝓂𝓅 n (f * S) (f *₁ e)
-
--- ntrlℯ𝓂𝓅 _ _ e f c _ _ = Øelim (∥ e ∥ (∣ f ∣ c))
+∥ ℯ𝓂𝓅 _ _ t ∥ c = Øelim (∥ t ∥ c)
+hcng (ℯ𝓂𝓅 _ _ t) c _ _ = Øelim (∥ t ∥ c)
 
 ----------------------------------------------------------------------
 -- Natural number type
