@@ -45,7 +45,7 @@ open import Semantics.Substitution
     (C ⋉[ l ] S , C ⋉[ l ] S) , id
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
-  p : ⟦ Γ ⨟ x' ∶[ l ] idˢ * A ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶[ l ] A sb⟧↘
+  p : ⟦ Γ ⨟ x' ∶[ l ] idˢ * A ⊢ (x := 𝐯 x') ∶ Γ ⨟ x ∶[ l ] A ⟧sb↘
     ((C ⋉[ l ] S , C ⋉[ l ] S) , id)
   p = resp⟦sb⟧
     (lift⟦sb⟧⁻{l}{id}{A = A} (⟦id⟧ (ok⟦ty⟧ q₀)) q₀ x#Γ x'#Γ)
@@ -94,7 +94,7 @@ open import Semantics.Substitution
   e _ _ (u , v , w) with refl ← ! ⦃ !≡ ⦄ v refl = (u , refl , w)
 
   p : ⟦ Γ ⨟ x' ∶[ l ] idˢ * A ⨟ y' ∶[ l' ] (x := 𝐯 x') * B ⊢
-    (x := 𝐯 x' ∘/ y := 𝐯 y') ∶ (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) sb⟧↘
+    (x := 𝐯 x' ∘/ y := 𝐯 y') ∶ (Γ ⨟ x ∶[ l ] A ⨟ y ∶[ l' ] B) ⟧sb↘
     ((C ⋉[ l ] S ⋉[ l' ] T , C ⋉[ l ] S ⋉[ l' ] T) , id)
   p = resp⟦sb⟧
     (lift⟦sb⟧²⁻{l}{l'}{id}{A = A}{B = B}

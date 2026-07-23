@@ -9,13 +9,12 @@ contexts (elements of the universe 𝒞). -}
 ----------------------------------------------------------------------
 -- Morphisms
 ----------------------------------------------------------------------
-{-  We could define morphisms between context codes by
-  Hom : ∣ 𝒞 ∣ → ∣ 𝒞 ∣ → Set
-  Hom C D = ∣ ℰ ′ C ⟶ ℰ ′ D ∣
-  but to aid instance resolution it is better to use a record type
-isomorphic to that, as follows. -}
-
 record Hom (C D : ∣ 𝒞 ∣) : Set where
+  {-  We could define morphisms between context codes by
+    Hom : ∣ 𝒞 ∣ → ∣ 𝒞 ∣ → Set
+    Hom C D = ∣ ℰ ′ C ⟶ ℰ ′ D ∣
+  but to aid instance resolution it is better to use this record type,
+  which isomorphic to that. -}
   constructor mkHom
   infix 8 ∣_∣
   field
