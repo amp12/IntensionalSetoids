@@ -138,7 +138,7 @@ soundTm{l} p q r r' s =
     (T , q₀) = tot⟦ty⟧' q p₀
     (t , r₀) = tot⟦tm⟧' r q₀
     (t' , r₀') = tot⟦tm⟧' r' q₀
-    (t'' , r₁ , r₁') = conv⟦tm⟧' s q₀
+    (t'' , r₁ , r₁') = sound⟦tm⟧' s q₀
   in trs (ℰ𝓁ℯ𝓂 l ′ (C , T))
     {t}
     {t''}
@@ -162,7 +162,7 @@ soundTy{l} p q q' r =
     (C , p₀) = tot⟦cx⟧ p
     (T , q₀) = tot⟦ty⟧' q p₀
     (T' , q₀') = tot⟦ty⟧' q' p₀
-    (T'' , r₀ , r₀') = conv⟦ty⟧' r p₀
+    (T'' , r₀ , r₀') = sound⟦ty⟧' r p₀
   in trs (ℱ𝒶𝓂 l ′ C)
     {T}
     {T''}
