@@ -216,65 +216,68 @@ coh (ℰ𝓁ℯ𝓂 n) {_ , T'} (e , f) t c c' e' =
 ----------------------------------------------------------------------
 -- Re-indexing
 ----------------------------------------------------------------------
-infixr 6 _*ᶜ_
-_*ᶜ_ :
-  {n : ℕ}
-  {C D : ∣ 𝒞 ∣}
-  (f : Hom D C)
-  (T : Fam n C)
-  → -----------
-  Fam n D
+module ReIndexFam where
+  infixr 6 _*ᶜ_
+  _*ᶜ_ :
+    {n : ℕ}
+    {C D : ∣ 𝒞 ∣}
+    (f : Hom D C)
+    (T : Fam n C)
+    → -----------
+    Fam n D
 
-∥ f *ᶜ T ∥ d = ∥ T ∥ (∣ f ∣ d)
-hcng (f *ᶜ T) d d' e = hcng T (∣ f ∣ d) (∣ f ∣ d') (cng f d d' e)
+  ∥ f *ᶜ T ∥ d = ∥ T ∥ (∣ f ∣ d)
+  hcng (f *ᶜ T) d d' e = hcng T (∣ f ∣ d) (∣ f ∣ d') (cng f d d' e)
 
--- Notation
-instance
-  Apply*ᶜ : ∀{n C D} → Apply (Hom D C) (Fam n C) (Fam n D)
-  _*_ ⦃ Apply*ᶜ ⦄ = _*ᶜ_
+  -- Notation
+  instance
+    Apply*ᶜ : ∀{n C D} → Apply (Hom D C) (Fam n C) (Fam n D)
+    _*_ ⦃ Apply*ᶜ ⦄ = _*ᶜ_
 
-infixr 6 _*₁_
-_*₁_ :
-  {n : ℕ}
-  {C D : ∣ 𝒞 ∣}
-  {T : Fam n C}
-  (f : Hom D C)
-  (t : Elem n C T)
-  → -------------
-  Elem n D (f * T)
+  infixr 6 _*₁_
+  _*₁_ :
+    {n : ℕ}
+    {C D : ∣ 𝒞 ∣}
+    {T : Fam n C}
+    (f : Hom D C)
+    (t : Elem n C T)
+    → -------------
+    Elem n D (f * T)
 
-∥ f *₁ t ∥ d = ∥ t ∥ (∣ f ∣ d)
-hcng (f *₁ t) _ _ e = hcng t _ _ (cng f _ _ e)
+  ∥ f *₁ t ∥ d = ∥ t ∥ (∣ f ∣ d)
+  hcng (f *₁ t) _ _ e = hcng t _ _ (cng f _ _ e)
 
-cng* :
-  {n : ℕ}
-  {C C' D D' : ∣ 𝒞 ∣}
-  {T : Fam n C}
-  {T' : Fam n C'}
-  (f : Hom D C)
-  (f' : Hom D' C')
-  (_ : ℋℴ𝓂 ∋ (D , C) , f ≈ (D' , C') , f')
-  (_ : ℱ𝒶𝓂 n ∋ C , T ≈ C' , T')
-  → --------------------------------------
-  ℱ𝒶𝓂 n ∋ D , f * T ≈ D' , f' * T'
+  cng* :
+    {n : ℕ}
+    {C C' D D' : ∣ 𝒞 ∣}
+    {T : Fam n C}
+    {T' : Fam n C'}
+    (f : Hom D C)
+    (f' : Hom D' C')
+    (_ : ℋℴ𝓂 ∋ (D , C) , f ≈ (D' , C') , f')
+    (_ : ℱ𝒶𝓂 n ∋ C , T ≈ C' , T')
+    → --------------------------------------
+    ℱ𝒶𝓂 n ∋ D , f * T ≈ D' , f' * T'
 
-cng* f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
+  cng* f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
 
-cng*₁ :
-  {n : ℕ}
-  {C C' D D' : ∣ 𝒞 ∣}
-  {T : Fam n C}
-  {T' : Fam n C'}
-  {t : Elem n C T}
-  {t' : Elem n C' T'}
-  (f : Hom D C)
-  (f' : Hom D' C')
-  (_ : ℋℴ𝓂 ∋ (D , C) , f ≈ (D' , C') , f')
-  (_ : ℰ𝓁ℯ𝓂 n ∋ (C , T) , t ≈ (C' , T') , t')
-  → -------------------------------------------------------
-  ℰ𝓁ℯ𝓂 n ∋ (D , f * T) , f *₁ t  ≈ (D' , f' * T') , f' *₁ t'
+  cng*₁ :
+    {n : ℕ}
+    {C C' D D' : ∣ 𝒞 ∣}
+    {T : Fam n C}
+    {T' : Fam n C'}
+    {t : Elem n C T}
+    {t' : Elem n C' T'}
+    (f : Hom D C)
+    (f' : Hom D' C')
+    (_ : ℋℴ𝓂 ∋ (D , C) , f ≈ (D' , C') , f')
+    (_ : ℰ𝓁ℯ𝓂 n ∋ (C , T) , t ≈ (C' , T') , t')
+    → -------------------------------------------------------
+    ℰ𝓁ℯ𝓂 n ∋ (D , f * T) , f *₁ t  ≈ (D' , f' * T') , f' *₁ t'
 
-cng*₁ f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
+  cng*₁ f f' e e' c c' u = e' (∣ f ∣ c) (∣ f' ∣ c') (e c c' u)
+
+open ReIndexFam public
 
 ----------------------------------------------------------------------
 -- Codes for universes of types
