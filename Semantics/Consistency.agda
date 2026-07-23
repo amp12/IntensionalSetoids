@@ -13,6 +13,7 @@ open import Semantics.SingleValued
 open import Semantics.Weakening
 open import Semantics.Substitution
 open import Semantics.Total
+open import Semantics.Function
 
 {- Consistency of extensional type theory relative to intensional
 Martin-Löf Type Theory with inductive-recursive definitions (safe
@@ -20,6 +21,4 @@ Agda) -}
 
 consistent : ¬(∃[ a ] (◇ ⊢ a ∶[ 0 ] 𝐄𝐦𝐩))
 
-consistent (_ , q) =
-  let (t , _) = tot⟦tm⟧' q (⟦𝐄𝐦𝐩⟧ ⟦◇⟧)
-  in Øelim (∥ t ∥ tt)
+consistent (a , q) = ∥ ⟦ ◇ ⊢[ 0 ] a ⟧tm ok◇ (⊢𝐄𝐦𝐩 ok◇) q ∥ tt
