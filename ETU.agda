@@ -16,4 +16,3 @@ open import ETU.Substitution public
 open import ETU.Admissible public
 open import ETU.ExistsFresh public
 open import ETU.Uniqueness public
-open import ETU.Setoids

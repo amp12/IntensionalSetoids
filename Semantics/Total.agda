@@ -1,3 +1,6 @@
+{- For reasons that need investigating, Agda takes a couple of minutes
+to check this file. -}
+
 module Semantics.Total where
 
 open import Prelude

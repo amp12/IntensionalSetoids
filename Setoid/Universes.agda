@@ -6,7 +6,7 @@ open import Setoid.Definition
 open import Setoid.Display
 
 ----------------------------------------------------------------------
--- Zeroth setoid universe
+-- Base setoid universe
 ----------------------------------------------------------------------
 {- An inductive recursive-recursive-recursive definition of U₀ , El₀,
 _~₀_ and _,_≈₀_,_ -}
@@ -241,7 +241,7 @@ coe ℰ𝓁₀ = coe₀
 coh ℰ𝓁₀ = coh₀
 
 ----------------------------------------------------------------------
--- Successor operation on setoid universes
+-- Successor-universe operation
 ----------------------------------------------------------------------
 module _ {𝒰 : Setd}{ℰ : Setd[ 𝒰 ]} where
 
