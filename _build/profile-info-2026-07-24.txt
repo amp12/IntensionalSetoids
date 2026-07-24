@@ -1,0 +1,113 @@
+amp12@harston IntensionalSetoids % agda --profile=modules README.agda
+Checking README (/Users/amp12/git/IntensionalSetoids/README.agda).
+ Checking Prelude (/Users/amp12/git/IntensionalSetoids/Prelude.agda).
+  Checking Prelude.Level (/Users/amp12/git/IntensionalSetoids/Prelude/Level.agda).
+  Checking Prelude.Instance (/Users/amp12/git/IntensionalSetoids/Prelude/Instance.agda).
+  Checking Prelude.Notation (/Users/amp12/git/IntensionalSetoids/Prelude/Notation.agda).
+  Checking Prelude.Function (/Users/amp12/git/IntensionalSetoids/Prelude/Function.agda).
+  Checking Prelude.Identity (/Users/amp12/git/IntensionalSetoids/Prelude/Identity.agda).
+  Checking Prelude.Unit (/Users/amp12/git/IntensionalSetoids/Prelude/Unit.agda).
+  Checking Prelude.Empty (/Users/amp12/git/IntensionalSetoids/Prelude/Empty.agda).
+  Checking Prelude.Sum (/Users/amp12/git/IntensionalSetoids/Prelude/Sum.agda).
+  Checking Prelude.WellFounded (/Users/amp12/git/IntensionalSetoids/Prelude/WellFounded.agda).
+  Checking Prelude.Product (/Users/amp12/git/IntensionalSetoids/Prelude/Product.agda).
+  Checking Prelude.BiImplication (/Users/amp12/git/IntensionalSetoids/Prelude/BiImplication.agda).
+  Checking Prelude.List (/Users/amp12/git/IntensionalSetoids/Prelude/List.agda).
+  Checking Prelude.Nat (/Users/amp12/git/IntensionalSetoids/Prelude/Nat.agda).
+  Checking Prelude.Vec (/Users/amp12/git/IntensionalSetoids/Prelude/Vec.agda).
+  Checking Prelude.Fin (/Users/amp12/git/IntensionalSetoids/Prelude/Fin.agda).
+  Checking Prelude.FinInt (/Users/amp12/git/IntensionalSetoids/Prelude/FinInt.agda).
+  Checking Prelude.Decidable (/Users/amp12/git/IntensionalSetoids/Prelude/Decidable.agda).
+  Checking Prelude.Prop (/Users/amp12/git/IntensionalSetoids/Prelude/Prop.agda).
+ Checking Setoid (/Users/amp12/git/IntensionalSetoids/Setoid.agda).
+  Checking Setoid.Definition (/Users/amp12/git/IntensionalSetoids/Setoid/Definition.agda).
+  Checking Setoid.Display (/Users/amp12/git/IntensionalSetoids/Setoid/Display.agda).
+  Checking Setoid.Universes (/Users/amp12/git/IntensionalSetoids/Setoid/Universes.agda).
+  Checking Setoid.Lift (/Users/amp12/git/IntensionalSetoids/Setoid/Lift.agda).
+  Checking Setoid.PiType (/Users/amp12/git/IntensionalSetoids/Setoid/PiType.agda).
+  Checking Setoid.EqualityType (/Users/amp12/git/IntensionalSetoids/Setoid/EqualityType.agda).
+  Checking Setoid.EmptyType (/Users/amp12/git/IntensionalSetoids/Setoid/EmptyType.agda).
+  Checking Setoid.NatType (/Users/amp12/git/IntensionalSetoids/Setoid/NatType.agda).
+ Checking ETU (/Users/amp12/git/IntensionalSetoids/ETU.agda).
+  Checking WSLN (/Users/amp12/git/IntensionalSetoids/WSLN.agda).
+   Checking WSLN.Index (/Users/amp12/git/IntensionalSetoids/WSLN/Index.agda).
+   Checking WSLN.Atom (/Users/amp12/git/IntensionalSetoids/WSLN/Atom.agda).
+   Checking WSLN.Fresh (/Users/amp12/git/IntensionalSetoids/WSLN/Fresh.agda).
+   Checking WSLN.Sig.Sig (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Sig.agda).
+   Checking WSLN.Sig.Term (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Term.agda).
+   Checking WSLN.Sig.Substitution (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Substitution.agda).
+   Checking WSLN.Sig.Concretion (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Concretion.agda).
+   Checking WSLN.Sig.Abstraction (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Abstraction.agda).
+   Checking WSLN.Sig.Size (/Users/amp12/git/IntensionalSetoids/WSLN/Sig/Size.agda).
+  Checking ETU.Syntax (/Users/amp12/git/IntensionalSetoids/ETU/Syntax.agda).
+  Checking ETU.Judgement (/Users/amp12/git/IntensionalSetoids/ETU/Judgement.agda).
+  Checking ETU.Rules (/Users/amp12/git/IntensionalSetoids/ETU/Rules.agda).
+  Checking ETU.Ok (/Users/amp12/git/IntensionalSetoids/ETU/Ok.agda).
+  Checking ETU.WellScoped (/Users/amp12/git/IntensionalSetoids/ETU/WellScoped.agda).
+  Checking ETU.Weakening (/Users/amp12/git/IntensionalSetoids/ETU/Weakening.agda).
+  Checking ETU.Substitution (/Users/amp12/git/IntensionalSetoids/ETU/Substitution.agda).
+  Checking ETU.Admissible (/Users/amp12/git/IntensionalSetoids/ETU/Admissible.agda).
+  Checking ETU.ExistsFresh (/Users/amp12/git/IntensionalSetoids/ETU/ExistsFresh.agda).
+  Checking ETU.Uniqueness (/Users/amp12/git/IntensionalSetoids/ETU/Uniqueness.agda).
+ Checking Semantics (/Users/amp12/git/IntensionalSetoids/Semantics.agda).
+  Checking Semantics.CwF (/Users/amp12/git/IntensionalSetoids/Semantics/CwF.agda).
+  Checking Semantics.Relation (/Users/amp12/git/IntensionalSetoids/Semantics/Relation.agda).
+  Checking Semantics.Ok (/Users/amp12/git/IntensionalSetoids/Semantics/Ok.agda).
+  Checking Semantics.WellScoped (/Users/amp12/git/IntensionalSetoids/Semantics/WellScoped.agda).
+  Checking Semantics.SingleValued (/Users/amp12/git/IntensionalSetoids/Semantics/SingleValued.agda).
+  Checking Semantics.Weakening (/Users/amp12/git/IntensionalSetoids/Semantics/Weakening.agda).
+  Checking Semantics.Substitution (/Users/amp12/git/IntensionalSetoids/Semantics/Substitution.agda).
+  Checking Semantics.ExistsFresh (/Users/amp12/git/IntensionalSetoids/Semantics/ExistsFresh.agda).
+  Checking Semantics.Total (/Users/amp12/git/IntensionalSetoids/Semantics/Total.agda).
+  Checking Semantics.Function (/Users/amp12/git/IntensionalSetoids/Semantics/Function.agda).
+  Checking Semantics.Consistency (/Users/amp12/git/IntensionalSetoids/Semantics/Consistency.agda).
+Total                  146,265ms
+Miscellaneous              138ms
+Semantics.Total        116,764ms
+ETU.Substitution         6,042ms
+Semantics.SingleValued   4,434ms
+Semantics.Substitution   3,120ms
+ETU.WellScoped           2,372ms
+Semantics.Weakening      2,368ms
+ETU.ExistsFresh          1,858ms
+ETU.Admissible           1,368ms
+Semantics.CwF              743ms
+ETU.Weakening              614ms
+Setoid.Universes           585ms
+Semantics.ExistsFresh      569ms
+Semantics.WellScoped       548ms
+WSLN.Sig.Concretion        487ms
+ETU.Uniqueness             450ms
+WSLN.Sig.Abstraction       440ms
+Semantics.Ok               331ms
+ETU.Rules                  312ms
+WSLN.Sig.Substitution      241ms
+Setoid.PiType              228ms
+Semantics.Relation         225ms
+Setoid.Display             220ms
+WSLN.Index                 206ms
+WSLN.Atom                  200ms
+WSLN.Sig.Term              191ms
+ETU.Ok                     144ms
+WSLN.Sig.Size              110ms
+Semantics.Function         105ms
+Prelude.Nat                 97ms
+Prelude.Identity            79ms
+ETU.Judgement               77ms
+WSLN.Fresh                  71ms
+Setoid.Definition           65ms
+Prelude.Decidable           56ms
+Prelude.Product             55ms
+ETU.Syntax                  53ms
+Setoid.NatType              49ms
+Prelude.Prop                40ms
+Setoid.EqualityType         37ms
+Prelude.FinInt              30ms
+Semantics.Consistency       27ms
+Setoid.Lift                 24ms
+README                      21ms
+Prelude.Notation            19ms
+Setoid.EmptyType            11ms
+ETU                         10ms
+Prelude.WellFounded         10ms
+amp12@harston IntensionalSetoids %
