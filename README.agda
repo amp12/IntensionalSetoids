@@ -3,17 +3,18 @@
 ----------------------------------------------------------------------
 module README where
 
-{- We give a new notion of displayed setoid (family of setoids) in
-intensional type theory. It is used to give a semantics of extensional
-type theory with universes (ETU) within Agda with
-options --safe --without-K, used as a machine-checkable formalization
-of intentional type theory augmented with a universe closed under
-inductive-recursive definitions (IRU). The syntax of ETU is defined in
-safe Agda in a traditional extrinsic form, using a well-scoped locally
-nameless representation of its expressions. Giving its semantics in
-the IRU setoid model is complicated by the very limited means of
-expression afforded by IRU. As a corollary we obtain a proof of the
-consistency of ETU within IRU. -}
+{- We show that a certain notion of displayed setoid (family of
+setoids) in intensional type theory can be used to give a semantics
+for extensional type theory with universes (ETU). Agda with options
+--safe --without-K
+serves as a machine-checkable formalization of intentional type theory
+augmented with a universe closed under inductive-recursive definitions
+(IRU). The syntax of ETU is defined in IRU in a traditional extrinsic
+form, using a well-scoped locally nameless representation of its
+terms. Giving the semantics of ETU in terms of displayed setoids is
+complicated by the very limited means of expression afforded by
+IRU. As a corollary we obtain a proof within IRU of the consistency of
+ETU. -}
 
 -- Some basic library functions
 open import Prelude public

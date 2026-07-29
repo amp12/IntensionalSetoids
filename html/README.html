@@ -4,28 +4,29 @@
 <a id="94" class="Comment">----------------------------------------------------------------------</a>
 <a id="165" class="Keyword">module</a> <a id="172" href="README.html" class="Module">README</a> <a id="179" class="Keyword">where</a>
 
-<a id="186" class="Comment">{- We give a new notion of displayed setoid (family of setoids) in
-intensional type theory. It is used to give a semantics of extensional
-type theory with universes (ETU) within Agda with
-options --safe --without-K, used as a machine-checkable formalization
-of intentional type theory augmented with a universe closed under
-inductive-recursive definitions (IRU). The syntax of ETU is defined in
-safe Agda in a traditional extrinsic form, using a well-scoped locally
-nameless representation of its expressions. Giving its semantics in
-the IRU setoid model is complicated by the very limited means of
-expression afforded by IRU. As a corollary we obtain a proof of the
-consistency of ETU within IRU. -}</a>
+<a id="186" class="Comment">{- We show that a certain notion of displayed setoid (family of
+setoids) in intensional type theory can be used to give a semantics
+for extensional type theory with universes (ETU). Agda with options
+--safe --without-K
+serves as a machine-checkable formalization of intentional type theory
+augmented with a universe closed under inductive-recursive definitions
+(IRU). The syntax of ETU is defined in IRU in a traditional extrinsic
+form, using a well-scoped locally nameless representation of its
+terms. Giving the semantics of ETU in terms of displayed setoids is
+complicated by the very limited means of expression afforded by
+IRU. As a corollary we obtain a proof within IRU of the consistency of
+ETU. -}</a>
 
-<a id="888" class="Comment">-- Some basic library functions</a>
-<a id="920" class="Keyword">open</a> <a id="925" class="Keyword">import</a> <a id="932" href="Prelude.html" class="Module">Prelude</a> <a id="940" class="Keyword">public</a>
+<a id="894" class="Comment">-- Some basic library functions</a>
+<a id="926" class="Keyword">open</a> <a id="931" class="Keyword">import</a> <a id="938" href="Prelude.html" class="Module">Prelude</a> <a id="946" class="Keyword">public</a>
 
-<a id="948" class="Comment">-- Universes of type-valued setoids</a>
-<a id="984" class="Keyword">open</a> <a id="989" class="Keyword">import</a> <a id="996" href="Setoid.html" class="Module">Setoid</a> <a id="1003" class="Keyword">public</a>
+<a id="954" class="Comment">-- Universes of type-valued setoids</a>
+<a id="990" class="Keyword">open</a> <a id="995" class="Keyword">import</a> <a id="1002" href="Setoid.html" class="Module">Setoid</a> <a id="1009" class="Keyword">public</a>
 
-<a id="1011" class="Comment">-- Extensional type theory with universes (ETU)</a>
-<a id="1059" class="Keyword">open</a> <a id="1064" class="Keyword">import</a> <a id="1071" href="ETU.html" class="Module">ETU</a> <a id="1075" class="Keyword">public</a>
+<a id="1017" class="Comment">-- Extensional type theory with universes (ETU)</a>
+<a id="1065" class="Keyword">open</a> <a id="1070" class="Keyword">import</a> <a id="1077" href="ETU.html" class="Module">ETU</a> <a id="1081" class="Keyword">public</a>
 
-<a id="1083" class="Comment">-- Semantics of ETU in the intensional setoid model, and as a</a>
-<a id="1145" class="Comment">-- corollary its logical consistency.</a>
-<a id="1183" class="Keyword">open</a> <a id="1188" class="Keyword">import</a> <a id="1195" href="Semantics.html" class="Module">Semantics</a> <a id="1205" class="Keyword">public</a>
+<a id="1089" class="Comment">-- Semantics of ETU in the intensional setoid model, and as a</a>
+<a id="1151" class="Comment">-- corollary its logical consistency.</a>
+<a id="1189" class="Keyword">open</a> <a id="1194" class="Keyword">import</a> <a id="1201" href="Semantics.html" class="Module">Semantics</a> <a id="1211" class="Keyword">public</a>
 </pre></body></html>
