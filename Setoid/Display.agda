@@ -235,47 +235,47 @@ module Comprehension (A : Setd)(B : Setd[ A ]) where
   ∥ 𝓅₂ ∥ = π₂
   hcng 𝓅₂ _ _ = π₂
 
-  𝓅𝓇 :
+  𝓅𝒶𝒾𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
     (g : Setd[ A' ⊩ f * B ])
     → ----------------------
     ∣ A' ⟶ _⋉_ ∣
 
-  ∣ 𝓅𝓇 f g ∣ x = (∣ f ∣ x , ∥ g ∥ x)
-  cng (𝓅𝓇 f g) x x' e = (cng f x x' e , hcng g x x' e)
+  ∣ 𝓅𝒶𝒾𝓇 f g ∣ x = (∣ f ∣ x , ∥ g ∥ x)
+  cng (𝓅𝒶𝒾𝓇 f g) x x' e = (cng f x x' e , hcng g x x' e)
 
-  𝓅₁∘𝓅𝓇 :
+  𝓅₁∘𝓅𝒶𝒾𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
     (g : Setd[ A' ⊩ f * B ])
     → ----------------------
-    𝓅₁ ∘ 𝓅𝓇 f g ≡ f
+    𝓅₁ ∘ 𝓅𝒶𝒾𝓇 f g ≡ f
 
-  𝓅₁∘𝓅𝓇 _ _ = refl
+  𝓅₁∘𝓅𝒶𝒾𝓇 _ _ = refl
 
-  𝓅₂∘𝓅𝓇 :
+  𝓅₂∘𝓅𝒶𝒾𝓇 :
     {A' : Setd}
     (f : ∣ A' ⟶ A ∣)
     (g : Setd[ A' ⊩ f * B ])
     → ------------------------
-    𝓅𝓇 f g *[ 𝓅₁ * B ] 𝓅₂  ≡ g
+    𝓅𝒶𝒾𝓇 f g *[ 𝓅₁ * B ] 𝓅₂  ≡ g
 
-  𝓅₂∘𝓅𝓇 _ _ = refl
+  𝓅₂∘𝓅𝒶𝒾𝓇 _ _ = refl
 
-  𝓅𝓇∘ :
+  𝓅𝒶𝒾𝓇∘ :
     {A' A'' : Setd}
     (f : ∣ A' ⟶ A ∣)
     (g : Setd[ A' ⊩ f * B ])
     (h : ∣ A'' ⟶ A' ∣)
     → ----------------------------------------
-    (𝓅𝓇 f g) ∘ h ≡ 𝓅𝓇 (f ∘ h) (h *[ f * B ] g)
+    (𝓅𝒶𝒾𝓇 f g) ∘ h ≡ 𝓅𝒶𝒾𝓇 (f ∘ h) (h *[ f * B ] g)
 
-  𝓅𝓇∘ _ _ _ = refl
+  𝓅𝒶𝒾𝓇∘ _ _ _ = refl
 
-  𝓅𝓇Eta : 𝓅𝓇 𝓅₁ 𝓅₂ ≡ id
+  𝓅𝒶𝒾𝓇Eta : 𝓅𝒶𝒾𝓇 𝓅₁ 𝓅₂ ≡ id
 
-  𝓅𝓇Eta = refl
+  𝓅𝒶𝒾𝓇Eta = refl
 
 open Comprehension public
 
